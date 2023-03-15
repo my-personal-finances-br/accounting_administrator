@@ -51,6 +51,7 @@ class AuthenticateBackofficeView(AuthenticateView):
         request.session["authentication_backend_used"] = "backoffice"
         request.session["authentication_origin_url"] = origin_url
 
+
 class GenericAuthenticationView(AuthenticateView):
     def post(self, request):
         required_fields = ["username", "password"]
@@ -82,8 +83,6 @@ class GenericAuthenticationView(AuthenticateView):
         login(request, user)
         request.session["authentication_backend_used"] = "backoffice"
         request.session["authentication_origin_url"] = origin_url
-
-
 
 
 @csrf_exempt

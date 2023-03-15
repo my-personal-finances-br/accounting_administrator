@@ -1,7 +1,11 @@
-
 from rest_framework import serializers
 
-from accounting_admin.core.accounting.models import Expense, ExpectedExpense, MonthlyExpense
+from accounting_admin.core.accounting.models import (
+    ExpectedExpense,
+    Expense,
+    MonthlyExpense,
+)
+
 
 class ExpectedPaidExpensesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,19 +19,22 @@ class ExpensesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Expense
-        exclude = ["user",]
-        
+        exclude = [
+            "user",
+        ]
+
     def create(self, data):
         data["user"] = self.context.get("request").user
         return super().create(data)
-    
+
+
 class MonthlyExpenseSerializer(serializers.ModelSerializer):
     expenses = serializers.SerializerMethodField()
     user = serializers.CharField(read_only=True)
-    
+
     def get_expenses(self, instance):
         return ExpensesSerializer(instance.expenses.all(), many=True).data
-    
+
     class Meta:
         model = MonthlyExpense
         fields = "__all__"

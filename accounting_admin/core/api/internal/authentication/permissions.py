@@ -7,6 +7,7 @@ class GenericIsAuthenticated(IsAuthenticated):
     def has_permission(self, request, view):
         return super().has_permission(request, view)
 
+
 class BackofficeIsAuthenticatedPermission(GenericIsAuthenticated):
     """
     Allows access only to authenticated backoffice users.

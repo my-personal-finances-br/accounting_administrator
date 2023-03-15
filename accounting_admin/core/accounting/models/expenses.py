@@ -3,9 +3,11 @@ import uuid
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from accounting_admin.utils.default_model import Default
 
 User = get_user_model()
+
 
 class Expense(Default):
     uuid = models.UUIDField(
@@ -30,7 +32,7 @@ class Expense(Default):
         related_name=_("paid"),
         on_delete=models.CASCADE,
         null=True,
-        blank=True
+        blank=True,
     )
     monthly_expense = models.ForeignKey(
         "accounting.MonthlyExpense",
