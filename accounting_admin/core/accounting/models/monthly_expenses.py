@@ -33,24 +33,25 @@ class MonthlyExpense(Default):
         verbose_name_plural = _("Monthly Expenses")
 
     def __str__(self):
-        return f"{self.month} - {self.total}"
+        return f"{self.month}, {self.created_at.year} - {self.total}"
     
     def save(self, skip_checks=False, *args, **kwargs):
         if skip_checks:
             return super().save(*args, **kwargs)
-        from accounting_admin.core.accounting.models import ExpectedExpense
+        from accounting_admin.core.accounting.models import ExpectedExpense, Expense
         super().save(*args, **kwargs)
         
-        expected_expenses = ExpectedExpense.objects.filter(user=self.user, is_fixed=True).distinct("value", "name", "description")
+        expected_expenses = ExpectedExpense.objects.filter(user=self.user)
         new_expected_expenses = []
         for expected_expense in expected_expenses:
             new_expected_expenses.append(
-                ExpectedExpense(
+                Expense(
+                    is_fixed=True,
                     value=expected_expense.value,
                     name=expected_expense.name,
                     description=expected_expense.description,
-                    monthly_expected_expense_id=self.uuid,
+                    monthly_expense_id=self.uuid,
                     user_id=self.user_id
                 )
             )
-        ExpectedExpense.objects.bulk_create(new_expected_expenses)
+        Expense.objects.bulk_create(new_expected_expenses)

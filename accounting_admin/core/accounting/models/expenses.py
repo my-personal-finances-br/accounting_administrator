@@ -24,10 +24,10 @@ class Expense(Default):
         _("description"),
         max_length=144,
     )
-    expected_expense = models.OneToOneField(
-        "accounting.ExpectedExpense",
-        verbose_name=_("expected expense"),
-        related_name=_("expenses"),
+    expected_paid = models.OneToOneField(
+        "accounting.Expense",
+        verbose_name=_("expected paid"),
+        related_name=_("paid"),
         on_delete=models.CASCADE,
         null=True,
         blank=True
@@ -38,6 +38,7 @@ class Expense(Default):
         related_name=_("expenses"),
         on_delete=models.CASCADE,
     )
+    is_fixed = models.BooleanField(_("is fixed"), default=False)
     user = models.ForeignKey(
         User,
         verbose_name=_("user"),

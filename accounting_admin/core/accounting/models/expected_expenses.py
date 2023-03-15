@@ -24,13 +24,6 @@ class ExpectedExpense(Default):
         _("description"),
         max_length=144,
     )
-    monthly_expected_expense = models.ForeignKey(
-        "accounting.MonthlyExpense",
-        verbose_name=_("monthly expected expense"),
-        related_name=_("expected_expenses"),
-        on_delete=models.CASCADE,
-    )
-    is_fixed = models.BooleanField(_("is fixed"), default=False)
     user = models.ForeignKey(
         User,
         verbose_name=_("user"),
