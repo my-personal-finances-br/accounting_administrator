@@ -152,7 +152,7 @@ LANGUAGE_CODE = "pt-br"
 
 TIME_ZONE = "America/Sao_Paulo"
 
-ADMIN_URL = "admin/"
+ADMIN_URL = "admin"
 
 # STATIC
 # ------------------------------------------------------------------------------
