@@ -1,7 +1,7 @@
 format_code:
 	isort -rc .
 	black . --exclude .ipython,.ipython/* --line-length=90
-	flake8 . --exclude .git,__pycache__,settings.py,old,build,dis,manage.py,/migrations/, --max-line-length=90
+	flake8 . --exclude .git,__pycache__,settings.py,old,build,dis,manage.py,/migrations/, --max-line-length=90 --ignore=E501,W503
 
 coverage:
 	coverage run -m pytest

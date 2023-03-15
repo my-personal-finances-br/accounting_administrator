@@ -1,1 +1,1 @@
-from . import expensives
+from . import expensives  # noqa

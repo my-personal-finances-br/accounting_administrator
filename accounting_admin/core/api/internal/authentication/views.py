@@ -1,7 +1,6 @@
 import json
 
 from django.contrib.auth import authenticate, get_user_model, login, logout
-from django.core.exceptions import MultipleObjectsReturned
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status

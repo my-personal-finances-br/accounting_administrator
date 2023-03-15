@@ -1,10 +1,6 @@
 from rest_framework import serializers
 
-from accounting_admin.core.accounting.models import (
-    ExpectedExpense,
-    Expense,
-    MonthlyExpense,
-)
+from accounting_admin.core.accounting.models import Expense, MonthlyExpense
 
 
 class ExpectedPaidExpensesSerializer(serializers.ModelSerializer):
