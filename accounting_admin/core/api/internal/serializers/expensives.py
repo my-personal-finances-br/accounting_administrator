@@ -20,3 +20,14 @@ class ExpensesSerializer(serializers.ModelSerializer):
     def create(self, data):
         data["user"] = self.context.get("request").user
         return super().create(data)
+    
+class MonthlyExpenseSerializer(serializers.ModelSerializer):
+    expenses = serializers.SerializerMethodField()
+    user = serializers.CharField(read_only=True)
+    
+    def get_expenses(self, instance):
+        return ExpensesSerializer(instance.expenses.all(), many=True).data
+    
+    class Meta:
+        model = MonthlyExpense
+        fields = "__all__"
