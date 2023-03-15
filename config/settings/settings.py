@@ -11,7 +11,7 @@ import environ
 import raven
 
 ROOT_DIR = environ.Path(__file__) - 3
-APPS_DIR = ROOT_DIR.path("accouting_admin")
+APPS_DIR = ROOT_DIR.path("accounting_admin")
 
 env = environ.Env()
 
@@ -65,8 +65,8 @@ THIRD_PARTY_APPS = [
     "multiselectfield",
 ]
 LOCAL_APPS = [
-    "accouting_admin.core.users.apps.UsersAppConfig",
-    "accouting_admin.core.accouting.apps.AccountingAppConfig",
+    "accounting_admin.core.users.apps.UsersAppConfig",
+    "accounting_admin.core.accounting.apps.AccountingAppConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

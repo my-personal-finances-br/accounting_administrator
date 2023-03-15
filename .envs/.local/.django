@@ -2,7 +2,7 @@ USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
 DJANGO_DEBUG=True
 PYTHONBREAKPOINT=ipdb.set_trace
-DATABASE_URL="postgres://local_user:local_password@postgres:5432/cram_school"
+DATABASE_URL="postgres://local_user:local_password@postgres:5432/accounting_admin"
 
 # Email
 # ------------------------------------------------------------------------------

@@ -3,5 +3,5 @@ from django.apps import AppConfig
 
 
 class UsersAppConfig(AppConfig):
-    name = "users"
+    name = "accounting_admin.core.users"
     verbose_name = "Users"

@@ -27,7 +27,7 @@ admin_patching.patch(admin.site)
 schema_view = get_swagger_view(title="Pastebin API")
 
 urlpatterns = [
-    path("api/", include("cram_school.core.api.urls")),
+    #path("api/", include("accounting_admin.core.api.urls")),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path(
         "api/password_reset/",
