@@ -7,6 +7,9 @@ export default function Card({children, month}){
                 {month}
             </div>
         {children}
+        <div className='Buttonn'>
+            <button>Add</button>
+        </div>
         </div>
     )
 }
