@@ -13,6 +13,7 @@ class ListExpensesView(generics.ListAPIView):
         for expensive in expensives:
             if not expenses_by_monthly_expense.get(expensive.monthly_expense.month):
                 expenses_by_monthly_expense[expensive.monthly_expense.month] = {
+                    "id": str(expensive.monthly_expense.uuid),
                     "total": str(expensive.monthly_expense.total),
                     "month": expensive.monthly_expense.month,
                     "detail": expensive.monthly_expense.detail,
@@ -69,3 +70,6 @@ class MonthClosureView(generics.CreateAPIView):
                 "data": {**self.serializer_class(monthly_expense).data},
             }
         )
+
+class CreateExpenseView(generics.CreateAPIView):
+    serializer_class = expensives.CreateExpensesSerializer

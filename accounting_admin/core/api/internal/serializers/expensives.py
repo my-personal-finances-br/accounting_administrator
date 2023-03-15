@@ -34,3 +34,12 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = MonthlyExpense
         fields = "__all__"
+
+class CreateExpensesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Expense
+        exclude = ["user"]
+        
+    def create(self, data):
+        data["user"] = self.context.get("request").user
+        return super().create(data)    
