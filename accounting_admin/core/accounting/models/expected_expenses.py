@@ -7,7 +7,7 @@ from accounting_admin.utils.default_model import Default
 
 User = get_user_model()
 
-class Expense(Default):
+class ExpectedExpense(Default):
     uuid = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -24,24 +24,17 @@ class Expense(Default):
         _("description"),
         max_length=144,
     )
-    expected_expense = models.ForeignKey(
-        "accounting.ExpectedExpense",
-        verbose_name=_("expense"),
-        related_name=_("expenses"),
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True
-    )
-    monthly_expense = models.ForeignKey(
+    monthly_expected_expense = models.ForeignKey(
         "accounting.MonthlyExpense",
-        verbose_name=_("monthly expense"),
-        related_name=_("expenses"),
+        verbose_name=_("monthly expected expense"),
+        related_name=_("expected_expenses"),
         on_delete=models.CASCADE,
     )
+    is_fixed = models.BooleanField(_("is fixed"), default=False)
 
     class Meta:
-        verbose_name = _("Expense")
-        verbose_name_plural = _("Expenses")
+        verbose_name = _("Expected Expense")
+        verbose_name_plural = _("Expected Expenses")
 
     def __str__(self):
         return f"{self.name}"

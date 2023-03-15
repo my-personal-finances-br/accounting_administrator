@@ -2,28 +2,28 @@ from django.urls import path
 
 from accounting_admin.core.api import internal
 
-# authentication_urls = [
-#     path(
-#         "internal/me/logout",
-#         internal.authentication.views.logout_view,
-#         name="api-internal-logout",
-#     ),
-#     path(
-#         "internal/authenticate",
-#         internal.authentication.views.AuthenticateView.as_view(),
-#         name="api-internal-authenticate",
-#     ),
-#     path(
-#         "internal/authenticate/students",
-#         internal.authentication.views.AuthenticateStudentsView.as_view(),
-#         name="api-internal-authenticate-students",
-#     ),
-#     path(
-#         "internal/authenticate/staff",
-#         internal.authentication.views.AuthenticateStaffView.as_view(),
-#         name="api-internal-authenticate-staff",
-#     ),
-# ]
+authentication_urls = [
+    path(
+        "internal/me/logout",
+        internal.authentication.views.logout_view,
+        name="api-internal-logout",
+    ),
+    path(
+        "internal/authenticate",
+        internal.authentication.views.AuthenticateView.as_view(),
+        name="api-internal-authenticate",
+    ),
+    path(
+        "internal/authenticate/generics",
+        internal.authentication.views.GenericAuthenticationView.as_view(),
+        name="api-internal-authenticate-generics",
+    ),
+    path(
+        "internal/authenticate/staff",
+        internal.authentication.views.AuthenticateBackofficeView.as_view(),
+        name="api-internal-authenticate-staff",
+    ),
+]
 
 expenses_urls = [
     path(
@@ -34,4 +34,4 @@ expenses_urls = [
 ]
 
 
-urlpatterns = expenses_urls
+urlpatterns = expenses_urls + authentication_urls
