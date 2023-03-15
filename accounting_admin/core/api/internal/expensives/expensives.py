@@ -1,16 +1,57 @@
+from django.db.models import Q
 from rest_framework import generics
 from rest_framework.response import Response
 
-from accounting_admin.core.accounting.models import MonthlyExpense
+from accounting_admin.core.accounting.models import Expense, MonthlyExpense
 from accounting_admin.core.api.internal.serializers import expensives
 
 
-class ListExpensesView(generics.ListCreateAPIView):
-    serializer_class = expensives.MonthlyExpenseSerializer
+class ListExpensesView(generics.ListAPIView):
+    serializer_class = None
+    def _serialize(self, expensives):
+        expenses_by_monthly_expense = {}
+        for expensive in expensives:
+            if not expenses_by_monthly_expense.get(expensive.monthly_expense.month):
+                expenses_by_monthly_expense[expensive.monthly_expense.month] = {
+                    "total": str(expensive.monthly_expense.total),
+                    "month": expensive.monthly_expense.month,
+                    "detail": expensive.monthly_expense.detail,
+                    "expenses": [
+                        {
+                            "value": expensive.value,
+                            "name": expensive.name,
+                            "description": expensive.description,
+                        }
+                    ],
+                }
+            else:
+                expenses_by_monthly_expense[expensive.monthly_expense.month][
+                    "expenses"
+                ].append(
+                    {
+                        "value": expensive.value,
+                        "name": expensive.name,
+                        "description": expensive.description,
+                    }
+                )
+        return expenses_by_monthly_expense
 
     def get_queryset(self):
-        print(self.request.user, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-        return MonthlyExpense.objects.filter(user_id=self.request.user.id)
+        user_id = self.request.user.id
+        monthly_expense_ids = MonthlyExpense.objects.filter(user_id=user_id).values_list(
+            "uuid", flat=True
+        )
+        return Expense.objects.filter(
+            monthly_expense_id__in=monthly_expense_ids, user_id=user_id
+        ).exclude(
+            Q(expected_paid__isnull=True, is_fixed=True)
+            | Q(expected_paid__isnull=False, is_fixed=True)
+        )
+
+    def list(self, request):
+        qs = self.get_queryset()
+        algo = self._serialize(qs)
+        return Response(list(algo.values()))
 
 
 class MonthClosureView(generics.CreateAPIView):
