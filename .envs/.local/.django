@@ -1,0 +1,18 @@
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+DJANGO_DEBUG=True
+PYTHONBREAKPOINT=ipdb.set_trace
+DATABASE_URL="postgres://local_user:local_password@postgres:5432/cram_school"
+
+# Email
+# ------------------------------------------------------------------------------
+DJANGO_EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+DJANGO_EMAIL_HOST=smtp.mailspons.com
+DJANGO_EMAIL_PORT=587
+DJANGO_EMAIL_USE_TLS=False
+DJANGO_EMAIL_HOST_USER=galt
+DJANGO_EMAIL_HOST_PASSWORD=
+
+BACKOFFICE_EMAIL=produto@galt.com
+ENVIRONMENT=development-local
+SENTRY_DNS=
