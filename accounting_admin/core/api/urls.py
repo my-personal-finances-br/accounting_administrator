@@ -31,6 +31,11 @@ expenses_urls = [
         internal.expensives.expensives.ListExpensesView.as_view(),
         name="api-expenses",
     ),
+    path(
+        "internal/expenses/closure",
+        internal.expensives.expensives.MonthClosureView.as_view(),
+        name="api-expenses-closure",
+    ),
 ]
 
 

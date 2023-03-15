@@ -54,7 +54,6 @@ class AuthenticateBackofficeView(AuthenticateView):
 class GenericAuthenticationView(AuthenticateView):
     def post(self, request):
         required_fields = ["username", "password"]
-        print(request.data, "000000000000000")
         if not all([field in request.data for field in required_fields]):
             return Response(
                 {"error": "missing required fields"}, status=status.HTTP_400_BAD_REQUEST

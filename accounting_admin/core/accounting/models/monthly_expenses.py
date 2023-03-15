@@ -1,5 +1,5 @@
 import uuid
-
+from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -55,3 +55,14 @@ class MonthlyExpense(Default):
                 )
             )
         Expense.objects.bulk_create(new_expected_expenses)
+
+
+    def closure(self):
+        detail = ""
+        expenses = self.expenses.exclude(Q(expected_paid__isnull=True, is_fixed=True) | Q(expected_paid__isnull=False, is_fixed=True))
+        self.total = sum(expenses.values_list("value", flat=True))
+        for expense in expenses:
+            detail += f"<p>{expense.name} ------------------- {expense.value}</p></br>"
+        detail += f"<p>Total:                   {self.total}</p>"
+        self.detail = detail
+        self.save()
