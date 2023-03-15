@@ -9,6 +9,7 @@ class ListExpensesView(generics.ListCreateAPIView):
     serializer_class = expensives.MonthlyExpenseSerializer
 
     def get_queryset(self):
+        print(self.request.user, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         return MonthlyExpense.objects.filter(user_id=self.request.user.id)
 
 
