@@ -31,6 +31,12 @@ class ExpectedExpense(Default):
         on_delete=models.CASCADE,
     )
     is_fixed = models.BooleanField(_("is fixed"), default=False)
+    user = models.ForeignKey(
+        User,
+        verbose_name=_("user"),
+        related_name=_("expected_expenses"),
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
         verbose_name = _("Expected Expense")

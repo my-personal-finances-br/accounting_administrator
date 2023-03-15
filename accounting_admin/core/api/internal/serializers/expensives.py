@@ -1,12 +1,14 @@
 
 from rest_framework import serializers
 
-from accounting_admin.core.accounting.models import Expense
+from accounting_admin.core.accounting.models import Expense, ExpectedExpense
 
 
 class ExpensesSerializer(serializers.ModelSerializer):
+    expense = serializers.ReadOnlyField(source="expenses")
+    
     class Meta:
-        model = Expense
+        model = ExpectedExpense
         exclude = ["user"]
         
     def create(self, data):

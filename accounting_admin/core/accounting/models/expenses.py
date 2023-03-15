@@ -24,9 +24,9 @@ class Expense(Default):
         _("description"),
         max_length=144,
     )
-    expected_expense = models.ForeignKey(
+    expected_expense = models.OneToOneField(
         "accounting.ExpectedExpense",
-        verbose_name=_("expense"),
+        verbose_name=_("expected expense"),
         related_name=_("expenses"),
         on_delete=models.CASCADE,
         null=True,
@@ -35,6 +35,12 @@ class Expense(Default):
     monthly_expense = models.ForeignKey(
         "accounting.MonthlyExpense",
         verbose_name=_("monthly expense"),
+        related_name=_("expenses"),
+        on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        User,
+        verbose_name=_("user"),
         related_name=_("expenses"),
         on_delete=models.CASCADE,
     )

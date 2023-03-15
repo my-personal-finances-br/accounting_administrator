@@ -34,3 +34,23 @@ class MonthlyExpense(Default):
 
     def __str__(self):
         return f"{self.month} - {self.total}"
+    
+    def save(self, skip_checks=False, *args, **kwargs):
+        if skip_checks:
+            return super().save(*args, **kwargs)
+        from accounting_admin.core.accounting.models import ExpectedExpense
+        super().save(*args, **kwargs)
+        
+        expected_expenses = ExpectedExpense.objects.filter(user=self.user, is_fixed=True).distinct("value", "name", "description")
+        new_expected_expenses = []
+        for expected_expense in expected_expenses:
+            new_expected_expenses.append(
+                ExpectedExpense(
+                    value=expected_expense.value,
+                    name=expected_expense.name,
+                    description=expected_expense.description,
+                    monthly_expected_expense_id=self.uuid,
+                    user_id=self.user_id
+                )
+            )
+        ExpectedExpense.objects.bulk_create(new_expected_expenses)
