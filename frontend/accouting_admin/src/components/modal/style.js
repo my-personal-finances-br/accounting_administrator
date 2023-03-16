@@ -34,7 +34,7 @@ export const Box = styled.div`
 export const Content = styled.div`
   width: 100%;
   max-width: 428px;
-
+  height: 400px;
   background-color: #ffffff;
   border-radius: 10px;
   padding: 39px;
