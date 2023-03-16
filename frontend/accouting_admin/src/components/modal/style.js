@@ -34,7 +34,10 @@ export const Box = styled.div`
 export const Content = styled.div`
   width: 100%;
   max-width: 428px;
-  height: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
   background-color: #ffffff;
   border-radius: 10px;
   padding: 39px;
@@ -255,3 +258,24 @@ export const ContainerDashed = styled.div`
     margin-bottom: 17px;
   }
 `;
+export const Button = styled.button `
+    color: #2EC1D8;
+    border: 1px solid #2EC1D8;
+    width: 20em;
+    border-radius: 4px;
+    background-color: transparent;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0, 0, .58, 1);
+    &:hover {
+        background-color:#2EC1D8;
+        color: #FFFF;
+} 
+ &:active {
+     transform: scale(0.9)
+ }
+ 
+`
