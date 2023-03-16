@@ -1,28 +1,40 @@
+.Card {
+  background-color: #226FEB;
+  margin-bottom: 40px;
+  padding: 40px;
+  position: relative;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: #FFFF;
+  border-radius: 8px;
+}
+
 .HeaderCard {
   position: absolute;
   top: -10px;
   left: 10px;
-  background-color: blue;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   padding: 2px;
 }
-.Card {
-  background-color: rgb(225, 24, 24);
-  width: 400%;
-  min-height: 80px;
-  /* max-height: 360px; */
-  height: auto;
-  border-radius: 8px;
-  position: relative;
-  margin: 40px 0px;
-  padding-bottom: 15px;
-  /* overflow-y: auto */
-  align-items: center;
-}
+
 .Buttonn{
   display: flex;
   align-items: center;
   justify-content:end;
   margin-top: 30px;
   margin-right: 30px;
+  
+}
+
+.Buttonn > button {
+  
+  border: none;
+  width: 100px;
+  height: 20px;
+  background-color: lightgreen;
+  border-radius: 4px;
+  color: #FFF;
+  font-weight: bold;
+  cursor: pointer;
+  
 }

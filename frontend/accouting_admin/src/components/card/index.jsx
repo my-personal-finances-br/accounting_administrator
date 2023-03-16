@@ -1,6 +1,6 @@
 import './style.css'
 
-export default function Card({children, month}){
+export default function Card({children, month, setModalOpen}){
     return (
         <div className='Card'>
             <div className='HeaderCard'>
@@ -8,7 +8,7 @@ export default function Card({children, month}){
             </div>
         {children}
         <div className='Buttonn'>
-            <button>Add</button>
+            <button onClick={() => setModalOpen(true)}>Add</button>
         </div>
         </div>
     )
