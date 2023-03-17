@@ -22,6 +22,9 @@ class ListExpensesView(generics.ListAPIView):
                             "value": expensive.value,
                             "name": expensive.name,
                             "description": expensive.description,
+                            "is_fixed": expensive.is_fixed,
+                            "created_at": expensive.created_at,
+                            "expected_paid": bool(expensive.expected_paid)
                         }
                     ],
                 }
@@ -33,6 +36,9 @@ class ListExpensesView(generics.ListAPIView):
                         "value": expensive.value,
                         "name": expensive.name,
                         "description": expensive.description,
+                        "is_fixed": expensive.is_fixed,
+                        "created_at": expensive.created_at,
+                        "expected_paid": bool(expensive.expected_paid)
                     }
                 )
         return expenses_by_monthly_expense
@@ -42,11 +48,15 @@ class ListExpensesView(generics.ListAPIView):
         monthly_expense_ids = MonthlyExpense.objects.filter(user_id=user_id).values_list(
             "uuid", flat=True
         )
+        to_exclude_id = Expense.objects.filter(
+            user_id=user_id, expected_paid__isnull=False, is_fixed=False
+        ).values_list("expected_paid_id", flat=True)
+        print(to_exclude_id, 99*'-')
         return (
             Expense.objects.filter(
                 monthly_expense_id__in=monthly_expense_ids, user_id=user_id
             )
-            .exclude(expected_paid__isnull=False, is_fixed=True)
+            .exclude(uuid__in=to_exclude_id)
             .order_by("monthly_expense__month_number")
         )
 

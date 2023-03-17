@@ -10,7 +10,7 @@ from accounting_admin.core.accounting.models import (
 @admin.register(Expense)
 class ClassExpenseAdmin(admin.ModelAdmin):
     list_display = ["uuid", "name", "value", "is_fixed", "expected_paid"]
-    list_filter = ["name", "monthly_expense"]
+    list_filter = ["name", "monthly_expense", "is_fixed"]
 
 
 @admin.register(ExpectedExpense)
