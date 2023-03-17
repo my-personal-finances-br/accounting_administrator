@@ -42,7 +42,7 @@ up:
 	docker-compose up
 
 up_front:
-	cd frontend/galt && yarn dev
+	cd frontend/ && yarn dev
 
 down:
 	docker-compose down
