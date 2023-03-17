@@ -10,7 +10,6 @@ const getCookieValue = (name) => {
         return Object.assign(res, { [key]: val });
       }
     }, {});
-    console.log(parsedCookie[`${name}`])
     return parsedCookie[`${name}`];
   };
 

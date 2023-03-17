@@ -19,6 +19,7 @@ export default function Home(){
     useEffect(() => {
         getExpenses()
       }, []);
+      
     return(
         <>
             <Header/>
@@ -30,7 +31,7 @@ export default function Home(){
                         {
                             expenses.map(expense=><Card month={expense.month} id={expense.id} getExpenses={getExpenses}>
                                 {expense.expenses.map(
-                                    expense2=><Item value={expense2.value} name={expense2.name}></Item>
+                                    expense2=><Item monthId={expense.id} getExpenses={getExpenses} id={expense2.id} value={expense2.value} name={expense2.name} description={expense2.description} is_fixed={expense2.is_fixed}></Item>
                                 )}
                             </Card>)
                         }

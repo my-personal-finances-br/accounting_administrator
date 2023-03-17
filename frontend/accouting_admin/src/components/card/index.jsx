@@ -1,5 +1,5 @@
 import './style.css'
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Modal from "../modal";
 
 
@@ -8,7 +8,7 @@ export default function Card({children, month, id, getExpenses}){
 
     return (
         <div className='Card'>
-            <Modal isOpen={modalOpen} setIsOpen={setModalOpen} id={id} getExpenses={getExpenses}/>
+            <Modal isOpen={modalOpen} setIsOpen={setModalOpen} id={id} getExpenses={getExpenses} month={month}/>
             <div className='HeaderCard'>
                 {month}
             </div>

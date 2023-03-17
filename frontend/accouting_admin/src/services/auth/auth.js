@@ -3,8 +3,6 @@ import { returnCurrentBaseUrl } from "../../utils/URL/baseUrl";
 
 const baseUrl = returnCurrentBaseUrl()
 
-console.log(baseUrl, 'baseurl')
-
 const authenticatedApi = axios.create({
     baseUrl: returnCurrentBaseUrl()
 })

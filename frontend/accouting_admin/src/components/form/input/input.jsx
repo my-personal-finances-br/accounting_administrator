@@ -3,7 +3,7 @@ import { useField } from '@unform/core'
 
 import { Input } from './style'
 
-export default function InputUnform({ name, ...rest }) {
+export default function InputUnform({ name, value, ...rest }) {
   const inputRef = useRef(null)
   const { fieldName, defaultValue, registerField, error } = useField(name)
 
@@ -23,5 +23,5 @@ export default function InputUnform({ name, ...rest }) {
     })
   }, [fieldName, registerField])
 
-  return <Input ref={inputRef} defaultValue={defaultValue} {...rest} />
+  return <Input ref={inputRef} defaultValue={value} {...rest} />
 }

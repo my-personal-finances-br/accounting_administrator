@@ -19,6 +19,7 @@ class ListExpensesView(generics.ListAPIView):
                     "detail": expensive.monthly_expense.detail,
                     "expenses": [
                         {
+                            "id": expensive.uuid,
                             "value": expensive.value,
                             "name": expensive.name,
                             "description": expensive.description,
@@ -33,6 +34,7 @@ class ListExpensesView(generics.ListAPIView):
                     "expenses"
                 ].append(
                     {
+                        "id": expensive.uuid,
                         "value": expensive.value,
                         "name": expensive.name,
                         "description": expensive.description,
@@ -51,7 +53,6 @@ class ListExpensesView(generics.ListAPIView):
         to_exclude_id = Expense.objects.filter(
             user_id=user_id, expected_paid__isnull=False, is_fixed=False
         ).values_list("expected_paid_id", flat=True)
-        print(to_exclude_id, 99*'-')
         return (
             Expense.objects.filter(
                 monthly_expense_id__in=monthly_expense_ids, user_id=user_id

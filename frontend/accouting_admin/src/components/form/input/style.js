@@ -5,4 +5,7 @@ export const Input = styled.input `
     border: 1px solid #2EC1D8;
     border-radius: 4px;
     margin-top: 15px;
+    margin-bottom: 15px;
+    background: transparent;
+    color: white;
 `
