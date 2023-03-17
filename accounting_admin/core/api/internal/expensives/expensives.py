@@ -1,3 +1,4 @@
+from decimal import *
 from accounting_admin.core.api.internal.authentication.backends import GenericAuthenticationRequired
 from rest_framework import generics
 from rest_framework.response import Response
@@ -18,6 +19,7 @@ class ListExpensesView(generics.ListAPIView):#, GenericAuthenticationRequired):
                     "total": str(expensive.monthly_expense.total),
                     "month": expensive.monthly_expense.month,
                     "detail": expensive.monthly_expense.detail,
+                    "partial_total": Decimal(expensive.value),
                     "expenses": [
                         {
                             "id": expensive.uuid,
@@ -31,6 +33,7 @@ class ListExpensesView(generics.ListAPIView):#, GenericAuthenticationRequired):
                     ],
                 }
             else:
+                expenses_by_monthly_expense[expensive.monthly_expense.month]["partial_total"] = Decimal(expenses_by_monthly_expense[expensive.monthly_expense.month]["partial_total"]) + Decimal(expensive.value)
                 expenses_by_monthly_expense[expensive.monthly_expense.month][
                     "expenses"
                 ].append(

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Modal from "../modal";
 
 
-export default function Card({children, month, id, getExpenses}){
+export default function Card({children, month, id, getExpenses, partial_total}){
     const [modalOpen, setModalOpen] = useState(false)
 
     return (
@@ -15,6 +15,9 @@ export default function Card({children, month, id, getExpenses}){
         {children}
         <div className='Buttonn'>
             <button onClick={() => setModalOpen(true)}>+</button>
+        </div>
+        <div className='Buttonn'>
+            Total Parcial: <strong>{partial_total}</strong>
         </div>
         </div>
     )
