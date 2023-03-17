@@ -7,5 +7,5 @@ export const Input = styled.input `
     margin-top: 15px;
     margin-bottom: 15px;
     background: transparent;
-    color: white;
+    color: blue;
 `

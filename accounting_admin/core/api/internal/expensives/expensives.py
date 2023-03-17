@@ -1,3 +1,4 @@
+from accounting_admin.core.api.internal.authentication.backends import GenericAuthenticationRequired
 from rest_framework import generics
 from rest_framework.response import Response
 
@@ -5,7 +6,7 @@ from accounting_admin.core.accounting.models import Expense, MonthlyExpense
 from accounting_admin.core.api.internal.serializers import expensives
 
 
-class ListExpensesView(generics.ListAPIView):
+class ListExpensesView(generics.ListAPIView):#, GenericAuthenticationRequired):
     serializer_class = None
 
     def _serialize(self, expensives):

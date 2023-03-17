@@ -15,7 +15,7 @@ authentication_urls = [
     ),
     path(
         "internal/authenticate/generics",
-        internal.authentication.views.GenericAuthenticationView.as_view(),
+        internal.authentication.views.NewAuthenticateView.as_view(),
         name="api-internal-authenticate-generics",
     ),
     path(
