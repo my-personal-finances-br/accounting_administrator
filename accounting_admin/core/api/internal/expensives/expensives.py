@@ -1,4 +1,3 @@
-from django.db.models import Q
 from rest_framework import generics
 from rest_framework.response import Response
 
@@ -8,6 +7,7 @@ from accounting_admin.core.api.internal.serializers import expensives
 
 class ListExpensesView(generics.ListAPIView):
     serializer_class = None
+
     def _serialize(self, expensives):
         expenses_by_monthly_expense = {}
         for expensive in expensives:
@@ -42,11 +42,12 @@ class ListExpensesView(generics.ListAPIView):
         monthly_expense_ids = MonthlyExpense.objects.filter(user_id=user_id).values_list(
             "uuid", flat=True
         )
-        return Expense.objects.filter(
-            monthly_expense_id__in=monthly_expense_ids, user_id=user_id
-        ).exclude(
-            Q(expected_paid__isnull=True, is_fixed=True)
-            | Q(expected_paid__isnull=False, is_fixed=True)
+        return (
+            Expense.objects.filter(
+                monthly_expense_id__in=monthly_expense_ids, user_id=user_id
+            )
+            .exclude(expected_paid__isnull=False, is_fixed=True)
+            .order_by("monthly_expense__month_number")
         )
 
     def list(self, request):
@@ -59,7 +60,7 @@ class MonthClosureView(generics.CreateAPIView):
     serializer_class = expensives.MonthlyExpenseSerializer
 
     def get_object(self, month):
-        return MonthlyExpense.objects.get(user_id=self.request.user.id, month=month)
+        return MonthlyExpense.objects.get(user_id=self.request.user.id, month=month).order_by("monthly_expense__month_number")
 
     def create(self, request, *args, **kwargs):
         monthly_expense = self.get_object(request.data.get("month"))
@@ -71,5 +72,10 @@ class MonthClosureView(generics.CreateAPIView):
             }
         )
 
+
 class CreateExpenseView(generics.CreateAPIView):
     serializer_class = expensives.CreateExpensesSerializer
+
+
+class CreateMonthlyExpense(generics.CreateAPIView):
+    serializer_class = expensives.MonthlyExpenseSerializer

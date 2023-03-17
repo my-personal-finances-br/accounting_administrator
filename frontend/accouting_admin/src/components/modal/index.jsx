@@ -5,7 +5,7 @@ import { Form } from "@unform/web";
 import { useRef } from "react";
 import { createExpenses } from "../../services/expenseves/createExpenses"
 
-export default function Modal ({isOpen, setIsOpen, id})  {
+export default function Modal ({isOpen, setIsOpen, id, getExpenses})  {
 
   const closeModal = (e) => {
     e.preventDefault()
@@ -16,6 +16,8 @@ export default function Modal ({isOpen, setIsOpen, id})  {
   const handleSubmit = async (data) => {
     data.monthly_expense = id
     await createExpenses(data)
+    await getExpenses()
+    setIsOpen(false)
  }
   return (
     <Form ref={formRef} onSubmit={handleSubmit}>

@@ -4,11 +4,11 @@ export default function Header () {
   return (
     <HeaderDiv>
      <Container>
-      <span>HONDA GAY</span>
+      <span>Finanças</span>
         <Nav>
-          <li>asd</li>
-          <li>asd</li>
-          <li>asd</li>
+          <li>Gastos fixos</li>
+          <li>fwewf</li>
+          <li>sair</li>
         </Nav>
      </Container>
     </HeaderDiv>

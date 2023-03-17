@@ -22,6 +22,7 @@ class MonthlyExpense(Default):
         _("month"),
         max_length=72,
     )
+    month_number = models.IntegerField(_("month_number"))
     total = models.DecimalField(
         _("total"), max_digits=24, decimal_places=6, blank=True, null=True
     )

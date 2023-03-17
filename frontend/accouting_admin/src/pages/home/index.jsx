@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Card from "../../components/card"
 import Item from "../../components/item"
 import { listExpenses } from "../../services/expenseves/listExpenses";
+import {createMonthlyExpense} from "../../services/expenseves/createMonthlyExpense"
 import Header from "../../components/header"
 
 export default function Home(){
@@ -10,9 +11,13 @@ export default function Home(){
 
     const getExpenses =  async (data) => {
         await setExpenses((await listExpenses(data)).data)
-     }
+    }
+    const createListMonthlyExpense =  async (data) => {
+        await createMonthlyExpense()
+        getExpenses()
+    }
     useEffect(() => {
-        getExpenses()        
+        getExpenses()
       }, []);
     return(
         <>
@@ -23,18 +28,18 @@ export default function Home(){
                     {expenses.length ? (
                         <>
                         {
-                            expenses.map(expense=><Card month={expense.month} id={expense.id}>
+                            expenses.map(expense=><Card month={expense.month} id={expense.id} getExpenses={getExpenses}>
                                 {expense.expenses.map(
                                     expense2=><Item value={expense2.value} name={expense2.name}></Item>
                                 )}
                             </Card>)
                         }
                         </>
-                    ) : <div>algooo</div>
+                    ) : <div></div>
 
                     }
                 </div>
-                <button onClick={""} style={{padding:"10px", borderRadius: "70px", backgroundColor: "lightgreen", marginLeft: "40%", fontSize: "50px", color: "white", border: "none", cursor: "pointer"}}>+</button>
+                <button onClick={createListMonthlyExpense} style={{padding:"10px", borderRadius: "70px", backgroundColor: "lightgreen", marginLeft: "40%", fontSize: "50px", color: "white", border: "none", cursor: "pointer"}}>+</button>
             </ContainerHome>
             
             </div>
