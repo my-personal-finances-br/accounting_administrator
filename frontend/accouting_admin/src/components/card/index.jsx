@@ -14,7 +14,7 @@ export default function Card({children, month, id, getExpenses}){
             </div>
         {children}
         <div className='Buttonn'>
-            <button onClick={() => setModalOpen(true)}>Add</button>
+            <button onClick={() => setModalOpen(true)}>+</button>
         </div>
         </div>
     )

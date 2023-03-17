@@ -4,7 +4,7 @@ import Routes from "./routes"
 function App() {
  
   return (
-    <div style={{backgroundColor: '#262738', minHeight: '100vh'}}>
+    <div style={{backgroundColor: '#6495ED', minHeight: '100vh'}}>
     <BrowserRouter>
       <Routes/>
     </BrowserRouter>

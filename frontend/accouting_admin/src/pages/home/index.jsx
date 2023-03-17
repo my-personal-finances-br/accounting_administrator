@@ -39,7 +39,7 @@ export default function Home(){
 
                     }
                 </div>
-                <button onClick={createListMonthlyExpense} style={{padding:"10px", borderRadius: "70px", backgroundColor: "lightgreen", marginLeft: "40%", fontSize: "50px", color: "white", border: "none", cursor: "pointer"}}>+</button>
+                <button onClick={createListMonthlyExpense} style={{padding:"10px", borderRadius: "70px", backgroundColor: "#6959CD", marginLeft: "40%", fontSize: "50px", color: "white", border: "none", cursor: "pointer"}}>+</button>
             </ContainerHome>
             
             </div>

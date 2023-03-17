@@ -6,9 +6,9 @@ export default function Header () {
      <Container>
       <span>Finanças</span>
         <Nav>
-          <li>Gastos fixos</li>
-          <li>fwewf</li>
-          <li>sair</li>
+          <button>Gastos fixos</button>
+          <button>fwewf</button>
+          <button>sair</button>
         </Nav>
      </Container>
     </HeaderDiv>
