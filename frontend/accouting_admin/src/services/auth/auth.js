@@ -21,7 +21,6 @@ const auth = ({username, password}) => {
     )
     .then((resp) => resp)
     .catch((error) => error)
-
     return response
 }
 

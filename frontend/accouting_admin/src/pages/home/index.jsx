@@ -26,7 +26,7 @@ export default function Home(){
             <div style={{display: 'flex', alignItems: "center", justifyContent: 'center'}}>
             <ContainerHome>
                 <div style={{padding:"30px"}}>
-                    {expenses.length ? (
+                    {expenses && expenses.length ? (
                         <>
                         {
                             expenses.map(expense=><Card partial_total={expense.partial_total} month={expense.month} id={expense.id} getExpenses={getExpenses}>

@@ -42,7 +42,7 @@ up:
 	docker-compose up
 
 up_front:
-	cd frontend/ && yarn dev
+	cd frontend/accouting_admin && npm start
 
 down:
 	docker-compose down
