@@ -11,13 +11,16 @@ export default function Item({value, name, description, is_fixed, id, getExpense
                 <span>{name}</span>
                 <span>R$ {value}</span>
             </div>
-            
+            <div className="Butonn">            
             {
-                !is_fixed ? <></> : <div className="Butonn">
+                !is_fixed ? <></> :
                 <button onClick={() => setPaidModalOpen(true)}>pago</button>
-            </div>
-                
+
             }
+
+                <button onClick={""}>Excluir</button>
+                <button onClick={""}>Editar</button>
+            </div>
         </>
     )
 }
