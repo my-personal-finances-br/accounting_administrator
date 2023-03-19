@@ -39,7 +39,7 @@ class MonthlyExpense(Default):
         verbose_name_plural = _("Monthly Expenses")
 
     def __str__(self):
-        return f"{self.month}, {self.created_at.year} - {self.total}"
+        return f"{self.month}, {self.created_at.year} - {self.user}"
 
     def save(self, skip_checks=False, *args, **kwargs):
         if skip_checks:

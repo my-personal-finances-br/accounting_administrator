@@ -1,12 +1,12 @@
 import json
 
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.core.exceptions import MultipleObjectsReturned
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.core.exceptions import MultipleObjectsReturned
 
 User = get_user_model()
 
@@ -51,17 +51,18 @@ class AuthenticateBackofficeView(AuthenticateView):
         request.session["authentication_backend_used"] = "backoffice"
         request.session["authentication_origin_url"] = origin_url
 
+
 class NewAuthenticateView(APIView):
     def post(self, request):
-        user = authenticate(username=request.data['username'], password=request.data['password'])
+        user = authenticate(
+            username=request.data["username"], password=request.data["password"]
+        )
         login(request=request, user=user)
         if user is not None:
             login(request=request, user=user)
             return HttpResponse({"parabens": "vc logou"})
         else:
             return HttpResponse({"deu ruim": "vc n logou"})
-        
-
 
 
 @csrf_exempt

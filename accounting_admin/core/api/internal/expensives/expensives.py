@@ -1,13 +1,16 @@
 from decimal import *
-from accounting_admin.core.api.internal.authentication.backends import GenericAuthenticationRequired
+
 from rest_framework import generics
 from rest_framework.response import Response
 
 from accounting_admin.core.accounting.models import Expense, MonthlyExpense
+from accounting_admin.core.api.internal.authentication.backends import (
+    GenericAuthenticationRequired,
+)
 from accounting_admin.core.api.internal.serializers import expensives
 
 
-class ListExpensesView(generics.ListAPIView):#, GenericAuthenticationRequired):
+class ListExpensesView(generics.ListAPIView):  # , GenericAuthenticationRequired):
     serializer_class = None
 
     def _serialize(self, expensives):
@@ -28,12 +31,20 @@ class ListExpensesView(generics.ListAPIView):#, GenericAuthenticationRequired):
                             "description": expensive.description,
                             "is_fixed": expensive.is_fixed,
                             "created_at": expensive.created_at,
-                            "expected_paid": bool(expensive.expected_paid)
+                            "expected_paid": bool(expensive.expected_paid),
                         }
                     ],
                 }
             else:
-                expenses_by_monthly_expense[expensive.monthly_expense.month]["partial_total"] = Decimal(expenses_by_monthly_expense[expensive.monthly_expense.month]["partial_total"]) + Decimal(expensive.value)
+                expenses_by_monthly_expense[expensive.monthly_expense.month][
+                    "partial_total"
+                ] = Decimal(
+                    expenses_by_monthly_expense[expensive.monthly_expense.month][
+                        "partial_total"
+                    ]
+                ) + Decimal(
+                    expensive.value
+                )
                 expenses_by_monthly_expense[expensive.monthly_expense.month][
                     "expenses"
                 ].append(
@@ -44,7 +55,7 @@ class ListExpensesView(generics.ListAPIView):#, GenericAuthenticationRequired):
                         "description": expensive.description,
                         "is_fixed": expensive.is_fixed,
                         "created_at": expensive.created_at,
-                        "expected_paid": bool(expensive.expected_paid)
+                        "expected_paid": bool(expensive.expected_paid),
                     }
                 )
         return expenses_by_monthly_expense
@@ -62,7 +73,7 @@ class ListExpensesView(generics.ListAPIView):#, GenericAuthenticationRequired):
                 monthly_expense_id__in=monthly_expense_ids, user_id=user_id
             )
             .exclude(uuid__in=to_exclude_id)
-            .order_by("monthly_expense__month_number")
+            .order_by("-is_fixed", "monthly_expense__month_number")
         )
 
     def list(self, request):
@@ -75,7 +86,9 @@ class MonthClosureView(generics.CreateAPIView):
     serializer_class = expensives.MonthlyExpenseSerializer
 
     def get_object(self, month):
-        return MonthlyExpense.objects.get(user_id=self.request.user.id, month=month).order_by("monthly_expense__month_number")
+        return MonthlyExpense.objects.get(
+            user_id=self.request.user.id, month=month
+        ).order_by("monthly_expense__month_number")
 
     def create(self, request, *args, **kwargs):
         monthly_expense = self.get_object(request.data.get("month"))
