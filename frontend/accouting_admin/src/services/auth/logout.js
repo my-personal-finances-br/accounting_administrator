@@ -12,10 +12,10 @@ const getCookieValue = (name) => {
     }, {});
     return parsedCookie[`${name}`];
   };
-  function eraseCookie(name) {   
-    document.cookie = name+'=; Max-Age=-99999999;';  
-}
-
+const cleanCookies = () => {
+  document.cookie = 'sessionid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+  document.cookie = 'csrftoken= ;expires = Thu, 01 Jan 1970 00:00:00 GMT';
+};
 
 
 const logout = (data) => {
@@ -31,8 +31,7 @@ const logout = (data) => {
   )
   .then((resp) => resp)
   .catch((error) => error)
-  eraseCookie('csrftoken')
-  eraseCookie('sessionid')
+  cleanCookies();
   return response
 }
 

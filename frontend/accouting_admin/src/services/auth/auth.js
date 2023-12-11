@@ -1,27 +1,28 @@
-import axios from 'axios'
-import { returnCurrentBaseUrl } from "../../utils/URL/baseUrl";
+import axios from 'axios';
 
-const baseUrl = returnCurrentBaseUrl()
+const auth = async ({ username, password }) => {
+  try {
+    const response = await axios.post(
+      'http://localhost:8000/api/internal/authenticate/generics',
+      { username, password },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      }
+    );
 
-const authenticatedApi = axios.create({
-    baseUrl: returnCurrentBaseUrl()
-})
+    const cookies = response.headers['set-cookie'];
 
-const auth = ({username, password}) => {
+    cookies.forEach((cookie) => {
+      document.cookie = cookie;
+    });
 
-    const response = axios.post(
-        `http://localhost:8000/api/internal/authenticate/generics`,
-        {username, password},
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': ''
-            },
-        }
-    )
-    .then((resp) => resp)
-    .catch((error) => error)
-    return response
-}
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
-export { auth }
+export { auth };

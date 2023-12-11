@@ -3,12 +3,16 @@ import { Form } from "@unform/web";
 import InputUnform from "../../components/form/input/input";
 import { useRef } from "react";
 import { auth } from "../../services/auth/auth";
+import { useNavigate } from 'react-router-dom';
 
 export default function Auth() {
   const formRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (data) => {
     await auth(data);
+    navigate('/');
+    window.location.reload();
   };
 
   return (
@@ -17,7 +21,7 @@ export default function Auth() {
         <Card>
           <WrapperInput>
             <InputUnform placeholder="Usuario" name="username" />
-            <InputUnform placeholder="Senha" name="password" />
+            <InputUnform type="password" placeholder="Senha" name="password" />
           </WrapperInput>
           <Button>login</Button>
         </Card>
