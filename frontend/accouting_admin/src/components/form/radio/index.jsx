@@ -1,17 +1,16 @@
-import React, { useEffect, useRef, Fragment, useReducer } from 'react';
-import { useField } from '@unform/core';
+import React, { useEffect, useRef, Fragment, useReducer } from "react";
+import { useField } from "@unform/core";
 import {
   Container,
   InputRadio,
   LabelInput,
   SubTitle,
   TitleLabel,
-} from './style';
+} from "./style";
 
 const RadioTeste = ({ name, options, ...rest }) => {
   const inputRefs = useRef([]);
-  const { fieldName, registerField, defaultValue = '' } = useField(name);
-
+  const { fieldName, registerField, defaultValue = "" } = useField(name);
 
   useEffect(() => {
     registerField({
@@ -21,11 +20,11 @@ const RadioTeste = ({ name, options, ...rest }) => {
         return (
           (refs.find((ref) => ref.checked) &&
             refs.find((ref) => ref.checked).value) ||
-          ''
+          ""
         );
       },
       setValue(refs, value) {
-        const item = refs.find(ref => ref.value === value);
+        const item = refs.find((ref) => ref.value === value);
 
         if (item) {
           item.checked = true;

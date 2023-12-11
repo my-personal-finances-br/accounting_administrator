@@ -1,41 +1,55 @@
-import './style.css'
+import "./style.css";
 import { useState } from "react";
 import Modal from "../modal";
-import MonthDetailModal from '../../components/monthDetailModal';
-import {retrieveMonthDetail} from '../../services/expenseves/retrieveMonthDetail';
+import MonthDetailModal from "../../components/monthDetailModal";
+import { retrieveMonthDetail } from "../../services/expenseves/retrieveMonthDetail";
 
+export default function Card({
+  children,
+  month,
+  id,
+  getExpenses,
+  partial_total,
+}) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [monthDetailModalOpen, setMonthDetailModalOpen] = useState(false);
+  const [monthDetailData, setMonthDetailData] = useState({});
 
-export default function Card({children, month, id, getExpenses, partial_total}){
-    const [modalOpen, setModalOpen] = useState(false)
-    const [monthDetailModalOpen, setMonthDetailModalOpen] = useState(false)
-    const [monthDetailData, setMonthDetailData] = useState({});
-
-    const openMonthDetailModal = async () => {
-        const data = await retrieveMonthDetail(id);
-        setMonthDetailData(data.data);
-        setMonthDetailModalOpen(true);
-      };
-      const formatCurrency = (value) => {
-        return new Intl.NumberFormat("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        }).format(value);
-      };
-    return (
-        <div className='Card'>
-            <MonthDetailModal isOpen={monthDetailModalOpen} setIsOpen={setMonthDetailModalOpen} data={monthDetailData}/>
-            <Modal isOpen={modalOpen} setIsOpen={setModalOpen} id={id} getExpenses={getExpenses} month={month}/>
-            <div className='HeaderCard'>
-                {month}
-            </div>
-            <button onClick={openMonthDetailModal}>Detalhes</button>
-            {children}
-        <div className='Buttonn'>
-            <button onClick={() => setModalOpen(true)}>+</button>
-        </div>
-            <div className='Buttonn'>
-                Total Parcial:&nbsp;&nbsp;<strong>{formatCurrency(partial_total)}</strong>
-            </div>
-        </div>
-    )
+  const openMonthDetailModal = async () => {
+    const data = await retrieveMonthDetail(id);
+    setMonthDetailData(data.data);
+    setMonthDetailModalOpen(true);
+  };
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  };
+  return (
+    <div className="Card">
+      <MonthDetailModal
+        isOpen={monthDetailModalOpen}
+        setIsOpen={setMonthDetailModalOpen}
+        data={monthDetailData}
+      />
+      <Modal
+        isOpen={modalOpen}
+        setIsOpen={setModalOpen}
+        id={id}
+        getExpenses={getExpenses}
+        month={month}
+      />
+      <div className="HeaderCard">{month}</div>
+      <button onClick={openMonthDetailModal}>Detalhes</button>
+      {children}
+      <div className="Buttonn">
+        <button onClick={() => setModalOpen(true)}>+</button>
+      </div>
+      <div className="Buttonn">
+        Total Parcial:&nbsp;&nbsp;
+        <strong>{formatCurrency(partial_total)}</strong>
+      </div>
+    </div>
+  );
 }
