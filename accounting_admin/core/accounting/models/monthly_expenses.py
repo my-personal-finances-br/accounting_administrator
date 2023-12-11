@@ -64,15 +64,17 @@ class MonthlyExpense(Default):
         Expense.objects.bulk_create(new_expected_expenses)
 
     def closure(self):
+        if self.detail:
+            return
         detail = ""
-        expenses = self.expenses.all()
-        self.total = sum(expenses.values_list("value", flat=True))
-        for expense in expenses:
+        self.total = self.parcial_total
+        for expense in self.expenses.all():
             detail += f"<p>{expense.name} ------------------- {expense.value}</p></br>"
-        detail += f"<p>Total a ser pago:               {self.total}</p>"
-        detail += f"<p>Salario do mês:                 {self.salary_total}</p>"
-        detail += f"<p>Faltou pagar:                   {self.to_pay}</p>"
-        detail += f"<p>Total guardado:                 {self.try_to_save}</p>" 
+        detail += f"<p>--------------------------------------------</p></br>"
+        detail += f"<p>Total a ser pago:               {self.total}</p></br>"
+        detail += f"<p>Salario do mês:                 {self.salary_total}</p></br>"
+        detail += f"<p>Faltou pagar:                   {self.to_pay}</p></br>"
+        detail += f"<p>Total guardado:                 {self.try_to_save}</p></br>" 
         self.detail = detail
         self.save()
 

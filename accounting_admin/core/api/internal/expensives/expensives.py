@@ -22,13 +22,13 @@ class MonthlyExpenseView(generics.ListCreateAPIView):  # , GenericAuthentication
 class MonthClosureView(generics.CreateAPIView):
     serializer_class = expensives.MonthlyExpenseSerializer
 
-    def get_object(self, month):
-        return MonthlyExpense.objects.get(
-            user_id=self.request.user.id, month=month
-        ).order_by("monthly_expense__month_number")
+    def get_object(self):
+        return MonthlyExpense.objects.filter(
+            user_id=self.request.user.id, detail__isnull=True
+        ).order_by("month_number").first()
 
     def create(self, request, *args, **kwargs):
-        monthly_expense = self.get_object(request.data.get("month"))
+        monthly_expense = self.get_object()
         monthly_expense.closure()
         return Response(
             {
