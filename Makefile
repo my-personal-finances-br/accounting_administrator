@@ -46,3 +46,9 @@ up_front:
 
 down:
 	docker-compose down
+
+dump:
+	docker-compose exec django python manage.py dumpdata > dump.json
+
+restore-db:
+	docker-compose exec django python manage.py loaddata dump.json
