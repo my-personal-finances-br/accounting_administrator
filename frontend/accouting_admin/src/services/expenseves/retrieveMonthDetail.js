@@ -15,7 +15,7 @@ const getCookieValue = (name) => {
 
   const retrieveMonthDetail = (id) => {
     const response = axios.get(
-        `http://localhost:8000/api/internal/expenses/monthly_expense/${id}/detail`,
+        `http://localhost:8000/api/internal/monthly_expense/${id}/detail`,
         {
             withCredentials: true,
             headers: {

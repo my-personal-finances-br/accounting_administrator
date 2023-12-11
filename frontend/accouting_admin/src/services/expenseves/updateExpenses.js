@@ -13,9 +13,10 @@ const getCookieValue = (name) => {
     return parsedCookie[`${name}`];
   };
 
-  const listExpenses = (data) => {
-    const response = axios.get(
-        `http://localhost:8000/api/internal/monthly_expense`,
+  const updateExpenses = (data, id) => {
+    const response = axios.patch(
+        `http://localhost:8000/api/internal/expenses/${id}`,
+        data,
         {
             withCredentials: true,
             headers: {
@@ -29,4 +30,4 @@ const getCookieValue = (name) => {
     return response
 }
 
-export {listExpenses}
+export {updateExpenses}

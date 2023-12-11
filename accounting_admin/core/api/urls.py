@@ -27,9 +27,14 @@ authentication_urls = [
 
 expenses_urls = [
     path(
-        "internal/expenses",
-        internal.expensives.expensives.ListExpensesView.as_view(),
-        name="api-expenses",
+        "internal/monthly_expense",
+        internal.expensives.expensives.MonthlyExpenseView.as_view(),
+        name="api-monthly-expenses",
+    ),
+    path(
+        "internal/monthly_expense/<str:pk>/detail",
+        internal.expensives.expensives.MonthlyExpenseDetailView.as_view(),
+        name="api-expenses-monthly_expense-detail",
     ),
     path(
         "internal/expenses/closure",
@@ -37,19 +42,14 @@ expenses_urls = [
         name="api-expenses-closure",
     ),
     path(
-        "internal/expenses/create",
-        internal.expensives.expensives.CreateExpenseView.as_view(),
+        "internal/expenses",
+        internal.expensives.expensives.ExpenseListCreateView.as_view(),
         name="api-expenses-create",
     ),
     path(
-        "internal/expenses/monthly_expense",
-        internal.expensives.expensives.CreateMonthlyExpense.as_view(),
-        name="api-expenses-monthly_expense",
-    ),
-    path(
-        "internal/expenses/monthly_expense/<str:pk>/detail",
-        internal.expensives.expensives.MonthlyExpenseDetailView.as_view(),
-        name="api-expenses-monthly_expense-detail",
+        "internal/expenses/<uuid:pk>",
+        internal.expensives.expensives.ExpenseUpdateRetrieveView.as_view(),
+        name="api-expenses-retrieve",
     ),
 ]
 

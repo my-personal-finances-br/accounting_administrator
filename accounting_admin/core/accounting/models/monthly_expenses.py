@@ -65,35 +65,33 @@ class MonthlyExpense(Default):
 
     def closure(self):
         detail = ""
-        expenses = self.expenses.exclude(
-            Q(expected_paid__isnull=True, is_fixed=True)
-            | Q(expected_paid__isnull=False, is_fixed=True)
-        )
+        expenses = self.expenses.exclude()
         self.total = sum(expenses.values_list("value", flat=True))
         for expense in expenses:
             detail += f"<p>{expense.name} ------------------- {expense.value}</p></br>"
         detail += f"<p>Total:                   {self.total}</p>"
         self.detail = detail
         self.save()
-        
+
     @property
     def parcial_total(self):
-        return sum(
-            self.expenses.exclude(expected_paid__isnull=False, is_fixed=False)
-            .order_by("-is_fixed", "monthly_expense__month_number").values_list("value", flat=True)
+        paid_value = sum(
+            self.expenses.filter(paid_value__isnull=False).values_list(
+                "paid_value", flat=True
+            )
         )
-    
+        return paid_value + self.to_pay
+
     @property
     def to_pay(self):
-        total = self.parcial_total
-        total = total - sum(self.expenses.filter(is_fixed=False, expected_paid__isnull=False).values_list("value", flat=True))
-        total = total - sum(self.expenses.filter(expected_paid__isnull=True, is_fixed=False).values_list("value", flat=True))
-        return total
+        return sum(
+            self.expenses.filter(paid_value__isnull=True).values_list("value", flat=True)
+        )
 
     @property
     def salary_total(self):
         return sum(self.user.salaries.values_list("net", flat=True))
-    
+
     @property
     def try_to_save(self):
         return self.salary_total - self.parcial_total

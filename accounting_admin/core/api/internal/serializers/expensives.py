@@ -1,5 +1,3 @@
-from django.db.models import Q
-
 from django.utils import timezone
 from rest_framework import serializers
 
@@ -14,7 +12,6 @@ class ExpectedPaidExpensesSerializer(serializers.ModelSerializer):
 
 
 class ExpensesSerializer(serializers.ModelSerializer):
-    expected_paid = ExpectedPaidExpensesSerializer(read_only=True)
     monthly_expense = serializers.CharField(read_only=True)
 
     class Meta:
@@ -29,11 +26,15 @@ class ExpensesSerializer(serializers.ModelSerializer):
 
 
 class MonthlyExpenseSerializer(serializers.ModelSerializer):
+    total = serializers.SerializerMethodField()
     expenses = serializers.SerializerMethodField()
     user = serializers.CharField(read_only=True)
 
     def get_expenses(self, instance):
-        return ExpensesSerializer(instance.expenses.all(), many=True).data
+        return ExpensesSerializer(instance.expenses.all().order_by("-paid_value"), many=True).data
+
+    def get_total(self, instance):
+        return instance.total or instance.parcial_total
 
     def create(self, data):
         user = self.context.get("request").user
@@ -60,7 +61,7 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CreateExpensesSerializer(serializers.ModelSerializer):
+class ExpensesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expense
         exclude = ["user"]
@@ -76,5 +77,3 @@ class MonthlyExpenseDetailSerializer(serializers.Serializer):
     to_pay = serializers.ReadOnlyField()
     salary_total = serializers.ReadOnlyField()
     to_save = serializers.ReadOnlyField(source="try_to_save")
-    
-    

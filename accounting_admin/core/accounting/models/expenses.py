@@ -18,6 +18,9 @@ class Expense(Default):
         unique=True,
     )
     value = models.DecimalField(_("value"), max_digits=24, decimal_places=6)
+    paid_value = models.DecimalField(
+        _("paid value"), max_digits=24, decimal_places=6, null=True, blank=True
+    )
     name = models.CharField(
         _("name"),
         max_length=72,
@@ -25,14 +28,6 @@ class Expense(Default):
     description = models.CharField(
         _("description"),
         max_length=144,
-    )
-    expected_paid = models.OneToOneField(
-        "accounting.Expense",
-        verbose_name=_("expected paid"),
-        related_name=_("paid"),
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
     )
     monthly_expense = models.ForeignKey(
         "accounting.MonthlyExpense",
@@ -54,3 +49,7 @@ class Expense(Default):
 
     def __str__(self):
         return f"{self.name}"
+    
+    @property
+    def paid(self):
+        return bool(self.paid_value)

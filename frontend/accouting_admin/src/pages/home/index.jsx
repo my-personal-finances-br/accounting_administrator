@@ -28,10 +28,12 @@ export default function Home(){
                 <div style={{padding:"30px"}}>
                     {expenses && expenses.length ? (
                         <>
+                        
                         {
-                            expenses.map(expense=><Card partial_total={expense.partial_total} month={expense.month} id={expense.id} getExpenses={getExpenses}>
+                            
+                            expenses.map(expense=><Card partial_total={expense.total} month={expense.month} id={expense.uuid} getExpenses={getExpenses}>
                                 {expense.expenses.map(
-                                    expense2=><Item monthId={expense.id} getExpenses={getExpenses} id={expense2.id} value={expense2.value} name={expense2.name} description={expense2.description} is_fixed={expense2.is_fixed}></Item>
+                                    expense2=><Item monthId={expense.id} getExpenses={getExpenses} id={expense2.uuid} paid_value={expense2.paid_value} value={expense2.value} name={expense2.name} description={expense2.description}></Item>
                                 )}
                             </Card>)
                         }

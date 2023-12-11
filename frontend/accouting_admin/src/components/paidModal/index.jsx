@@ -1,9 +1,9 @@
-import { Box, BubbleDialog, CloseButton, Container, WrapperTitle, Content, Button } from "./style"
+import { Box, CloseButton, Container, Content, Button } from "./style"
 import { GrFormClose } from 'react-icons/gr';
 import InputUnform from "../../components/form/input/input";
 import { Form } from "@unform/web";
 import { useRef } from "react";
-import { createExpenses } from "../../services/expenseves/createExpenses"
+import { updateExpenses } from "../../services/expenseves/updateExpenses"
 
 export default function PaidModal ({isOpen, setIsOpen, name, value, description, id, getExpenses, monthId}){
 
@@ -14,10 +14,7 @@ export default function PaidModal ({isOpen, setIsOpen, name, value, description,
   const formRef = useRef(null)
 
   const handleSubmit = async (data) => {
-    data.expected_paid = id
-    data.is_to_fiex = false
-    data.monthly_expense=monthId
-    await createExpenses(data)
+    await updateExpenses(data, id)
     await getExpenses()
     setIsOpen(false)
  }
@@ -32,7 +29,7 @@ export default function PaidModal ({isOpen, setIsOpen, name, value, description,
               </CloseButton>
               <InputUnform placeholder="Nome" value={name} name="name"/>
               <InputUnform placeholder="Descrição" value={description} name="description"/>
-              <InputUnform placeholder="Valor" type="number" value={value} name="value"/>
+              <InputUnform placeholder="Valor" type="number" value={value} name="paid_value"/>
               <Button>Pagar</Button>
             </Content>
           </Box>

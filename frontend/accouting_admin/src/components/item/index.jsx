@@ -2,7 +2,7 @@ import './style.css'
 import { useState } from "react";
 import PaidModal from '../paidModal';
 
-export default function Item({value, name, description, is_fixed, id, getExpenses, monthId}){
+export default function Item({value, name, description, paid_value, id, getExpenses, monthId}){
     const [modalOpen, setPaidModalOpen] = useState(false)
 
     const formatCurrency = (value) => {
@@ -11,7 +11,9 @@ export default function Item({value, name, description, is_fixed, id, getExpense
           currency: "BRL",
         }).format(value);
       };
-    return (
+      console.log(paid_value)
+      console.log("paid_value")
+      return (
         <>
             <PaidModal monthId={monthId} getExpenses={getExpenses} isOpen={modalOpen} setIsOpen={setPaidModalOpen} id={id} name={name} value={value} description={description}/>
             <div className="Item">
@@ -20,7 +22,7 @@ export default function Item({value, name, description, is_fixed, id, getExpense
             </div>
             <div className="Butonn">            
             {
-                !is_fixed ? <></> :
+                paid_value ? <></> :
                 <button onClick={() => setPaidModalOpen(true)}>pago</button>
 
             }

@@ -15,7 +15,7 @@ const getCookieValue = (name) => {
 
   const createExpenses = (data) => {
     const response = axios.post(
-        `http://localhost:8000/api/internal/expenses/create`,
+        `http://localhost:8000/api/internal/expenses`,
         data,
         {
             withCredentials: true,
