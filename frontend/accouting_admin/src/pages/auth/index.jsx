@@ -8,7 +8,7 @@ export default function Auth() {
   const formRef = useRef(null);
 
   const handleSubmit = async (data) => {
-    const logStaff = await auth(data);
+    await auth(data);
   };
 
   return (

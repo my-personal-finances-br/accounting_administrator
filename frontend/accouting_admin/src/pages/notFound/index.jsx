@@ -3,7 +3,6 @@ import {
   Card,
   Container404,
   HeaderH1,
-  Img,
   ContainerTitles,
   SubTitle,
 } from "./style";

@@ -1,9 +1,7 @@
 import {
   Box,
-  BubbleDialog,
   CloseButton,
   Container,
-  WrapperTitle,
   Content,
   Button,
 } from "./style";

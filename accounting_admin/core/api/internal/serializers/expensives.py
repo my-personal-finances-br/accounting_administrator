@@ -77,3 +77,4 @@ class MonthlyExpenseDetailSerializer(serializers.Serializer):
     to_pay = serializers.ReadOnlyField()
     salary_total = serializers.ReadOnlyField()
     to_save = serializers.ReadOnlyField(source="try_to_save")
+    paid = serializers.ReadOnlyField()

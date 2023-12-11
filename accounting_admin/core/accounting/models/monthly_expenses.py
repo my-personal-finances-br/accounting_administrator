@@ -65,11 +65,14 @@ class MonthlyExpense(Default):
 
     def closure(self):
         detail = ""
-        expenses = self.expenses.exclude()
+        expenses = self.expenses.all()
         self.total = sum(expenses.values_list("value", flat=True))
         for expense in expenses:
             detail += f"<p>{expense.name} ------------------- {expense.value}</p></br>"
-        detail += f"<p>Total:                   {self.total}</p>"
+        detail += f"<p>Total a ser pago:               {self.total}</p>"
+        detail += f"<p>Salario do mês:                 {self.salary_total}</p>"
+        detail += f"<p>Faltou pagar:                   {self.to_pay}</p>"
+        detail += f"<p>Total guardado:                 {self.try_to_save}</p>" 
         self.detail = detail
         self.save()
 
@@ -95,3 +98,9 @@ class MonthlyExpense(Default):
     @property
     def try_to_save(self):
         return self.salary_total - self.parcial_total
+
+    @property
+    def paid(self):
+        return sum(
+            self.expenses.filter(paid_value__isnull=False).values_list("paid_value", flat=True)
+        )
