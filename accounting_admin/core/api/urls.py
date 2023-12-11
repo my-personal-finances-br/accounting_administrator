@@ -46,6 +46,11 @@ expenses_urls = [
         internal.expensives.expensives.CreateMonthlyExpense.as_view(),
         name="api-expenses-monthly_expense",
     ),
+    path(
+        "internal/expenses/monthly_expense/<str:pk>/detail",
+        internal.expensives.expensives.MonthlyExpenseDetailView.as_view(),
+        name="api-expenses-monthly_expense-detail",
+    ),
 ]
 
 

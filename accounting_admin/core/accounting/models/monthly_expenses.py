@@ -75,3 +75,25 @@ class MonthlyExpense(Default):
         detail += f"<p>Total:                   {self.total}</p>"
         self.detail = detail
         self.save()
+        
+    @property
+    def parcial_total(self):
+        return sum(
+            self.expenses.exclude(expected_paid__isnull=False, is_fixed=False)
+            .order_by("-is_fixed", "monthly_expense__month_number").values_list("value", flat=True)
+        )
+    
+    @property
+    def to_pay(self):
+        total = self.parcial_total
+        total = total - sum(self.expenses.filter(is_fixed=False, expected_paid__isnull=False).values_list("value", flat=True))
+        total = total - sum(self.expenses.filter(expected_paid__isnull=True, is_fixed=False).values_list("value", flat=True))
+        return total
+
+    @property
+    def salary_total(self):
+        return sum(self.user.salaries.values_list("net", flat=True))
+    
+    @property
+    def try_to_save(self):
+        return self.salary_total - self.parcial_total

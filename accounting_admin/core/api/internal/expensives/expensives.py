@@ -107,3 +107,8 @@ class CreateExpenseView(generics.CreateAPIView):
 
 class CreateMonthlyExpense(generics.CreateAPIView):
     serializer_class = expensives.MonthlyExpenseSerializer
+
+class MonthlyExpenseDetailView(generics.RetrieveAPIView):
+    serializer_class = expensives.MonthlyExpenseDetailSerializer
+    queryset = MonthlyExpense.objects.all()
+    

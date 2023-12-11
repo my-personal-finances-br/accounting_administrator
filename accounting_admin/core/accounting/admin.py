@@ -4,6 +4,7 @@ from accounting_admin.core.accounting.models import (
     ExpectedExpense,
     Expense,
     MonthlyExpense,
+    Salary
 )
 
 
@@ -23,3 +24,8 @@ class ClassExpectedExpenseAdmin(admin.ModelAdmin):
 class ClassMonthlyExpenseAdmin(admin.ModelAdmin):
     list_display = ["uuid", "month", "total"]
     list_filter = ["month", "user"]
+
+@admin.register(Salary)
+class ClassMonthlyExpenseAdmin(admin.ModelAdmin):
+    list_display = ["uuid", "name", "gross", "user"]
+    list_filter = ["user"]

@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 from django.utils import timezone
 from rest_framework import serializers
 
@@ -44,6 +46,8 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
             )
             if not monthly_expense and not now.month == 1:
                 month_number = now.month - 1
+            elif now.month == 12:
+                month_number = 0
             else:
                 month_number = monthly_expense.month_number + 1
             data["month"] = MONTHS[month_number].capitalize()
@@ -64,3 +68,12 @@ class CreateExpensesSerializer(serializers.ModelSerializer):
     def create(self, data):
         data["user"] = self.context.get("request").user
         return super().create(data)
+
+
+class MonthlyExpenseDetailSerializer(serializers.Serializer):
+    total = serializers.ReadOnlyField(source="parcial_total")
+    to_pay = serializers.ReadOnlyField()
+    salary_total = serializers.ReadOnlyField()
+    to_save = serializers.ReadOnlyField(source="try_to_save")
+    
+    
