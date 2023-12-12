@@ -41,6 +41,10 @@ create_super_user:
 up:
 	docker-compose up
 
+all_up:
+	docker-compose up -d
+	make up_front
+
 up_front:
 	cd frontend/accouting_admin && npm start
 
