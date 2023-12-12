@@ -14,8 +14,10 @@ class MonthlyExpenseView(generics.ListCreateAPIView):  # , GenericAuthentication
     serializer_class = expensives.MonthlyExpenseSerializer
 
     def get_queryset(self):
-        return MonthlyExpense.objects.filter(user_id=self.request.user.id).order_by(
-            "created_at__year", "month_number"
+        return (
+            MonthlyExpense.objects.filter(user_id=self.request.user.id)
+            .distinct()
+            .order_by("created_at__year", "month_number")
         )
 
 
@@ -23,9 +25,13 @@ class MonthClosureView(generics.CreateAPIView):
     serializer_class = expensives.MonthlyExpenseSerializer
 
     def get_object(self):
-        return MonthlyExpense.objects.filter(
-            user_id=self.request.user.id, detail__isnull=True
-        ).order_by("month_number").first()
+        return (
+            MonthlyExpense.objects.filter(
+                user_id=self.request.user.id, detail__isnull=True
+            )
+            .order_by("month_number")
+            .first()
+        )
 
     def create(self, request, *args, **kwargs):
         monthly_expense = self.get_object()
@@ -43,7 +49,9 @@ class ExpenseListCreateView(generics.ListCreateAPIView):
     queryset = Expense.objects.all()
 
 
-class ExpenseUpdateRetrieveView(generics.RetrieveAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
+class ExpenseUpdateRetrieveView(
+    generics.RetrieveAPIView, generics.UpdateAPIView, generics.DestroyAPIView
+):
     serializer_class = expensives.ExpensesSerializer
     queryset = Expense.objects.all()
 

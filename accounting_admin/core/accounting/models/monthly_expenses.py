@@ -48,20 +48,21 @@ class MonthlyExpense(Default):
 
         super().save(*args, **kwargs)
 
-        expected_expenses = ExpectedExpense.objects.filter(user=self.user)
-        new_expected_expenses = []
-        for expected_expense in expected_expenses:
-            new_expected_expenses.append(
-                Expense(
-                    is_fixed=True,
-                    value=expected_expense.value,
-                    name=expected_expense.name,
-                    description=expected_expense.description,
-                    monthly_expense_id=self.uuid,
-                    user_id=self.user_id,
+        if not self.expenses.count():
+            expected_expenses = ExpectedExpense.objects.filter(user=self.user)
+            new_expected_expenses = []
+            for expected_expense in expected_expenses:
+                new_expected_expenses.append(
+                    Expense(
+                        is_fixed=True,
+                        value=expected_expense.value,
+                        name=expected_expense.name,
+                        description=expected_expense.description,
+                        monthly_expense_id=self.uuid,
+                        user_id=self.user_id,
+                    )
                 )
-            )
-        Expense.objects.bulk_create(new_expected_expenses)
+            Expense.objects.bulk_create(new_expected_expenses)
 
     def closure(self):
         if self.detail:
@@ -74,7 +75,7 @@ class MonthlyExpense(Default):
         detail += f"<p>Total a ser pago:               {self.total}</p></br>"
         detail += f"<p>Salario do mês:                 {self.salary_total}</p></br>"
         detail += f"<p>Faltou pagar:                   {self.to_pay}</p></br>"
-        detail += f"<p>Total guardado:                 {self.try_to_save}</p></br>" 
+        detail += f"<p>Total guardado:                 {self.try_to_save}</p></br>"
         self.detail = detail
         self.save()
 
@@ -90,7 +91,9 @@ class MonthlyExpense(Default):
     @property
     def to_pay(self):
         return sum(
-            self.expenses.filter(paid_value__isnull=True).values_list("value", flat=True)
+            self.expenses.filter(paid_value__isnull=True)
+            .distinct()
+            .values_list("value", flat=True)
         )
 
     @property
@@ -104,5 +107,7 @@ class MonthlyExpense(Default):
     @property
     def paid(self):
         return sum(
-            self.expenses.filter(paid_value__isnull=False).values_list("paid_value", flat=True)
+            self.expenses.filter(paid_value__isnull=False)
+            .distinct()
+            .values_list("paid_value", flat=True)
         )

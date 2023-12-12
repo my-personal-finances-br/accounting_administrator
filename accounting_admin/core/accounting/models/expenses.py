@@ -49,7 +49,7 @@ class Expense(Default):
 
     def __str__(self):
         return f"{self.name}"
-    
+
     @property
     def paid(self):
         return bool(self.paid_value)

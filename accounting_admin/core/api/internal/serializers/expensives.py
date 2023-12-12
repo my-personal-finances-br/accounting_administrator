@@ -31,7 +31,9 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
     user = serializers.CharField(read_only=True)
 
     def get_expenses(self, instance):
-        return ExpensesSerializer(instance.expenses.all().order_by("-paid_value"), many=True).data
+        return ExpensesSerializer(
+            instance.expenses.all().order_by("-paid_value"), many=True
+        ).data
 
     def get_total(self, instance):
         return instance.total or instance.parcial_total
