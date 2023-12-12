@@ -51,6 +51,11 @@ expenses_urls = [
         internal.expensives.expensives.ExpenseUpdateRetrieveView.as_view(),
         name="api-expenses-retrieve",
     ),
+    path(
+        "internal/expected_expenses",
+        internal.expensives.expensives.ExpectedExpenseView.as_view(),
+        name="api-expected-expenses-retrieve",
+    ),
 ]
 
 

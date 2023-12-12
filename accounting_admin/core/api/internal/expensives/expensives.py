@@ -3,14 +3,18 @@ from decimal import *
 from rest_framework import generics
 from rest_framework.response import Response
 
-from accounting_admin.core.accounting.models import Expense, MonthlyExpense
+from accounting_admin.core.accounting.models import (
+    ExpectedExpense,
+    Expense,
+    MonthlyExpense,
+)
 from accounting_admin.core.api.internal.authentication.backends import (
     GenericAuthenticationRequired,
 )
 from accounting_admin.core.api.internal.serializers import expensives
 
 
-class MonthlyExpenseView(generics.ListCreateAPIView):  # , GenericAuthenticationRequired):
+class MonthlyExpenseView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.MonthlyExpenseSerializer
 
     def get_queryset(self):
@@ -21,7 +25,7 @@ class MonthlyExpenseView(generics.ListCreateAPIView):  # , GenericAuthentication
         )
 
 
-class MonthClosureView(generics.CreateAPIView):
+class MonthClosureView(generics.CreateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.MonthlyExpenseSerializer
 
     def get_object(self):
@@ -44,18 +48,34 @@ class MonthClosureView(generics.CreateAPIView):
         )
 
 
-class ExpenseListCreateView(generics.ListCreateAPIView):
+class ExpenseListCreateView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.ExpensesSerializer
-    queryset = Expense.objects.all()
+
+    def get_queryset(self):
+        return Expense.objects.filter(user_id=self.request.user.id)
 
 
 class ExpenseUpdateRetrieveView(
-    generics.RetrieveAPIView, generics.UpdateAPIView, generics.DestroyAPIView
+    generics.RetrieveAPIView,
+    generics.UpdateAPIView,
+    generics.DestroyAPIView,
+    GenericAuthenticationRequired,
 ):
     serializer_class = expensives.ExpensesSerializer
-    queryset = Expense.objects.all()
+
+    def get_queryset(self):
+        return Expense.objects.filter(user_id=self.request.user.id)
 
 
-class MonthlyExpenseDetailView(generics.RetrieveAPIView):
+class MonthlyExpenseDetailView(generics.RetrieveAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.MonthlyExpenseDetailSerializer
-    queryset = MonthlyExpense.objects.all()
+
+    def get_queryset(self):
+        return MonthlyExpense.objects.filter(user_id=self.request.user.id)
+
+
+class ExpectedExpenseView(generics.GenericAPIView, GenericAuthenticationRequired):
+    serializer_class = expensives.ExpectedExpenseSerializer
+
+    def get_queryset(self):
+        return ExpectedExpense.objects.filter(user_id=self.request.user.id)
