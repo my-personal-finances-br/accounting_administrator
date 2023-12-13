@@ -66,7 +66,7 @@ export default function Home() {
             style={{
               padding: "10px",
               borderRadius: "70px",
-              backgroundColor: "#6959CD",
+              backgroundColor: "#226feb",
               marginLeft: "40%",
               fontSize: "50px",
               color: "white",
