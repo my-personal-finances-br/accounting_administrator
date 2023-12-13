@@ -15,9 +15,13 @@ const auth = async ({ username, password }) => {
 
     const cookies = response.headers["set-cookie"];
 
-    cookies.forEach((cookie) => {
-      document.cookie = cookie;
-    });
+
+    if(cookies){
+      cookies.forEach((cookie) => {
+        document.cookie = cookie;
+      });
+    }
+      
 
     return response;
   } catch (error) {

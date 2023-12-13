@@ -1,12 +1,9 @@
-import { BrowserRouter } from "react-router-dom";
-import Routes from "./routes";
+import Rout from "./routes";
 
 function App() {
   return (
     <div style={{ backgroundColor: "#6495ED", minHeight: "100vh" }}>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
+      <Rout />
     </div>
   );
 }

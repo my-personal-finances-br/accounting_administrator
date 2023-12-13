@@ -11,7 +11,7 @@ export default function Auth() {
 
   const handleSubmit = async (data) => {
     await auth(data);
-    navigate("/");
+    navigate("/", { replace: true });
     window.location.reload();
   };
 

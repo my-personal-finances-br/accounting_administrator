@@ -1,4 +1,4 @@
-import { Routes as Switch, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Auth from "./pages/auth";
 import Home from "./pages/home";
 import NotFound from "./pages/notFound";
@@ -20,20 +20,22 @@ const isUserLoggedIn = () => {
   return !!getCookieValue("csrftoken");
 };
 
-export default function Routes() {
+export default function Rout() {
   const loggedIn = isUserLoggedIn();
 
   return (
-    <Switch>
+    <BrowserRouter>
+    <Routes>
       <Route
         path="/"
-        element={loggedIn ? <Home /> : <Navigate to="/login" />}
+        element={loggedIn ? <Home/> : <Navigate to="/login"/>}
       />
       <Route
         path="/login"
-        element={loggedIn ? <Navigate to="/" /> : <Auth />}
+        element={loggedIn ? <Navigate to="/" /> : <Auth/>}
       />
       <Route path="*" element={<NotFound />} />
-    </Switch>
+    </Routes>
+    </BrowserRouter>
   );
 }
