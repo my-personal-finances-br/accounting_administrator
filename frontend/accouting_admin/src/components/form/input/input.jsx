@@ -5,7 +5,7 @@ import { Input } from "./style";
 
 export default function InputUnform({ name, value, ...rest }) {
   const inputRef = useRef(null);
-  const { fieldName, registerField, } = useField(name);
+  const { fieldName, registerField } = useField(name);
 
   useEffect(() => {
     registerField({

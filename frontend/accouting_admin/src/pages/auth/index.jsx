@@ -3,7 +3,7 @@ import { Form } from "@unform/web";
 import InputUnform from "../../components/form/input/input";
 import { useRef } from "react";
 import { auth } from "../../services/auth/auth";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const formRef = useRef(null);
@@ -11,7 +11,7 @@ export default function Auth() {
 
   const handleSubmit = async (data) => {
     await auth(data);
-    navigate('/');
+    navigate("/");
     window.location.reload();
   };
 

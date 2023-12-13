@@ -1,10 +1,4 @@
-import {
-  Box,
-  CloseButton,
-  Container,
-  Content,
-  Button,
-} from "./style";
+import { Box, CloseButton, Container, Content, Button } from "./style";
 import { GrFormClose } from "react-icons/gr";
 import InputUnform from "../../components/form/input/input";
 import { Form } from "@unform/web";

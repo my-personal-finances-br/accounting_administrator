@@ -13,9 +13,9 @@ const getCookieValue = (name) => {
   return parsedCookie[`${name}`];
 };
 
-const updateExpenses = (data, id) => {
+const expectedExpenseList = () => {
   const response = axios
-    .patch(`http://localhost:8000/api/internal/expenses/${id}`, data, {
+    .get(`http://localhost:8000/api/internal/expected_expenses`, {
       withCredentials: true,
       headers: {
         "X-CSRFToken": getCookieValue("csrftoken"),
@@ -27,4 +27,4 @@ const updateExpenses = (data, id) => {
   return response;
 };
 
-export { updateExpenses };
+export { expectedExpenseList };

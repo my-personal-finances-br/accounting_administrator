@@ -1,10 +1,10 @@
 import { ContainerHome } from "./style";
 import { useState, useEffect } from "react";
 import Card from "../../components/card";
-import Item from "../../components/item";
+import ExpenseItem from "../../components/ExpenseItem";
 import { listExpenses } from "../../services/expenseves/listExpenses";
 import { createMonthlyExpense } from "../../services/expenseves/createMonthlyExpense";
-import {MonthlyExpenseClojure} from "../../services/expenseves/MonthlyExpenseClojure";
+import { MonthlyExpenseClojure } from "../../services/expenseves/MonthlyExpenseClojure";
 import Header from "../../components/header";
 
 export default function Home() {
@@ -44,7 +44,7 @@ export default function Home() {
                     getExpenses={getExpenses}
                   >
                     {expense.expenses.map((expense2) => (
-                      <Item
+                      <ExpenseItem
                         monthId={expense.id}
                         getExpenses={getExpenses}
                         id={expense2.uuid}
@@ -52,7 +52,7 @@ export default function Home() {
                         value={expense2.value}
                         name={expense2.name}
                         description={expense2.description}
-                      ></Item>
+                      ></ExpenseItem>
                     ))}
                   </Card>
                 ))}

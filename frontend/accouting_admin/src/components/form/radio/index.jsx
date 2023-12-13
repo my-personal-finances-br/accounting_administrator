@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, Fragment } from "react";
 import { useField } from "@unform/core";
-import {
-  Container,
-  InputRadio,
-  LabelInput,
-  SubTitle,
-} from "./style";
+import { Container, InputRadio, LabelInput, SubTitle } from "./style";
 
 const RadioTeste = ({ name, options, ...rest }) => {
   const inputRefs = useRef([]);

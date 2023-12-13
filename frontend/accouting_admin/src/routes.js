@@ -5,8 +5,8 @@ import NotFound from "./pages/notFound";
 
 const getCookieValue = (name) => {
   const cookieString = document.cookie;
-  const parsedCookie = cookieString.split(';').reduce((res, c) => {
-    const [key, val] = c.trim().split('=').map(decodeURIComponent);
+  const parsedCookie = cookieString.split(";").reduce((res, c) => {
+    const [key, val] = c.trim().split("=").map(decodeURIComponent);
     try {
       return Object.assign(res, { [key]: JSON.parse(val) });
     } catch (e) {
@@ -16,9 +16,8 @@ const getCookieValue = (name) => {
   return parsedCookie[`${name}`];
 };
 
-
 const isUserLoggedIn = () => {
-  return !!getCookieValue('csrftoken');
+  return !!getCookieValue("csrftoken");
 };
 
 export default function Routes() {

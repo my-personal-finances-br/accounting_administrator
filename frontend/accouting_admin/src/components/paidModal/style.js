@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
@@ -39,7 +39,7 @@ export const Content = styled.div`
   align-items: center;
   flex-direction: column;
 
-  background-color: #6495ED;
+  background-color: #6495ed;
   border-radius: 10px;
   padding: 39px;
   color: white;
@@ -93,7 +93,7 @@ export const BubbleDialog = styled.div`
   position: relative;
 
   ::before {
-    content: '';
+    content: "";
     width: 0px;
     height: 0px;
     position: absolute;
@@ -109,7 +109,7 @@ export const BubbleDialog = styled.div`
   }
 
   span {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 700;
     font-size: 20px;
     color: #ffffff;
@@ -149,14 +149,14 @@ export const GreenButton = styled.button`
   text-align: center;
   color: #ffffff;
   background-color: #009291;
-  margin-top: ${(props) => props.marginTopButton || '36px'};
+  margin-top: ${(props) => props.marginTopButton || "36px"};
   cursor: pointer;
 
   border: none;
 `;
 
 export const GreenButtonFeedback = styled(GreenButton)`
-  margin-top: ${(props) => (props.Error ? '36px' : '30px')};
+  margin-top: ${(props) => (props.Error ? "36px" : "30px")};
 `;
 
 export const CloseButton = styled.button`
@@ -212,7 +212,7 @@ export const ButtonGray = styled.button`
   border: none;
   cursor: pointer;
   background-color: #e1e1e1;
-  margin-top: ${(props) => props.marginTopButton || '36px'};
+  margin-top: ${(props) => props.marginTopButton || "36px"};
   margin-right: 38px;
   border-radius: 8px;
   font-size: 14px;
@@ -239,7 +239,7 @@ export const ErrorMessage = styled.p`
 export const ContainerDashed = styled.div`
   width: 100%;
   max-width: 620px;
-  height: ${(props) => props.height || '108px'};
+  height: ${(props) => props.height || "108px"};
 
   border: 1px dashed #bdbdbd;
   border-radius: 4px;
@@ -260,24 +260,23 @@ export const ContainerDashed = styled.div`
     margin-bottom: 17px;
   }
 `;
-export const Button = styled.button `
-    color: white;
-    border: 1px solid #2EC1D8;
-    width: 20em;
-    border-radius: 4px;
-    background-color: transparent;
-    text-decoration: none;
-    text-align: center;
-    padding: 10px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0, 0, .58, 1);
-    &:hover {
-        background-color:#2EC1D8;
-        color: #FFFF;
-} 
- &:active {
-     transform: scale(0.9)
- }
- 
-`
+export const Button = styled.button`
+  color: white;
+  border: 1px solid #2ec1d8;
+  width: 20em;
+  border-radius: 4px;
+  background-color: transparent;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0, 0, 0.58, 1);
+  &:hover {
+    background-color: #2ec1d8;
+    color: #ffff;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+`;

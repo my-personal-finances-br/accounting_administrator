@@ -53,7 +53,7 @@ expenses_urls = [
     ),
     path(
         "internal/expected_expenses",
-        internal.expensives.expensives.ExpectedExpenseView.as_view(),
+        internal.expensives.expensives.ExpectedExpenseView.as_view({'get': 'list', 'post': 'create'}),
         name="api-expected-expenses-retrieve",
     ),
 ]

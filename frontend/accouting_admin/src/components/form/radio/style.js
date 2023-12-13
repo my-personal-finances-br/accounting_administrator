@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const InputRadio = styled.input`
   accent-color: #009291;

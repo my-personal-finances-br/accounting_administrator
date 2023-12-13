@@ -3,7 +3,7 @@ import { useState } from "react";
 import PaidModal from "../paidModal";
 import { deleteExpenses } from "../../services/expenseves/deleteExpenses";
 
-export default function Item({
+export default function ExpenseItem({
   value,
   name,
   description,
