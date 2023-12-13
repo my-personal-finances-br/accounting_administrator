@@ -40,7 +40,9 @@ export default function Card({
         getExpenses={getExpenses}
         month={month}
       />
-      <div className="HeaderCard"><b>{month}</b></div>
+      <div className="HeaderCard">
+        <b>{month}</b>
+      </div>
       <div className="ButtonContainer">
         <button onClick={openMonthDetailModal}>Detalhes</button>
       </div>

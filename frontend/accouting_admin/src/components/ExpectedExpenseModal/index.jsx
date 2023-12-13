@@ -37,7 +37,9 @@ export default function ExpectedExpenseModal({ isOpen, setIsOpen, data }) {
               name={expectedExpense.name}
             ></ExpectedExpenseItem>
           ))}
-          <SendButton onClick={openexpectedExpenseCreateModal}>Adicionar Novo gasto fixo</SendButton>
+          <SendButton onClick={openexpectedExpenseCreateModal}>
+            Adicionar Novo gasto fixo
+          </SendButton>
         </Content>
       </Box>
     </Container>

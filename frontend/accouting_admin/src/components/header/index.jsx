@@ -25,7 +25,9 @@ export default function Header() {
           setIsOpen={setExpectedExpenseModalOpen}
           data={expectedExpenseData}
         />
-        <span><b>Finanças</b></span>
+        <span>
+          <b>Finanças</b>
+        </span>
         <Nav>
           <Button onClick={openExpectedExpenseModal}>Gastos fixos</Button>
           <Button onClick={doLogout}>sair</Button>
