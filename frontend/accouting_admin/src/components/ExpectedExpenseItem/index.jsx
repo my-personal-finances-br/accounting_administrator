@@ -1,6 +1,7 @@
 import "./style.css";
+import { deleteExpectedExpenses } from "../../services/expenseves/deleteExpectedExpenses";
 
-export default function ExpectedExpenseItem({ value, name }) {
+export default function ExpectedExpenseItem({ id, value, name }) {
   const formatCurrency = (value) => {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -8,11 +9,19 @@ export default function ExpectedExpenseItem({ value, name }) {
     }).format(value);
   };
 
+  const handleDelete = async () => {
+    await deleteExpectedExpenses(id);
+  };
+
   return (
     <>
       <div className="Item">
-        <span>{name}</span>
-        <span>{formatCurrency(value)}</span>
+        <span className="ItemName">{name}</span>
+        <span className="ItemValue">{formatCurrency(value)}</span>
+      </div>
+      <div className="ButtonContainer">
+        <button onClick={() => handleDelete()}>Excluir</button>
+        <button onClick={() => {}}>Editar</button>
       </div>
     </>
   );

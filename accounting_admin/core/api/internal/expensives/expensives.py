@@ -1,6 +1,6 @@
 from decimal import *
 
-from rest_framework import generics, viewsets
+from rest_framework import generics
 from rest_framework.response import Response
 
 from accounting_admin.core.accounting.models import (
@@ -74,7 +74,23 @@ class MonthlyExpenseDetailView(generics.RetrieveAPIView, GenericAuthenticationRe
         return MonthlyExpense.objects.filter(user_id=self.request.user.id)
 
 
-class ExpectedExpenseView(viewsets.ModelViewSet, GenericAuthenticationRequired):
+class ExpectedExpenseListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
+    serializer_class = expensives.ExpectedExpenseSerializer
+
+    def get_queryset(self):
+        return ExpectedExpense.objects.filter(user_id=self.request.user.id)
+
+    def create(self, request, *args, **kwargs):
+        request.data["user"] = self.request.user.id
+        return super().create(request, *args, **kwargs)
+
+
+class ExpectedExpenseRetrieveView(
+    generics.RetrieveAPIView,
+    generics.UpdateAPIView,
+    generics.DestroyAPIView,
+    GenericAuthenticationRequired,
+):
     serializer_class = expensives.ExpectedExpenseSerializer
 
     def get_queryset(self):

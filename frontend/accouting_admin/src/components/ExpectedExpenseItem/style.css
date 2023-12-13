@@ -7,21 +7,27 @@
   margin: 0px 20px;
   border-bottom: 2px dotted black;
 }
-.Butonn {
+
+.ItemName {
+  /* Add margin or padding as needed */
+  margin-right: 10px;
+}
+
+.ButtonContainer {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   margin-top: 10px;
   margin-right: 30px;
 }
-.Butonn > button {
+
+.ButtonContainer > button {
   margin-left: 5px;
   border: none;
-  width: 90px;
-  height: 20px;
+  padding: 5px 10px;
   background-color: white;
   font-size: 15px;
-  border-radius: 55px;
+  border-radius: 5px;
   color: black;
   font-weight: bold;
   cursor: pointer;
