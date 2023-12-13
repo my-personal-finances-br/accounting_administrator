@@ -1,4 +1,4 @@
-import { HeaderDiv, Nav, Container } from "./style";
+import { HeaderDiv, Nav, Container, Button } from "./style";
 import { logout } from "../../services/auth/logout";
 import { expectedExpenseList } from "../../services/expenseves/expectedExpenseList";
 import { useState } from "react";
@@ -25,10 +25,10 @@ export default function Header() {
           setIsOpen={setExpectedExpenseModalOpen}
           data={expectedExpenseData}
         />
-        <span>Finanças</span>
+        <span><b>Finanças</b></span>
         <Nav>
-          <button onClick={openExpectedExpenseModal}>Gastos fixos</button>
-          <button onClick={doLogout}>sair</button>
+          <Button onClick={openExpectedExpenseModal}>Gastos fixos</Button>
+          <Button onClick={doLogout}>sair</Button>
         </Nav>
       </Container>
     </HeaderDiv>

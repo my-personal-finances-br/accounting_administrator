@@ -1,4 +1,4 @@
-import { Box, CloseButton, Container, Content } from "./style";
+import { Box, CloseButton, Container, Content, SendButton } from "./style";
 import { GrFormClose } from "react-icons/gr";
 import ExpectedExpenseItem from "../ExpectedExpenseItem";
 import { useState } from "react";
@@ -37,7 +37,7 @@ export default function ExpectedExpenseModal({ isOpen, setIsOpen, data }) {
               name={expectedExpense.name}
             ></ExpectedExpenseItem>
           ))}
-          <button onClick={openexpectedExpenseCreateModal}>Add</button>
+          <SendButton onClick={openexpectedExpenseCreateModal}>Adicionar Novo gasto fixo</SendButton>
         </Content>
       </Box>
     </Container>

@@ -7,5 +7,9 @@ export const Input = styled.input`
   margin-top: 15px;
   margin-bottom: 15px;
   background: transparent;
-  color: blue;
+  color: black;
+
+  ::placeholder {
+    color: #403e3e;
+  }
 `;

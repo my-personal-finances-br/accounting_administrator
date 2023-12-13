@@ -20,3 +20,17 @@ export const Container = styled.div`
   height: 100%;
   color: white;
 `;
+export const Button = styled.button`
+  border: none;
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+`;

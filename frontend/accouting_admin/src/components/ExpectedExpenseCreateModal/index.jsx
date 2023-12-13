@@ -1,4 +1,4 @@
-import { Box, CloseButton, Container, Content } from "./style";
+import { Box, CloseButton, Container, Content, SendButton } from "./style";
 import { GrFormClose } from "react-icons/gr";
 import { Form } from "@unform/web";
 import { useRef } from "react";
@@ -33,7 +33,7 @@ export default function ExpectedExpenseCreateModal({
             <InputUnform placeholder="Nome" name="name" />
             <InputUnform placeholder="Descrição" name="description" />
             <InputUnform placeholder="Valor" type="number" name="value" />
-            <button>Add</button>
+            <SendButton>Adicionar</SendButton>
           </Content>
         </Box>
       </Container>

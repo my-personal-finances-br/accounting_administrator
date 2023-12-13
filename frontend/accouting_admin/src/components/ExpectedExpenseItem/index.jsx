@@ -21,7 +21,6 @@ export default function ExpectedExpenseItem({ id, value, name }) {
       </div>
       <div className="ButtonContainer">
         <button onClick={() => handleDelete()}>Excluir</button>
-        <button onClick={() => {}}>Editar</button>
       </div>
     </>
   );

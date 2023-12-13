@@ -40,8 +40,10 @@ export default function Card({
         getExpenses={getExpenses}
         month={month}
       />
-      <div className="HeaderCard">{month}</div>
-      <button onClick={openMonthDetailModal}>Detalhes</button>
+      <div className="HeaderCard"><b>{month}</b></div>
+      <div className="ButtonContainer">
+        <button onClick={openMonthDetailModal}>Detalhes</button>
+      </div>
       {children}
       <div className="Buttonn">
         <button onClick={() => setModalOpen(true)}>+</button>
