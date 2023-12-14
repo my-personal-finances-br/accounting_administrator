@@ -33,3 +33,12 @@ services:
       - ./.envs/.local/.postgres
     ports:
       - "5432:5432"
+  frontend:
+    build:
+      context: ./frontend/accouting_admin
+      dockerfile: Dockerfile.react
+    volumes:
+      - ./frontend/accouting_admin:/app
+    ports:
+      - "3000:3000"
+    restart: on-failure
