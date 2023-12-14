@@ -2,7 +2,6 @@ import uuid
 
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from accounting_admin.utils.default_model import Default
@@ -88,7 +87,7 @@ class MonthlyExpense(Default):
         self.total = self.parcial_total
         for expense in self.expenses.all():
             detail += f"<p>{expense.name} ------------------- {expense.value}</p></br>"
-        detail += f"<p>--------------------------------------------</p></br>"
+        detail += "<p>--------------------------------------------</p></br>"
         detail += f"<p>Total a ser pago:               {self.total}</p></br>"
         detail += f"<p>Salario do mês:                 {self.salary_total}</p></br>"
         detail += f"<p>Faltou pagar:                   {self.to_pay}</p></br>"

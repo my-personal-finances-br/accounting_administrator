@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from accounting_admin.core.salary.models import ExpectedSalary, Salary
-from accounting_admin.utils.constants import MONTHS
 
 
 class ExpectedSalarySerializer(serializers.ModelSerializer):
