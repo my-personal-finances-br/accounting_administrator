@@ -7,7 +7,8 @@ from accounting_admin.core.accounting.models import (
     ExpectedExpense,
     Expense,
     MonthlyExpense,
-    ExpectedSalary
+    ExpectedSalary,
+    Salary
 )
 from accounting_admin.core.api.internal.authentication.backends import (
     GenericAuthenticationRequired,
@@ -118,3 +119,26 @@ class ExpectedSalaryRetrieveView(
 
     def get_queryset(self):
         return ExpectedSalary.objects.filter(user_id=self.request.user.id)
+
+
+class SalaryListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
+    serializer_class = expensives.SalarySerializer
+
+    def get_queryset(self):
+        return Salary.objects.filter(user_id=self.request.user.id)
+
+    def create(self, request, *args, **kwargs):
+        request.data["user"] = self.request.user.id
+        return super().create(request, *args, **kwargs)
+
+
+class SalaryRetrieveView(
+    generics.RetrieveAPIView,
+    generics.UpdateAPIView,
+    generics.DestroyAPIView,
+    GenericAuthenticationRequired,
+):
+    serializer_class = expensives.SalarySerializer
+
+    def get_queryset(self):
+        return Salary.objects.filter(user_id=self.request.user.id)
