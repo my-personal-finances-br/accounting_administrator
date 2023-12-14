@@ -44,13 +44,28 @@ class MonthlyExpense(Default):
     def save(self, skip_checks=False, *args, **kwargs):
         if skip_checks:
             return super().save(*args, **kwargs)
-        from accounting_admin.core.accounting.models import ExpectedExpense, Expense
+        from accounting_admin.core.accounting.models import ExpectedExpense, Expense, ExpectedSalary, Salary
 
         super().save(*args, **kwargs)
 
         if not self.expenses.count():
             expected_expenses = ExpectedExpense.objects.filter(user=self.user)
+            expected_salaries = ExpectedSalary.objects.filter(user=self.user)
+            
             new_expected_expenses = []
+            new_expected_salaries = []
+            
+            for expected_salary in expected_salaries:
+                new_expected_salaries.append(
+                    Salary(
+                        name=expected_salary.name,
+                        net=expected_salary.net,
+                        gross=expected_salary.gross,
+                        monthly_id=self.uuid,
+                        user_id=self.user_id,
+                    )
+                )
+            
             for expected_expense in expected_expenses:
                 new_expected_expenses.append(
                     Expense(
@@ -63,6 +78,7 @@ class MonthlyExpense(Default):
                     )
                 )
             Expense.objects.bulk_create(new_expected_expenses)
+            Salary.objects.bulk_create(new_expected_salaries)
 
     def closure(self):
         if self.detail:
@@ -98,7 +114,7 @@ class MonthlyExpense(Default):
 
     @property
     def salary_total(self):
-        return sum(self.user.salaries.values_list("net", flat=True))
+        return sum(self.salaries.values_list("net", flat=True))
 
     @property
     def try_to_save(self):

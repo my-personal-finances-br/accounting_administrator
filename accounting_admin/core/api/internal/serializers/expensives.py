@@ -5,6 +5,7 @@ from accounting_admin.core.accounting.models import (
     ExpectedExpense,
     Expense,
     MonthlyExpense,
+    ExpectedSalary
 )
 from accounting_admin.utils.constants import MONTHS
 
@@ -89,4 +90,10 @@ class MonthlyExpenseDetailSerializer(serializers.Serializer):
 class ExpectedExpenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExpectedExpense
+        fields = "__all__"
+
+
+class ExpectedSalarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExpectedSalary
         fields = "__all__"

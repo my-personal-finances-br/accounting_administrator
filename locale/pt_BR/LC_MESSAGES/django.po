@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 02:24-0300\n"
+"POT-Creation-Date: 2023-12-14 10:06-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,20 +24,22 @@ msgid "value"
 msgstr "valor"
 
 #: accounting_admin/core/accounting/models/expected_expenses.py:22
-#: accounting_admin/core/accounting/models/expenses.py:22
-#: accounting_admin/core/accounting/models/salaries.py:23
+#: accounting_admin/core/accounting/models/expected_salaries.py:25
+#: accounting_admin/core/accounting/models/expenses.py:25
+#: accounting_admin/core/accounting/models/salaries.py:31
 msgid "name"
 msgstr "nome"
 
 #: accounting_admin/core/accounting/models/expected_expenses.py:26
-#: accounting_admin/core/accounting/models/expenses.py:26
+#: accounting_admin/core/accounting/models/expenses.py:29
 msgid "description"
 msgstr "descrição"
 
 #: accounting_admin/core/accounting/models/expected_expenses.py:31
-#: accounting_admin/core/accounting/models/expenses.py:46
+#: accounting_admin/core/accounting/models/expected_salaries.py:30
+#: accounting_admin/core/accounting/models/expenses.py:41
 #: accounting_admin/core/accounting/models/monthly_expenses.py:32
-#: accounting_admin/core/accounting/models/salaries.py:28
+#: accounting_admin/core/accounting/models/salaries.py:36
 msgid "user"
 msgstr "Usuario"
 
@@ -53,34 +55,61 @@ msgstr "Gasto esperado"
 msgid "Expected Expenses"
 msgstr "Gasto esperado"
 
-#: accounting_admin/core/accounting/models/expenses.py:31
-msgid "expected paid"
+#: accounting_admin/core/accounting/models/expected_salaries.py:21
+#: accounting_admin/core/accounting/models/salaries.py:27
+msgid "gross salary"
+msgstr "Salario bruto (Antes dos descontos)"
+
+#: accounting_admin/core/accounting/models/expected_salaries.py:23
+#: accounting_admin/core/accounting/models/salaries.py:29
+msgid "net salary"
+msgstr "Salario Líquido (Depois dos descontos)"
+
+#: accounting_admin/core/accounting/models/expected_salaries.py:31
+#: accounting_admin/core/accounting/models/salaries.py:37
+msgid "salaries"
+msgstr ""
+
+#: accounting_admin/core/accounting/models/expected_salaries.py:36
+#, fuzzy
+#| msgid "expected paid"
+msgid "Expected Salary"
 msgstr "Pagamento esperado"
 
-#: accounting_admin/core/accounting/models/expenses.py:32
-msgid "paid"
-msgstr "pago"
+#: accounting_admin/core/accounting/models/expected_salaries.py:37
+#, fuzzy
+#| msgid "Expected Expense"
+msgid "Expected Salaries"
+msgstr "Gasto esperado"
 
-#: accounting_admin/core/accounting/models/expenses.py:39
+#: accounting_admin/core/accounting/models/expenses.py:22
+#, fuzzy
+#| msgid "value"
+msgid "paid value"
+msgstr "valor"
+
+#: accounting_admin/core/accounting/models/expenses.py:34
+#: accounting_admin/core/accounting/models/salaries.py:22
 msgid "monthly expense"
 msgstr "Despesas mensais"
 
-#: accounting_admin/core/accounting/models/expenses.py:40
-#: accounting_admin/core/accounting/models/expenses.py:47
+#: accounting_admin/core/accounting/models/expenses.py:35
+#: accounting_admin/core/accounting/models/expenses.py:42
+#: accounting_admin/core/accounting/models/salaries.py:23
 msgid "expenses"
 msgstr ""
 
-#: accounting_admin/core/accounting/models/expenses.py:43
+#: accounting_admin/core/accounting/models/expenses.py:38
 msgid "is fixed"
 msgstr "É fixo?"
 
-#: accounting_admin/core/accounting/models/expenses.py:52
+#: accounting_admin/core/accounting/models/expenses.py:47
 msgid "Expense"
 msgstr "Despesa"
 
-#: accounting_admin/core/accounting/models/expenses.py:53
+#: accounting_admin/core/accounting/models/expenses.py:48
 msgid "Expenses"
-msgstr ""
+msgstr "Despesas"
 
 #: accounting_admin/core/accounting/models/monthly_expenses.py:22
 msgid "month"
@@ -110,30 +139,17 @@ msgstr "Despesas do mês"
 msgid "Monthly Expenses"
 msgstr "Despesas do mês"
 
-#: accounting_admin/core/accounting/models/salaries.py:20
-msgid "gross salary"
-msgstr "Salario bruto (Antes dos descontos)"
-
-#: accounting_admin/core/accounting/models/salaries.py:21
-#| msgid "gross salary"
-msgid "net salary"
-msgstr "Salario Líquido (Depois dos descontos)"
-
-#: accounting_admin/core/accounting/models/salaries.py:29
-msgid "salaries"
-msgstr ""
-
-#: accounting_admin/core/accounting/models/salaries.py:34
+#: accounting_admin/core/accounting/models/salaries.py:42
 msgid "Salary"
 msgstr "Salario"
 
-#: accounting_admin/core/accounting/models/salaries.py:35
+#: accounting_admin/core/accounting/models/salaries.py:43
 msgid "Salaries"
 msgstr "Salarios"
 
 #: accounting_admin/core/users/admin.py:16
 msgid "Personal info"
-msgstr ""
+msgstr "Informações pessoais"
 
 #: accounting_admin/core/users/admin.py:18
 msgid "Permissions"
@@ -154,3 +170,6 @@ msgstr ""
 #: config/admin_patching.py:5
 msgid " - Admin"
 msgstr ""
+
+#~ msgid "paid"
+#~ msgstr "pago"
