@@ -38,6 +38,7 @@ export default function Home() {
               <>
                 {expenses.map((expense) => (
                   <Card
+                    key={expense.uuid}
                     partial_total={expense.total}
                     month={expense.month}
                     id={expense.uuid}
@@ -45,6 +46,7 @@ export default function Home() {
                   >
                     {expense.expenses.map((expense2) => (
                       <ExpenseItem
+                        key={expense2.uuid}
                         monthId={expense.id}
                         getExpenses={getExpenses}
                         id={expense2.uuid}

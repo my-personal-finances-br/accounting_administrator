@@ -36,8 +36,8 @@ export default function Modal({ isOpen, setIsOpen, id, getExpenses, month }) {
               type="radio"
               name="is_fixed"
               options={[
-                { value: true, label: "Sim" },
-                { value: false, label: "Não" },
+                { value: true, label: "Sim", id: "1023o54-023i532" },
+                { value: false, label: "Não", id: "104532523o54-023i532" },
               ]}
             />
             <Button>Criar</Button>

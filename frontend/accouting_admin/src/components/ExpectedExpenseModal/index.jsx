@@ -32,6 +32,7 @@ export default function ExpectedExpenseModal({ isOpen, setIsOpen, data }) {
           </CloseButton>
           {data.map((expectedExpense) => (
             <ExpectedExpenseItem
+              key={expectedExpense.uuid}
               id={expectedExpense.uuid}
               value={expectedExpense.value}
               name={expectedExpense.name}
