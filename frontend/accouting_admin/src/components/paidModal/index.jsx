@@ -31,7 +31,7 @@ export default function PaidModal({
       <Container isOpen={isOpen}>
         <Box>
           <Content size="unpublish">
-            Gasto em{" "}
+            Gasto em
             <b>
               <em>{name}</em>
             </b>

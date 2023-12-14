@@ -5,10 +5,10 @@ from rest_framework.response import Response
 
 from accounting_admin.core.accounting.models import (
     ExpectedExpense,
+    ExpectedSalary,
     Expense,
     MonthlyExpense,
-    ExpectedSalary,
-    Salary
+    Salary,
 )
 from accounting_admin.core.api.internal.authentication.backends import (
     GenericAuthenticationRequired,
@@ -98,6 +98,7 @@ class ExpectedExpenseRetrieveView(
     def get_queryset(self):
         return ExpectedExpense.objects.filter(user_id=self.request.user.id)
 
+
 class ExpectedSalaryListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.ExpectedSalarySerializer
 
@@ -142,3 +143,16 @@ class SalaryRetrieveView(
 
     def get_queryset(self):
         return Salary.objects.filter(user_id=self.request.user.id)
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset()).filter(
+            **{"monthly_id": self.kwargs[self.lookup_url_kwarg or self.lookup_field]}
+        )
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)

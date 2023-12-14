@@ -2,10 +2,10 @@ from django.contrib import admin
 
 from accounting_admin.core.accounting.models import (
     ExpectedExpense,
+    ExpectedSalary,
     Expense,
     MonthlyExpense,
     Salary,
-    ExpectedSalary
 )
 
 

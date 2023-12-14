@@ -1,7 +1,8 @@
-import { Box, CloseButton, Container, Content } from "./style";
+import { Box, CloseButton, Container, Content, AreaMessage } from "./style";
 import { GrFormClose } from "react-icons/gr";
+import SalaryItem from "../SalaryItem";
 
-export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
+export default function SalaryDetailModal({ isOpen, setIsOpen, data }) {
   const closeModal = (e) => {
     e.preventDefault();
     setIsOpen(false);
@@ -18,18 +19,21 @@ export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
     <Container isOpen={isOpen}>
       <Box>
         <Content size="unpublish">
-          Detalhes do mês
+          Salario do mês
           <b>
             <em>{data.month}</em>
           </b>
           <CloseButton onClick={closeModal}>
             <GrFormClose size={18} />
           </CloseButton>
-          <Content>Salario - {formatCurrency(data.salary_total)}</Content>
-          <Content>Total a ser pago - {formatCurrency(data.total)}</Content>
-          <Content>Já pago - {formatCurrency(data.paid)}</Content>
-          <Content>Falta pagar - {formatCurrency(data.to_pay)}</Content>
-          <Content>Tentar economizar - {formatCurrency(data.to_save)}</Content>
+          {data.map((salary) => (
+            <SalaryItem
+              key={salary.uuid}
+              id={salary.uuid}
+              value={salary.net}
+              name={salary.name}
+            />
+          ))}
         </Content>
       </Box>
     </Container>

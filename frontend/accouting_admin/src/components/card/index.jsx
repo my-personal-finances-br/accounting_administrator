@@ -2,7 +2,9 @@ import "./style.css";
 import { useState } from "react";
 import Modal from "../modal";
 import MonthDetailModal from "../../components/monthDetailModal";
+import SalaryDetailModal from "../../components/salaryDetailModal";
 import { retrieveMonthDetail } from "../../services/expenseves/retrieveMonthDetail";
+import { retrieveSalaryDetail } from "../../services/expenseves/retrieveSalaryDetail";
 
 export default function Card({
   children,
@@ -14,11 +16,18 @@ export default function Card({
   const [modalOpen, setModalOpen] = useState(false);
   const [monthDetailModalOpen, setMonthDetailModalOpen] = useState(false);
   const [monthDetailData, setMonthDetailData] = useState({});
+  const [salaryDetailModalOpen, setSalaryDetailModalOpen] = useState(false);
+  const [salaryDetailData, setSalaryDetailData] = useState([]);
 
   const openMonthDetailModal = async () => {
     const data = await retrieveMonthDetail(id);
     setMonthDetailData(data.data);
     setMonthDetailModalOpen(true);
+  };
+  const openMonthSalaryModal = async () => {
+    const data = await retrieveSalaryDetail(id);
+    setSalaryDetailData(data.data);
+    setSalaryDetailModalOpen(true);
   };
   const formatCurrency = (value) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -33,6 +42,11 @@ export default function Card({
         setIsOpen={setMonthDetailModalOpen}
         data={monthDetailData}
       />
+      <SalaryDetailModal
+        isOpen={salaryDetailModalOpen}
+        setIsOpen={setSalaryDetailModalOpen}
+        data={salaryDetailData}
+      />
       <Modal
         isOpen={modalOpen}
         setIsOpen={setModalOpen}
@@ -44,6 +58,7 @@ export default function Card({
         <b>{month}</b>
       </div>
       <div className="ButtonContainer">
+        <button onClick={openMonthSalaryModal}>Salarios</button>
         <button onClick={openMonthDetailModal}>Detalhes</button>
       </div>
       {children}

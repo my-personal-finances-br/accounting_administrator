@@ -26,7 +26,7 @@ export default function ExpectedExpenseCreateModal({
       <Container isOpen={isOpen}>
         <Box>
           <Content size="unpublish">
-            Adicionar novo gasto fixo{" "}
+            Adicionar novo gasto fixo
             <CloseButton onClick={closeModal}>
               <GrFormClose size={18} />
             </CloseButton>

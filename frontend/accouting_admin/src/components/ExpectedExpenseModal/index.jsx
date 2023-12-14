@@ -26,7 +26,7 @@ export default function ExpectedExpenseModal({ isOpen, setIsOpen, data }) {
       />
       <Box>
         <Content size="unpublish">
-          Gastos fixos do mês{" "}
+          Gastos fixos do mês
           <CloseButton onClick={closeModal}>
             <GrFormClose size={18} />
           </CloseButton>

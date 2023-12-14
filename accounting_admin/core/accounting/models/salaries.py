@@ -23,7 +23,7 @@ class Salary(Default):
         related_name=_("salaries"),
         on_delete=models.CASCADE,
         null=True,
-        blank=True
+        blank=True,
     )
     gross = models.DecimalField(
         _("gross salary"), max_digits=24, decimal_places=6, default=0

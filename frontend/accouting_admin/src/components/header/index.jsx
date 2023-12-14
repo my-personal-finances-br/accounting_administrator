@@ -7,7 +7,8 @@ import ExpectedExpenseModal from "../ExpectedExpenseModal";
 import ExpectedSalaryModal from "../ExpectedSalaryModal";
 
 export default function Header() {
-  const [expectedExpenseModalOpen, setExpectedExpenseModalOpen] = useState(false);
+  const [expectedExpenseModalOpen, setExpectedExpenseModalOpen] =
+    useState(false);
   const [expectedSalaryModalOpen, setExpectedSalaryModalOpen] = useState(false);
   const [expectedExpenseData, setExpectedExpenseData] = useState([]);
   const [expectedSalaryData, setExpectedSalaryData] = useState([]);
