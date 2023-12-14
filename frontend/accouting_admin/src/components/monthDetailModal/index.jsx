@@ -1,5 +1,6 @@
 import { Box, CloseButton, Container, Content } from "./style";
 import { GrFormClose } from "react-icons/gr";
+import formatCurrency from "../../utils/formatCurrent"
 
 export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
   const closeModal = (e) => {
@@ -7,12 +8,6 @@ export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
     setIsOpen(false);
   };
 
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
-  };
 
   return (
     <Container isOpen={isOpen}>

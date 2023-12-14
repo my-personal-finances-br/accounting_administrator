@@ -5,6 +5,7 @@ import MonthDetailModal from "../../components/monthDetailModal";
 import SalaryDetailModal from "../../components/salaryDetailModal";
 import { retrieveMonthDetail } from "../../services/expenseves/retrieveMonthDetail";
 import { retrieveSalaryDetail } from "../../services/expenseves/retrieveSalaryDetail";
+import formatCurrency from "../../utils/formatCurrent"
 
 export default function Card({
   children,
@@ -28,12 +29,6 @@ export default function Card({
     const data = await retrieveSalaryDetail(id);
     setSalaryDetailData(data.data);
     setSalaryDetailModalOpen(true);
-  };
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
   };
   return (
     <div className="Card">

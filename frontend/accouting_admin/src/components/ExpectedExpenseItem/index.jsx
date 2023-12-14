@@ -1,13 +1,8 @@
 import "./style.css";
 import { deleteExpectedExpenses } from "../../services/expenseves/deleteExpectedExpenses";
+import formatCurrency from "../../utils/formatCurrent"
 
 export default function ExpectedExpenseItem({ id, value, name }) {
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
-  };
 
   const handleDelete = async () => {
     await deleteExpectedExpenses(id);

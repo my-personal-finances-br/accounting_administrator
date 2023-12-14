@@ -2,15 +2,11 @@ import "./style.css";
 import { deleteSalary } from "../../services/expenseves/deleteSalary";
 import SalaryEditModal from "../SalaryEditModal";
 import { useState } from "react";
+import formatCurrency from "../../utils/formatCurrent"
 
 export default function SalaryItem({ id, value, name, data }) {
   const [salaryEditModal, setSalaryEditModal] = useState(false);
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
-  };
+  
 
   const openSalaryEditModal = async () => {
     setSalaryEditModal(true);

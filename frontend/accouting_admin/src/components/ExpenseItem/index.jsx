@@ -2,6 +2,7 @@ import "./style.css";
 import { useState } from "react";
 import PaidModal from "../paidModal";
 import { deleteExpenses } from "../../services/expenseves/deleteExpenses";
+import formatCurrency from "../../utils/formatCurrent"
 
 export default function ExpenseItem({
   value,
@@ -13,13 +14,6 @@ export default function ExpenseItem({
   monthId,
 }) {
   const [modalOpen, setPaidModalOpen] = useState(false);
-
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
-  };
 
   const handleDelete = async () => {
     await deleteExpenses(id);
