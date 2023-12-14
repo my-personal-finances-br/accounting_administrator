@@ -42,7 +42,7 @@ export default function Header() {
           <b>Finanças</b>
         </span>
         <Nav>
-          <Button onClick={openExpectedSalary}>Salario</Button>
+          <Button onClick={openExpectedSalary}>Salario Fixo</Button>
           <Button onClick={openExpectedExpenseModal}>Gastos fixos</Button>
           <Button onClick={doLogout}>sair</Button>
         </Nav>
