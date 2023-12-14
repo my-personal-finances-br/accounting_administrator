@@ -46,7 +46,7 @@ all_up:
 	make up_front
 
 up_front:
-	cd frontend/accouting_admin && npm start
+	cd frontend/accouting_admin && npm start --port 8001
 
 down:
 	docker-compose down
