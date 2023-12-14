@@ -2,8 +2,6 @@ import axios from "axios";
 import getCookieValue from "../../utils/getCookieValue";
 import cleanCookies from "../../utils/cleanCookies";
 
-
-
 const logout = (data) => {
   const response = axios
     .post(

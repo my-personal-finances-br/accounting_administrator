@@ -129,6 +129,6 @@ class MonthlyExpense(Default):
     def paid(self):
         return sum(
             self.expenses.filter(paid_value__isnull=False)
-            .distinct()
+            .distinct("uuid")
             .values_list("paid_value", flat=True)
         )

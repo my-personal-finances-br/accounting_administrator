@@ -33,11 +33,11 @@ const RadioTeste = ({ name, options, ...rest }) => {
 
   return (
     <Fragment>
-      {options.map((option) => (
-        <Container key={option.id}>
-          <LabelInput htmlFor={option.id}>
+      {options.map((option, index) => (
+        <Container>
+          <LabelInput htmlFor={option.id} key={option.id}>
             <InputRadio
-              ref={(ref) => ref && (inputRefs.current[option.id] = ref)}
+              ref={(ref) => ref && (inputRefs.current[index] = ref)}
               id={option.id}
               type={option.type}
               name={name}
