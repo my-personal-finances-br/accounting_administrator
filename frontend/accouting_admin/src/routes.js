@@ -25,17 +25,17 @@ export default function Rout() {
 
   return (
     <BrowserRouter>
-    <Routes>
-      <Route
-        path="/"
-        element={loggedIn ? <Home/> : <Navigate to="/login"/>}
-      />
-      <Route
-        path="/login"
-        element={loggedIn ? <Navigate to="/" /> : <Auth/>}
-      />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+      <Routes>
+        <Route
+          path="/"
+          element={loggedIn ? <Home /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={loggedIn ? <Navigate to="/" /> : <Auth />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </BrowserRouter>
   );
 }
