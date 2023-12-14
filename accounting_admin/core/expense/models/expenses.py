@@ -30,12 +30,11 @@ class Expense(Default):
         max_length=144,
     )
     monthly_expense = models.ForeignKey(
-        "accounting.MonthlyExpense",
+        "expense.MonthlyExpense",
         verbose_name=_("monthly expense"),
         related_name=_("expenses"),
         on_delete=models.CASCADE,
     )
-    is_fixed = models.BooleanField(_("is fixed"), default=False)
     user = models.ForeignKey(
         User,
         verbose_name=_("user"),

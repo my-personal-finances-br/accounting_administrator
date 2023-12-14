@@ -66,7 +66,8 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     "accounting_admin.core.users.apps.UsersAppConfig",
-    "accounting_admin.core.accounting.apps.AccountingAppConfig",
+    "accounting_admin.core.expense.apps.ExpenseAppConfig",
+    "accounting_admin.core.salary.apps.SalaryAppConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

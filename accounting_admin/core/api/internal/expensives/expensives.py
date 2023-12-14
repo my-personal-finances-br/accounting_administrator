@@ -3,12 +3,14 @@ from decimal import *
 from rest_framework import generics
 from rest_framework.response import Response
 
-from accounting_admin.core.accounting.models import (
-    ExpectedExpense,
+from accounting_admin.core.salary.models import (
     ExpectedSalary,
+    Salary,
+)
+from accounting_admin.core.expense.models import (
+    ExpectedExpense,
     Expense,
     MonthlyExpense,
-    Salary,
 )
 from accounting_admin.core.api.internal.authentication.backends import (
     GenericAuthenticationRequired,

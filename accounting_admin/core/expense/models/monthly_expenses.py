@@ -44,11 +44,13 @@ class MonthlyExpense(Default):
     def save(self, skip_checks=False, *args, **kwargs):
         if skip_checks:
             return super().save(*args, **kwargs)
-        from accounting_admin.core.accounting.models import (
+        from accounting_admin.core.expense.models import (
             ExpectedExpense,
-            ExpectedSalary,
             Expense,
-            Salary,
+        )
+        from accounting_admin.core.salary.models import (
+            ExpectedSalary,
+            Salary
         )
 
         super().save(*args, **kwargs)
