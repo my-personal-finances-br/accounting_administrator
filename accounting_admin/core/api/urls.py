@@ -61,27 +61,30 @@ expenses_urls = [
         internal.expensives.expensives.ExpectedExpenseRetrieveView.as_view(),
         name="api-expected-expenses-retrieve",
     ),
+]
+
+salary_urls = [
     path(
         "internal/expected_salaries",
-        internal.expensives.expensives.ExpectedSalaryListView.as_view(),
+        internal.salary.salary.ExpectedSalaryListView.as_view(),
         name="api-expected-salaries-list",
     ),
     path(
         "internal/expected_salaries/<str:pk>",
-        internal.expensives.expensives.ExpectedSalaryRetrieveView.as_view(),
+        internal.salary.salary.ExpectedSalaryRetrieveView.as_view(),
         name="api-expected-salaries-retrieve",
     ),
     path(
         "internal/salaries",
-        internal.expensives.expensives.SalaryListView.as_view(),
+        internal.salary.salary.SalaryListView.as_view(),
         name="api-salaries-list",
     ),
     path(
         "internal/salaries/<str:pk>",
-        internal.expensives.expensives.SalaryRetrieveView.as_view(),
+        internal.salary.salary.SalaryRetrieveView.as_view(),
         name="api-salaries-retrieve",
     ),
 ]
 
 
-urlpatterns = expenses_urls + authentication_urls
+urlpatterns = expenses_urls + authentication_urls + salary_urls

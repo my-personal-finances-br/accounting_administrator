@@ -1,1 +1,1 @@
-from . import authentication, expensives  # noqa
+from . import authentication, expensives, salary  # noqa
