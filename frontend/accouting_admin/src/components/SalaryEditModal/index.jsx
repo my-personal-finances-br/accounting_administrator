@@ -12,7 +12,6 @@ export default function SalaryEditModal({ isOpen, setIsOpen, data, id }) {
     setIsOpen(false);
   };
   const handleSubmit = async (data) => {
-    console.log(data, id, "-------------------");
     await editSalary(data, id);
     setIsOpen(false);
   };
