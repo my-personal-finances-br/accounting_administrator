@@ -1,10 +1,8 @@
 import axios from "axios";
 import getCookieValue from "../../utils/getCookieValue";
+import cleanCookies from "../../utils/cleanCookies";
 
-const cleanCookies = () => {
-  document.cookie = "sessionid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-  document.cookie = "csrftoken= ;expires = Thu, 01 Jan 1970 00:00:00 GMT";
-};
+
 
 const logout = (data) => {
   const response = axios
