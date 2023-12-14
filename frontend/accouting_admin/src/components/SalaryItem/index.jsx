@@ -11,6 +11,7 @@ export default function SalaryItem({ id, value, name }) {
 
   const handleDelete = async () => {
     await deleteSalary(id);
+    window.location.reload();
   };
 
   return (

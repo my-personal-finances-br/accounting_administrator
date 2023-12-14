@@ -39,7 +39,7 @@ export default function ExpectedSalaryModal({ isOpen, setIsOpen, data }) {
             ></ExpectedSalaryItem>
           ))}
           <SendButton onClick={openexpectedSalaryCreateModal}>
-            Adicionar Novo Salario Esperado do mês
+            Adicionar Novo Salario fixo do mês
           </SendButton>
         </Content>
       </Box>

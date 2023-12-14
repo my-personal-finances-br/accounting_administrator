@@ -1,25 +1,36 @@
-import { Box, CloseButton, Container, Content, AreaMessage } from "./style";
+import { Box, CloseButton, Container, Content, SendButton } from "./style";
 import { GrFormClose } from "react-icons/gr";
 import SalaryItem from "../SalaryItem";
+import { useState } from "react";
+import SalaryCreateModal from "../SalaryCreateModal";
 
-export default function SalaryDetailModal({ isOpen, setIsOpen, data }) {
+export default function SalaryDetailModal({
+  isOpen,
+  setIsOpen,
+  data,
+  month,
+  month_id,
+}) {
+  const [salaryCreateModal, setSalaryCreateModal] = useState(false);
+
   const closeModal = (e) => {
     e.preventDefault();
     setIsOpen(false);
   };
-
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
+  const openSalaryCreateModal = async () => {
+    setSalaryCreateModal(true);
   };
-
   return (
     <Container isOpen={isOpen}>
+      <SalaryCreateModal
+        isOpen={salaryCreateModal}
+        setIsOpen={setSalaryCreateModal}
+        setIsOpenFatherModal={setIsOpen}
+        month_id={month_id}
+      />
       <Box>
         <Content size="unpublish">
-          Salario do mês
+          Salarios do mês {month}
           <b>
             <em>{data.month}</em>
           </b>
@@ -34,6 +45,9 @@ export default function SalaryDetailModal({ isOpen, setIsOpen, data }) {
               name={salary.name}
             />
           ))}
+          <SendButton onClick={openSalaryCreateModal}>
+            Adicionar Novo Salario do mês
+          </SendButton>
         </Content>
       </Box>
     </Container>

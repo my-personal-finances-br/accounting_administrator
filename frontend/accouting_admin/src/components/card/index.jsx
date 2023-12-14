@@ -46,6 +46,8 @@ export default function Card({
         isOpen={salaryDetailModalOpen}
         setIsOpen={setSalaryDetailModalOpen}
         data={salaryDetailData}
+        month={month}
+        month_id={id}
       />
       <Modal
         isOpen={modalOpen}

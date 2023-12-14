@@ -80,7 +80,9 @@ class ExpectedExpenseListView(generics.ListCreateAPIView, GenericAuthenticationR
     serializer_class = expensives.ExpectedExpenseSerializer
 
     def get_queryset(self):
-        return ExpectedExpense.objects.filter(user_id=self.request.user.id)
+        return ExpectedExpense.objects.filter(user_id=self.request.user.id).order_by(
+            "name"
+        )
 
     def create(self, request, *args, **kwargs):
         request.data["user"] = self.request.user.id
@@ -103,7 +105,9 @@ class ExpectedSalaryListView(generics.ListCreateAPIView, GenericAuthenticationRe
     serializer_class = expensives.ExpectedSalarySerializer
 
     def get_queryset(self):
-        return ExpectedSalary.objects.filter(user_id=self.request.user.id)
+        return ExpectedSalary.objects.filter(user_id=self.request.user.id).order_by(
+            "name"
+        )
 
     def create(self, request, *args, **kwargs):
         request.data["user"] = self.request.user.id
@@ -119,14 +123,16 @@ class ExpectedSalaryRetrieveView(
     serializer_class = expensives.ExpectedSalarySerializer
 
     def get_queryset(self):
-        return ExpectedSalary.objects.filter(user_id=self.request.user.id)
+        return ExpectedSalary.objects.filter(user_id=self.request.user.id).order_by(
+            "name"
+        )
 
 
 class SalaryListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.SalarySerializer
 
     def get_queryset(self):
-        return Salary.objects.filter(user_id=self.request.user.id)
+        return Salary.objects.filter(user_id=self.request.user.id).order_by("name")
 
     def create(self, request, *args, **kwargs):
         request.data["user"] = self.request.user.id
@@ -142,7 +148,7 @@ class SalaryRetrieveView(
     serializer_class = expensives.SalarySerializer
 
     def get_queryset(self):
-        return Salary.objects.filter(user_id=self.request.user.id)
+        return Salary.objects.filter(user_id=self.request.user.id).order_by("name")
 
     def get(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset()).filter(

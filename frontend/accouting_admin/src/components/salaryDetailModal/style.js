@@ -280,3 +280,18 @@ export const Button = styled.button`
     transform: scale(0.9);
   }
 `;
+export const SendButton = styled.button`
+  margin-top: 50px;
+  border: none;
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+`;
