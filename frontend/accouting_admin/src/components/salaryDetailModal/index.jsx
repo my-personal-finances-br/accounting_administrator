@@ -43,6 +43,7 @@ export default function SalaryDetailModal({
               id={salary.uuid}
               value={salary.net}
               name={salary.name}
+              data={salary}
             />
           ))}
           <SendButton onClick={openSalaryCreateModal}>
