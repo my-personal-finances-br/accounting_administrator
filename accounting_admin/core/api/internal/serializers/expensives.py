@@ -2,7 +2,6 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from accounting_admin.core.expense.models import ExpectedExpense, Expense, MonthlyExpense
-from accounting_admin.core.salary.models import ExpectedSalary, Salary
 from accounting_admin.utils.constants import MONTHS
 
 
@@ -86,16 +85,4 @@ class MonthlyExpenseDetailSerializer(serializers.Serializer):
 class ExpectedExpenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExpectedExpense
-        fields = "__all__"
-
-
-class ExpectedSalarySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ExpectedSalary
-        fields = "__all__"
-
-
-class SalarySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Salary
         fields = "__all__"

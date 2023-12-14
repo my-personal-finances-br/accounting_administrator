@@ -6,13 +6,12 @@ from rest_framework.response import Response
 from accounting_admin.core.api.internal.authentication.backends import (
     GenericAuthenticationRequired,
 )
-from accounting_admin.core.api.internal.serializers import expensives
-from accounting_admin.core.expense.models import ExpectedExpense, Expense, MonthlyExpense
+from accounting_admin.core.api.internal.serializers import salaries
 from accounting_admin.core.salary.models import ExpectedSalary, Salary
 
 
 class ExpectedSalaryListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
-    serializer_class = expensives.ExpectedSalarySerializer
+    serializer_class = salaries.ExpectedSalarySerializer
 
     def get_queryset(self):
         return ExpectedSalary.objects.filter(user_id=self.request.user.id).order_by(
@@ -30,7 +29,7 @@ class ExpectedSalaryRetrieveView(
     generics.DestroyAPIView,
     GenericAuthenticationRequired,
 ):
-    serializer_class = expensives.ExpectedSalarySerializer
+    serializer_class = salaries.ExpectedSalarySerializer
 
     def get_queryset(self):
         return ExpectedSalary.objects.filter(user_id=self.request.user.id).order_by(
@@ -39,7 +38,7 @@ class ExpectedSalaryRetrieveView(
 
 
 class SalaryListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
-    serializer_class = expensives.SalarySerializer
+    serializer_class = salaries.SalarySerializer
 
     def get_queryset(self):
         return Salary.objects.filter(user_id=self.request.user.id).order_by("name")
@@ -55,7 +54,7 @@ class SalaryRetrieveView(
     generics.DestroyAPIView,
     GenericAuthenticationRequired,
 ):
-    serializer_class = expensives.SalarySerializer
+    serializer_class = salaries.SalarySerializer
 
     def get_queryset(self):
         return Salary.objects.filter(user_id=self.request.user.id).order_by("name")
