@@ -82,17 +82,17 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["192.168.0.118", "http://192.168.0.118/", "localhost", '127.0.0.1', "localhost", "0.0.0.0", "127.0.0.1", "bs-local.com", "django"]
 CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:3000", "http://192.168.0.118"
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    "http://localhost:3000",
+    "http://localhost:3000", "http://192.168.0.118/", "192.168.0.118"
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+SESSION_COOKIE_HTTPONLY = False
 
 ROOT_URLCONF = "config.urls"
 
