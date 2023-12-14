@@ -1,9 +1,8 @@
 import "./style.css";
 import { deleteExpectedExpenses } from "../../services/expenseves/deleteExpectedExpenses";
-import formatCurrency from "../../utils/formatCurrent"
+import formatCurrency from "../../utils/formatCurrent";
 
 export default function ExpectedExpenseItem({ id, value, name }) {
-
   const handleDelete = async () => {
     await deleteExpectedExpenses(id);
   };

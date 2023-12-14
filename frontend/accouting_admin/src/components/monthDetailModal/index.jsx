@@ -1,13 +1,12 @@
 import { Box, CloseButton, Container, Content } from "./style";
 import { GrFormClose } from "react-icons/gr";
-import formatCurrency from "../../utils/formatCurrent"
+import formatCurrency from "../../utils/formatCurrent";
 
 export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
   const closeModal = (e) => {
     e.preventDefault();
     setIsOpen(false);
   };
-
 
   return (
     <Container isOpen={isOpen}>

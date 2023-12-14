@@ -1,9 +1,8 @@
 import "./style.css";
 import { deleteExpectedSalary } from "../../services/expenseves/deleteExpectedSalary";
-import formatCurrency from "../../utils/formatCurrent"
+import formatCurrency from "../../utils/formatCurrent";
 
 export default function ExpectedSalaryItem({ id, value, name }) {
-
   const handleDelete = async () => {
     await deleteExpectedSalary(id);
   };

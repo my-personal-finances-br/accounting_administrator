@@ -2,7 +2,7 @@ import "./style.css";
 import { useState } from "react";
 import PaidModal from "../paidModal";
 import { deleteExpenses } from "../../services/expenseves/deleteExpenses";
-import formatCurrency from "../../utils/formatCurrent"
+import formatCurrency from "../../utils/formatCurrent";
 
 export default function ExpenseItem({
   value,

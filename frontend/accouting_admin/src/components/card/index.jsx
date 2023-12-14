@@ -5,7 +5,7 @@ import MonthDetailModal from "../../components/monthDetailModal";
 import SalaryDetailModal from "../../components/salaryDetailModal";
 import { retrieveMonthDetail } from "../../services/expenseves/retrieveMonthDetail";
 import { retrieveSalaryDetail } from "../../services/expenseves/retrieveSalaryDetail";
-import formatCurrency from "../../utils/formatCurrent"
+import formatCurrency from "../../utils/formatCurrent";
 
 export default function Card({
   children,

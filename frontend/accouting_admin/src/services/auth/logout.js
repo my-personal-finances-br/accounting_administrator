@@ -1,17 +1,6 @@
 import axios from "axios";
+import getCookieValue from "../../utils/getCookieValue";
 
-const getCookieValue = (name) => {
-  const cookieString = document.cookie;
-  const parsedCookie = cookieString.split(";").reduce((res, c) => {
-    const [key, val] = c.trim().split("=").map(decodeURIComponent);
-    try {
-      return Object.assign(res, { [key]: JSON.parse(val) });
-    } catch (e) {
-      return Object.assign(res, { [key]: val });
-    }
-  }, {});
-  return parsedCookie[`${name}`];
-};
 const cleanCookies = () => {
   document.cookie = "sessionid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
   document.cookie = "csrftoken= ;expires = Thu, 01 Jan 1970 00:00:00 GMT";
