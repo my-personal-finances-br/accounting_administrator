@@ -1,11 +1,27 @@
-import { Box, CloseButton, Container, Content } from "./style";
+import React, { useRef } from "react";
+import { Box, CloseButton, Container, Content, Button } from "./style";
 import { GrFormClose } from "react-icons/gr";
 import formatCurrency from "../../utils/formatCurrent";
 
 export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
+  const textToCopy = `*Detalhes do mês ${data.month}* -\n
+*Salario* - ${formatCurrency(data.salary_total)}
+*Total a ser pago* - ${formatCurrency(data.total)}
+*Já pago* - ${formatCurrency(data.paid)}
+*Falta pagar* - ${formatCurrency(data.to_pay)}
+*Tentar economizar* - ${formatCurrency(data.to_save)}`;
+
+  const textareaRef = useRef(null);
+
   const closeModal = (e) => {
     e.preventDefault();
     setIsOpen(false);
+  };
+
+  const copyToClipboard = () => {
+    textareaRef.current.select();
+    document.execCommand("copy");
+    alert("Conteúdo copiado para a área de transferência!");
   };
 
   return (
@@ -24,6 +40,15 @@ export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
           <Content>Já pago - {formatCurrency(data.paid)}</Content>
           <Content>Falta pagar - {formatCurrency(data.to_pay)}</Content>
           <Content>Tentar economizar - {formatCurrency(data.to_save)}</Content>
+          <textarea
+            ref={textareaRef}
+            style={{ position: "absolute", left: "-9999px" }}
+            value={textToCopy}
+            readOnly
+          />
+          <Button onClick={copyToClipboard}>
+            Copiar para a área de transferência
+          </Button>
         </Content>
       </Box>
     </Container>

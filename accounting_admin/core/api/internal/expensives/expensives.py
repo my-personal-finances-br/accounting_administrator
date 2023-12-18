@@ -23,9 +23,12 @@ class MonthClosureView(generics.CreateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.MonthlyExpenseSerializer
 
     def get_object(self):
+        from django.db.models import Q
+
         return (
             MonthlyExpense.objects.filter(
-                user_id=self.request.user.id, detail__isnull=True
+                Q(detail__isnull=True) | Q(detail=""),
+                user_id=self.request.user.id,
             )
             .order_by("month_number")
             .first()

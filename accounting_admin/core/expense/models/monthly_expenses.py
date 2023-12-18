@@ -69,7 +69,6 @@ class MonthlyExpense(Default):
             for expected_expense in expected_expenses:
                 new_expected_expenses.append(
                     Expense(
-                        is_fixed=True,
                         value=expected_expense.value,
                         name=expected_expense.name,
                         description=expected_expense.description,
