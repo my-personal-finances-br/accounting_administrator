@@ -21,7 +21,6 @@ export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
   const copyToClipboard = () => {
     textareaRef.current.select();
     document.execCommand("copy");
-    alert("Conteúdo copiado para a área de transferência!");
   };
 
   return (

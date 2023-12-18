@@ -56,7 +56,6 @@ export default function Card({
   const copyToClipboard = () => {
     textareaRef.current.select();
     document.execCommand("copy");
-    alert("Conteúdo copiado para a área de transferência!");
   };
 
   const openMonthDetailModal = async () => {
