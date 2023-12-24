@@ -56,12 +56,10 @@ class NewAuthenticateView(APIView):
         user = authenticate(
             username=request.data["username"], password=request.data["password"]
         )
+        if not user:
+            return HttpResponse({"deu ruim": "vc n logou"}, status=400)            
         login(request=request, user=user)
-        if user is not None:
-            login(request=request, user=user)
-            return HttpResponse({"parabens": "vc logou"})
-        else:
-            return HttpResponse({"deu ruim": "vc n logou"})
+        return HttpResponse({"parabens": "vc logou"})
 
 
 @csrf_exempt

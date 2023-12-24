@@ -9,19 +9,9 @@ authentication_urls = [
         name="api-internal-logout",
     ),
     path(
-        "internal/authenticate",
-        internal.authentication.views.AuthenticateView.as_view(),
-        name="api-internal-authenticate",
-    ),
-    path(
         "internal/authenticate/generics",
         internal.authentication.views.NewAuthenticateView.as_view(),
         name="api-internal-authenticate-generics",
-    ),
-    path(
-        "internal/authenticate/staff",
-        internal.authentication.views.AuthenticateBackofficeView.as_view(),
-        name="api-internal-authenticate-staff",
     ),
 ]
 

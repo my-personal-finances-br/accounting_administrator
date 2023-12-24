@@ -1,18 +1,23 @@
 import { AuthWrapper, Card, WrapperInput, Button } from "./style";
 import { Form } from "@unform/web";
 import InputUnform from "../../components/form/input/input";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { auth } from "../../services/auth/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const formRef = useRef(null);
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState(false); // State to track login errors
 
   const handleSubmit = async (data) => {
-    await auth(data);
-    navigate("/");
-    window.location.reload();
+    try {
+      await auth(data);
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      setLoginError(true);
+    }
   };
 
   return (
@@ -20,8 +25,18 @@ export default function Auth() {
       <AuthWrapper>
         <Card>
           <WrapperInput>
-            <InputUnform placeholder="Usuario" name="username" />
-            <InputUnform type="password" placeholder="Senha" name="password" />
+            {(loginError ? <p>SENHA ERRADA </p>: <></>)}
+            <InputUnform
+              placeholder="Usuario"
+              name="username"
+              style={{ border: loginError ? "1px solid red" : "1px solid #ccc" }}
+            />
+            <InputUnform
+              type="password"
+              placeholder="Senha"
+              name="password"
+              style={{ border: loginError ? "1px solid red" : "1px solid #ccc" }}
+            />
           </WrapperInput>
           <Button>login</Button>
         </Card>
