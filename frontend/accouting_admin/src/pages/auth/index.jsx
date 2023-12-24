@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function Auth() {
   const formRef = useRef(null);
   const navigate = useNavigate();
-  const [loginError, setLoginError] = useState(false); // State to track login errors
+  const [loginError, setLoginError] = useState(false);
 
   const handleSubmit = async (data) => {
     try {
