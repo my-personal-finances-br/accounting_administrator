@@ -1,7 +1,10 @@
+import calendar
 import uuid
+from datetime import datetime, timedelta
 
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from accounting_admin.utils.default_model import Default
@@ -10,11 +13,6 @@ User = get_user_model()
 
 
 def define_deadline(expected_salary, month_number):
-    import calendar
-    from datetime import datetime, timedelta
-
-    from django.db.models import Q
-
     from accounting_admin.core.holidays.models import Holiday
 
     current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -58,6 +56,23 @@ def define_deadline(expected_salary, month_number):
         return last_day
     else:
         return expected_salary.deadline
+
+
+def define_name(expected_salary):
+    if not expected_salary.exists_until:
+        return expected_salary.name
+
+    current_date = datetime.now()
+
+    total_months = (
+        expected_salary.exists_until.year - expected_salary.created_at.year
+    ) * 12 + (expected_salary.exists_until.month - expected_salary.created_at.month)
+
+    remaining_months = (expected_salary.exists_until.year - current_date.year) * 12 + (
+        expected_salary.exists_until.month - current_date.month
+    )
+
+    return f"Parcela {total_months - remaining_months + 1}/{total_months}: {expected_salary.name}"
 
 
 class MonthlyExpense(Default):
@@ -121,7 +136,7 @@ class MonthlyExpense(Default):
                 new_expected_expenses.append(
                     Expense(
                         value=expected_expense.value,
-                        name=expected_expense.name,
+                        name=define_name(expected_expense),
                         description=expected_expense.description,
                         monthly_expense_id=self.uuid,
                         user_id=self.user_id,

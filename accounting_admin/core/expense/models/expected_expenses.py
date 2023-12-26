@@ -42,6 +42,7 @@ class ExpectedExpense(Default):
         max_length=100,
         default="date",
     )
+    exists_until = models.DateField(blank=True, null=True)
 
     class Meta:
         verbose_name = _("Expected Expense")
