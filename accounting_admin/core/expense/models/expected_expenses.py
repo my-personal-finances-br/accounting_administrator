@@ -32,6 +32,16 @@ class ExpectedExpense(Default):
         related_name=_("expected_expenses"),
         on_delete=models.CASCADE,
     )
+    deadline = models.DateTimeField(blank=True, null=True)
+    deadline_type = models.CharField(
+        choices=[
+            ("first_business_day", "Primeiro dia útil"),
+            ("last_business_day", "Ultimo dia útil"),
+            ("date", "Data exata"),
+        ],
+        max_length=100,
+        default="date",
+    )
 
     class Meta:
         verbose_name = _("Expected Expense")

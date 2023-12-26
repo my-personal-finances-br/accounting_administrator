@@ -5,7 +5,11 @@ from accounting_admin.core.api.internal.authentication.backends import (
     GenericAuthenticationRequired,
 )
 from accounting_admin.core.api.internal.serializers import expensives
-from accounting_admin.core.expense.models import ExpectedExpense, Expense, MonthlyExpense
+from accounting_admin.core.expense.models import (
+    ExpectedExpense,
+    Expense,
+    MonthlyExpense,
+)
 
 
 class MonthlyExpenseView(generics.ListCreateAPIView, GenericAuthenticationRequired):
@@ -71,7 +75,9 @@ class MonthlyExpenseDetailView(generics.RetrieveAPIView, GenericAuthenticationRe
         return MonthlyExpense.objects.filter(user_id=self.request.user.id)
 
 
-class ExpectedExpenseListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
+class ExpectedExpenseListView(
+    generics.ListCreateAPIView, GenericAuthenticationRequired
+):
     serializer_class = expensives.ExpectedExpenseSerializer
 
     def get_queryset(self):

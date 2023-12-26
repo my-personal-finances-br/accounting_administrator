@@ -26,7 +26,9 @@ class Salary(Default):
     gross = models.DecimalField(
         _("gross salary"), max_digits=24, decimal_places=6, default=0
     )
-    net = models.DecimalField(_("net salary"), max_digits=24, decimal_places=6, default=0)
+    net = models.DecimalField(
+        _("net salary"), max_digits=24, decimal_places=6, default=0
+    )
     name = models.CharField(
         _("name"),
         max_length=72,

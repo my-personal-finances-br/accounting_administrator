@@ -9,6 +9,57 @@ from accounting_admin.utils.default_model import Default
 User = get_user_model()
 
 
+def define_deadline(expected_salary, month_number):
+    import calendar
+    from datetime import datetime, timedelta
+
+    from django.db.models import Q
+
+    from accounting_admin.core.holidays.models import Holiday
+
+    current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    next_month = month_number + 1
+    next_year = current_date.year if next_month != 1 else current_date.year + 1
+
+    if expected_salary.deadline_type == "first_business_day":
+        first_day_next_month = current_date.replace(
+            day=1, month=next_month, year=next_year
+        )
+
+        holiday_days = Holiday.objects.filter(
+            Q(date__year=first_day_next_month.year)
+            & Q(date__month=first_day_next_month.month)
+        ).values_list("date__day", flat=True)
+
+        while (
+            first_day_next_month.weekday() in [5, 6]
+            or first_day_next_month.day in holiday_days
+        ):
+            first_day_next_month += timedelta(days=1)
+
+        return first_day_next_month
+
+    elif expected_salary.deadline_type == "last_business_day":
+        _, last_day_of_month = calendar.monthrange(
+            current_date.year, current_date.month
+        )
+
+        last_day = current_date.replace(
+            day=last_day_of_month, month=next_month, year=next_year
+        )
+
+        holiday_days = Holiday.objects.filter(
+            Q(date__year=last_day.year) & Q(date__month=last_day.month)
+        ).values_list("date__day", flat=True)
+
+        while last_day.weekday() in [5, 6] or last_day.day in holiday_days:
+            last_day -= timedelta(days=1)
+
+        return last_day
+    else:
+        return expected_salary.deadline
+
+
 class MonthlyExpense(Default):
     uuid = models.UUIDField(
         primary_key=True,
@@ -74,6 +125,7 @@ class MonthlyExpense(Default):
                         description=expected_expense.description,
                         monthly_expense_id=self.uuid,
                         user_id=self.user_id,
+                        deadline=define_deadline(expected_expense, self.month_number),
                     )
                 )
             Expense.objects.bulk_create(new_expected_expenses)

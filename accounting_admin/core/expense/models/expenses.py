@@ -41,6 +41,7 @@ class Expense(Default):
         related_name=_("expenses"),
         on_delete=models.CASCADE,
     )
+    deadline = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         verbose_name = _("Expense")

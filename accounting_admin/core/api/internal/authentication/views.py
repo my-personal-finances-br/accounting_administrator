@@ -57,7 +57,7 @@ class NewAuthenticateView(APIView):
             username=request.data["username"], password=request.data["password"]
         )
         if not user:
-            return HttpResponse({"deu ruim": "vc n logou"}, status=400)            
+            return HttpResponse({"deu ruim": "vc n logou"}, status=400)
         login(request=request, user=user)
         return HttpResponse({"parabens": "vc logou"})
 
