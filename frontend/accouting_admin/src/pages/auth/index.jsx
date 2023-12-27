@@ -25,17 +25,21 @@ export default function Auth() {
       <AuthWrapper>
         <Card>
           <WrapperInput>
-            {(loginError ? <p>SENHA ERRADA </p>: <></>)}
+            {loginError ? <p>SENHA ERRADA </p> : <></>}
             <InputUnform
               placeholder="Usuario"
               name="username"
-              style={{ border: loginError ? "1px solid red" : "1px solid #ccc" }}
+              style={{
+                border: loginError ? "1px solid red" : "1px solid #ccc",
+              }}
             />
             <InputUnform
               type="password"
               placeholder="Senha"
               name="password"
-              style={{ border: loginError ? "1px solid red" : "1px solid #ccc" }}
+              style={{
+                border: loginError ? "1px solid red" : "1px solid #ccc",
+              }}
             />
           </WrapperInput>
           <Button>login</Button>

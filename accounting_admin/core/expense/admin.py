@@ -1,10 +1,6 @@
 from django.contrib import admin
 
-from accounting_admin.core.expense.models import (
-    ExpectedExpense,
-    Expense,
-    MonthlyExpense,
-)
+from accounting_admin.core.expense.models import ExpectedExpense, Expense, MonthlyExpense
 
 
 @admin.register(Expense)
@@ -24,5 +20,5 @@ class ClassExpectedExpenseAdmin(admin.ModelAdmin):
 
 @admin.register(MonthlyExpense)
 class ClassMonthlyExpenseAdmin(admin.ModelAdmin):
-    list_display = ["uuid", "month", "total"]
+    list_display = ["uuid", "month", "total", "user"]
     list_filter = ["month", "user"]

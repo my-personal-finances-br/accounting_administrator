@@ -38,9 +38,7 @@ def define_deadline(expected_salary, month_number):
         return first_day_next_month
 
     elif expected_salary.deadline_type == "last_business_day":
-        _, last_day_of_month = calendar.monthrange(
-            current_date.year, current_date.month
-        )
+        _, last_day_of_month = calendar.monthrange(current_date.year, current_date.month)
 
         last_day = current_date.replace(
             day=last_day_of_month, month=next_month, year=next_year

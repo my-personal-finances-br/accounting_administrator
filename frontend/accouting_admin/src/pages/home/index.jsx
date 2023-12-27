@@ -33,6 +33,22 @@ export default function Home() {
         }}
       >
         <ContainerHome>
+          <button
+            onClick={createListMonthlyExpense}
+            style={{
+              padding: "10px",
+              borderRadius: "20px",
+              backgroundColor: "#226feb",
+              marginLeft: "41%",
+              fontSize: "20px",
+              color: "white",
+              border: "none",
+              cursor: "pointer",
+              marginTop: "1%",
+            }}
+          >
+            Novo mês
+          </button>
           <div style={{ padding: "30px" }}>
             {expenses && expenses.length ? (
               <>
@@ -63,21 +79,6 @@ export default function Home() {
               <div></div>
             )}
           </div>
-          <button
-            onClick={createListMonthlyExpense}
-            style={{
-              padding: "10px",
-              borderRadius: "70px",
-              backgroundColor: "#226feb",
-              marginLeft: "40%",
-              fontSize: "50px",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            +
-          </button>
         </ContainerHome>
       </div>
     </>
