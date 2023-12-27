@@ -19,7 +19,7 @@ class ClassExpenseAdmin(admin.ModelAdmin):
 @admin.register(ExpectedExpense)
 class ClassExpectedExpenseAdmin(admin.ModelAdmin):
     list_display = ["uuid", "name", "value"]
-    list_filter = ["name"]
+    list_filter = ["name", "user"]
 
 
 @admin.register(MonthlyExpense)
