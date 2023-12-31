@@ -11,9 +11,7 @@ class BankListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = banks.BankSerializer
 
     def get_queryset(self):
-        return Bank.objects.filter(user_id=self.request.user.id).order_by(
-            "name"
-        )
+        return Bank.objects.filter(user_id=self.request.user.id).order_by("name")
 
 
 class BankRetrieveView(
@@ -25,6 +23,4 @@ class BankRetrieveView(
     serializer_class = banks.BankSerializer
 
     def get_queryset(self):
-        return Bank.objects.filter(user_id=self.request.user.id).order_by(
-            "name"
-        )
+        return Bank.objects.filter(user_id=self.request.user.id).order_by("name")

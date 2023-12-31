@@ -104,5 +104,6 @@ credit_cards_urls = [
 ]
 
 
-
-urlpatterns = expenses_urls + authentication_urls + salary_urls + bank_urls + credit_cards_urls
+urlpatterns = (
+    expenses_urls + authentication_urls + salary_urls + bank_urls + credit_cards_urls
+)

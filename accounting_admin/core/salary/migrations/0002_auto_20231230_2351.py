@@ -4,20 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('salary', '0001_initial'),
+        ("salary", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='expectedsalary',
-            name='try_to_save',
-            field=models.DecimalField(decimal_places=6, default=0, max_digits=24, verbose_name='try to save'),
+            model_name="expectedsalary",
+            name="try_to_save",
+            field=models.DecimalField(
+                decimal_places=6, default=0, max_digits=24, verbose_name="try to save"
+            ),
         ),
         migrations.AddField(
-            model_name='salary',
-            name='try_to_save',
-            field=models.DecimalField(decimal_places=6, default=0, max_digits=24, verbose_name='try to save'),
+            model_name="salary",
+            name="try_to_save",
+            field=models.DecimalField(
+                decimal_places=6, default=0, max_digits=24, verbose_name="try to save"
+            ),
         ),
     ]

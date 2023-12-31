@@ -148,7 +148,12 @@ class MonthlyExpense(Default):
                 )
             Expense.objects.bulk_create(new_expected_expenses)
             Salary.objects.bulk_create(new_expected_salaries)
-            ExpectedExpense.objects.filter(Q(Q(exists_until__month=now.month) & Q(exists_until__year=now.year) | Q(exists_until__lt=now))).delete()
+            ExpectedExpense.objects.filter(
+                Q(
+                    Q(exists_until__month=now.month) & Q(exists_until__year=now.year)
+                    | Q(exists_until__lt=now)
+                )
+            ).delete()
 
     def closure(self):
         if self.detail:
@@ -168,9 +173,9 @@ class MonthlyExpense(Default):
     @property
     def parcial_total(self):
         paid_value = sum(
-            self.expenses.filter(paid_value__isnull=False).distinct("uuid").values_list(
-                "paid_value", flat=True
-            )
+            self.expenses.filter(paid_value__isnull=False)
+            .distinct("uuid")
+            .values_list("paid_value", flat=True)
         )
         return paid_value + self.to_pay
 

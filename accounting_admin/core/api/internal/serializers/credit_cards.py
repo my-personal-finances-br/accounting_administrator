@@ -7,4 +7,3 @@ class CreditCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = CreditCard
         fields = "__all__"
-

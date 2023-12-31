@@ -40,7 +40,9 @@ export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
           <Content>Já pago - {formatCurrency(data.paid)}</Content>
           <Content>Falta pagar - {formatCurrency(data.to_pay)}</Content>
           <Content>Tentar economizar - {formatCurrency(data.to_save)}</Content>
-          <Content>Dinheiro restante - {formatCurrency(data.salary_left)}</Content>
+          <Content>
+            Dinheiro restante - {formatCurrency(data.salary_left)}
+          </Content>
           <textarea
             ref={textareaRef}
             style={{ position: "absolute", left: "-9999px" }}

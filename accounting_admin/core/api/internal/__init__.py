@@ -1,1 +1,1 @@
-from . import authentication, expensives, salary, banks, credit_cards  # noqa
+from . import authentication, banks, credit_cards, expensives, salary  # noqa

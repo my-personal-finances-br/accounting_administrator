@@ -28,15 +28,19 @@ export default function Card({
         if (!child.props.paid_value) {
           const currentValue = parseFloat(child.props.value);
           acc.total_non_paid += currentValue;
-          acc.non_paid_txt += `${child.props.name} - ${ child.props.deadline ?  new Date(child.props.deadline).toLocaleDateString("pt-BR") : "" } - ${formatCurrency(
-            currentValue,
-          )}\n`;
+          acc.non_paid_txt += `${child.props.name} - ${
+            child.props.deadline
+              ? new Date(child.props.deadline).toLocaleDateString("pt-BR")
+              : ""
+          } - ${formatCurrency(currentValue)}\n`;
         } else {
           const currentValue = parseFloat(child.props.paid_value);
           acc.total_paid_txt += currentValue;
-          acc.paid_txt += `${child.props.name} - ${ child.props.deadline ?  new Date(child.props.deadline).toLocaleDateString("pt-BR") : "" } - ${formatCurrency(
-            currentValue,
-          )}\n`;
+          acc.paid_txt += `${child.props.name} - ${
+            child.props.deadline
+              ? new Date(child.props.deadline).toLocaleDateString("pt-BR")
+              : ""
+          } - ${formatCurrency(currentValue)}\n`;
         }
         return acc;
       },
@@ -97,7 +101,7 @@ export default function Card({
         <b>{month}</b>
       </div>
       <div className="ButtonContainer">
-      <button onClick={monthlyExpenseClojure}>Fechar mês</button>
+        <button onClick={monthlyExpenseClojure}>Fechar mês</button>
         <button onClick={openMonthSalaryModal}>Entradas</button>
         <button onClick={openMonthDetailModal}>Detalhes</button>
       </div>

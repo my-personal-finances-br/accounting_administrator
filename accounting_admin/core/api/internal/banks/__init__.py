@@ -1,1 +1,1 @@
-from . import banks # noqa
+from . import banks  # noqa

@@ -32,7 +32,11 @@ export default function ExpectedExpenseCreateModal({
             </CloseButton>
             <InputUnform placeholder="Nome" name="name" />
             <InputUnform placeholder="Descrição" name="description" />
-            <InputUnform placeholder="Dia para pagamento" type="number" name="deadline" />
+            <InputUnform
+              placeholder="Dia para pagamento"
+              type="number"
+              name="deadline"
+            />
             <InputUnform placeholder="Valor" type="number" name="value" />
             <SendButton>Adicionar</SendButton>
           </Content>
