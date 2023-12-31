@@ -32,6 +32,7 @@ export default function ExpenseItem({
         name={name}
         value={value}
         description={description}
+        deadline={deadline}
       />
       <div className="Item">
         <span>{name}</span>

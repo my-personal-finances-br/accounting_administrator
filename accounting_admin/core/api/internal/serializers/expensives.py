@@ -17,9 +17,21 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
     user = serializers.CharField(read_only=True)
 
     def get_expenses(self, instance):
-        return ExpensesSerializer(
-            instance.expenses.all().order_by("-paid_value"), many=True
-        ).data
+        expenses_data = instance.expenses.all().order_by("-paid_value")
+
+        expenses_dict = {
+            "no_card": [],
+        }
+        for expense in expenses_data:
+            if expense.credit_card:
+                credit_card_name = expense.credit_card.name
+                if credit_card_name not in expenses_dict:
+                    expenses_dict[credit_card_name] = []
+                expenses_dict[credit_card_name].append(ExpensesSerializer(expense).data)
+            else:
+                expenses_dict["no_card"].append(ExpensesSerializer(expense).data)
+
+        return expenses_dict
 
     def get_total(self, instance):
         return instance.total or instance.parcial_total

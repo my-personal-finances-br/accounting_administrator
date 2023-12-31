@@ -58,18 +58,30 @@ export default function Home() {
                     id={expense.uuid}
                     getExpenses={getExpenses}
                   >
-                    {expense.expenses.map((expense2) => (
-                      <ExpenseItem
-                        key={expense2.uuid}
-                        monthId={expense.id}
-                        getExpenses={getExpenses}
-                        id={expense2.uuid}
-                        paid_value={expense2.paid_value}
-                        value={expense2.value}
-                        name={expense2.name}
-                        description={expense2.description}
-                        deadline={expense2.deadline}
-                      ></ExpenseItem>
+                    {Object.keys(expense.expenses).map((cardKey) => (
+                      <div key={cardKey}>
+                        {cardKey !== "no_card" ? (
+                          <p>
+                            {" "}
+                            Gastos no cartão: <strong>{cardKey}</strong>
+                          </p>
+                        ) : (
+                          <strong>Gastos fora do cartão</strong>
+                        )}
+                        {expense.expenses[cardKey].map((expense2) => (
+                          <ExpenseItem
+                            key={expense2.uuid}
+                            monthId={expense.id}
+                            getExpenses={getExpenses}
+                            id={expense2.uuid}
+                            paid_value={expense2.paid_value}
+                            value={expense2.value}
+                            name={expense2.name}
+                            description={expense2.description}
+                            deadline={expense2.deadline}
+                          />
+                        ))}
+                      </div>
                     ))}
                   </Card>
                 ))}

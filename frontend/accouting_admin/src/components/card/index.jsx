@@ -22,41 +22,43 @@ export default function Card({
   const [salaryDetailData, setSalaryDetailData] = useState([]);
 
   const textareaRef = useRef(null);
-  const { total_non_paid, non_paid_txt, paid_txt, total_paid_txt } =
-    children.reduce(
-      (acc, child) => {
-        if (!child.props.paid_value) {
-          const currentValue = parseFloat(child.props.value);
-          acc.total_non_paid += currentValue;
-          acc.non_paid_txt += `${child.props.name} - ${
-            child.props.deadline
-              ? new Date(child.props.deadline).toLocaleDateString("pt-BR")
-              : ""
-          } - ${formatCurrency(currentValue)}\n`;
-        } else {
-          const currentValue = parseFloat(child.props.paid_value);
-          acc.total_paid_txt += currentValue;
-          acc.paid_txt += `${child.props.name} - ${
-            child.props.deadline
-              ? new Date(child.props.deadline).toLocaleDateString("pt-BR")
-              : ""
-          } - ${formatCurrency(currentValue)}\n`;
-        }
-        return acc;
-      },
-      {
-        total_non_paid: 0,
-        non_paid_txt: `*Gastos do mês de ${month}* -\n\n`,
-        paid_txt: "",
-        total_paid_txt: 0,
-      },
-    );
 
-  const finalText = `${non_paid_txt}\n*Total: ${formatCurrency(
-    total_non_paid,
-  )}*\n----------------------------\n*Pagos* -\n${paid_txt}\n*Total: ${formatCurrency(
-    total_paid_txt,
-  )}*`;
+  // TODO: Fix this to new response from expense monthly
+  // const { total_non_paid, non_paid_txt, paid_txt, total_paid_txt } =
+  //   children.reduce(
+  //     (acc, child) => {
+  //       if (!child.props.paid_value) {
+  //         const currentValue = parseFloat(child.props.value);
+  //         acc.total_non_paid += currentValue;
+  //         acc.non_paid_txt += `${child.props.name} - ${
+  //           child.props.deadline
+  //             ? new Date(child.props.deadline).toLocaleDateString("pt-BR")
+  //             : ""
+  //         } - ${formatCurrency(currentValue)}\n`;
+  //       } else {
+  //         const currentValue = parseFloat(child.props.paid_value);
+  //         acc.total_paid_txt += currentValue;
+  //         acc.paid_txt += `${child.props.name} - ${
+  //           child.props.deadline
+  //             ? new Date(child.props.deadline).toLocaleDateString("pt-BR")
+  //             : ""
+  //         } - ${formatCurrency(currentValue)}\n`;
+  //       }
+  //       return acc;
+  //     },
+  //     {
+  //       total_non_paid: 0,
+  //       non_paid_txt: `*Gastos do mês de ${month}* -\n\n`,
+  //       paid_txt: "",
+  //       total_paid_txt: 0,
+  //     },
+  //   );
+
+  // const finalText = `${non_paid_txt}\n*Total: ${formatCurrency(
+  //   total_non_paid,
+  // )}*\n----------------------------\n*Pagos* -\n${paid_txt}\n*Total: ${formatCurrency(
+  //   total_paid_txt,
+  // )}*`;
 
   const copyToClipboard = () => {
     textareaRef.current.select();
@@ -109,12 +111,12 @@ export default function Card({
       <div className="Buttonn">
         <button onClick={() => setModalOpen(true)}>+</button>
       </div>
-      <textarea
+      {/* <textarea
         ref={textareaRef}
         style={{ position: "absolute", left: "-9999px" }}
         value={finalText}
         readOnly
-      />
+      /> */}
       <button onClick={copyToClipboard}>
         Copiar para a área de transferência
       </button>

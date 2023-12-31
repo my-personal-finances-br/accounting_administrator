@@ -13,6 +13,7 @@ export default function PaidModal({
   description,
   id,
   getExpenses,
+  deadline,
   monthId,
 }) {
   const closeModal = (e) => {
@@ -43,6 +44,13 @@ export default function PaidModal({
               placeholder="Descrição"
               value={description}
               name="description"
+            />
+            <InputUnform
+              placeholder="Data de vencimento"
+              value={
+                deadline ? new Date(deadline).toLocaleDateString("pt-BR") : ""
+              }
+              name="deadline"
             />
             <InputUnform
               placeholder="Valor"
