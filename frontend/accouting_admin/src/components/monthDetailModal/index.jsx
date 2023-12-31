@@ -5,7 +5,7 @@ import formatCurrency from "../../utils/formatCurrent";
 
 export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
   const textToCopy = `*Detalhes do mês ${data.month}* -\n
-*Salario* - ${formatCurrency(data.salary_total)}
+*Entrada* - ${formatCurrency(data.salary_total)}
 *Total a ser pago* - ${formatCurrency(data.total)}
 *Já pago* - ${formatCurrency(data.paid)}
 *Falta pagar* - ${formatCurrency(data.to_pay)}
@@ -34,7 +34,7 @@ export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
           <CloseButton onClick={closeModal}>
             <GrFormClose size={18} />
           </CloseButton>
-          <Content>Salario - {formatCurrency(data.salary_total)}</Content>
+          <Content>Entradas - {formatCurrency(data.salary_total)}</Content>
           <Content>Total a ser pago - {formatCurrency(data.total)}</Content>
           <Content>Já pago - {formatCurrency(data.paid)}</Content>
           <Content>Falta pagar - {formatCurrency(data.to_pay)}</Content>

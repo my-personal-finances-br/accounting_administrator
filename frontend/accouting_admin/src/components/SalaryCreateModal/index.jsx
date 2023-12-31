@@ -28,7 +28,7 @@ export default function SalaryCreateModal({
       <Container isOpen={isOpen}>
         <Box>
           <Content size="unpublish">
-            Adicionar novo Salario fixo
+            Adicionar nova Entrada fixa
             <CloseButton onClick={closeModal}>
               <GrFormClose size={18} />
             </CloseButton>

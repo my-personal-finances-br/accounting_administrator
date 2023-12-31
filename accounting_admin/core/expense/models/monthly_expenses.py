@@ -155,7 +155,7 @@ class MonthlyExpense(Default):
             detail += f"<p>{expense.name} ------------------- {expense.value}</p></br>"
         detail += "<p>--------------------------------------------</p></br>"
         detail += f"<p>Total a ser pago:               {self.total}</p></br>"
-        detail += f"<p>Salario do mês:                 {self.salary_total}</p></br>"
+        detail += f"<p>Entradas do mês:                 {self.salary_total}</p></br>"
         detail += f"<p>Faltou pagar:                   {self.to_pay}</p></br>"
         detail += f"<p>Total guardado:                 {self.try_to_save}</p></br>"
         self.detail = detail

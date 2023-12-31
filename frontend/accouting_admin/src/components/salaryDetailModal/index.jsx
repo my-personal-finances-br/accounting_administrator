@@ -30,7 +30,7 @@ export default function SalaryDetailModal({
       />
       <Box>
         <Content size="unpublish">
-          Salarios do mês {month}
+          Entradas do mês {month}
           <b>
             <em>{data.month}</em>
           </b>
@@ -47,7 +47,7 @@ export default function SalaryDetailModal({
             />
           ))}
           <SendButton onClick={openSalaryCreateModal}>
-            Adicionar Novo Salario do mês
+            Adicionar Nova Entrada do mês
           </SendButton>
         </Content>
       </Box>

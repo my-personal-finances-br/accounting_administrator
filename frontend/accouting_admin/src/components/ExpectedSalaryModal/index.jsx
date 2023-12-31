@@ -26,7 +26,7 @@ export default function ExpectedSalaryModal({ isOpen, setIsOpen, data }) {
       />
       <Box>
         <Content size="unpublish">
-          Salarios Esperado do mês
+          Entradas Esperadas do mês
           <CloseButton onClick={closeModal}>
             <GrFormClose size={18} />
           </CloseButton>
@@ -39,7 +39,7 @@ export default function ExpectedSalaryModal({ isOpen, setIsOpen, data }) {
             ></ExpectedSalaryItem>
           ))}
           <SendButton onClick={openexpectedSalaryCreateModal}>
-            Adicionar Novo Salario fixo do mês
+            Adicionar Nova Entradas fixas do mês
           </SendButton>
         </Content>
       </Box>

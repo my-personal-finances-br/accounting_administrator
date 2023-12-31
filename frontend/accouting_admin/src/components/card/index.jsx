@@ -93,7 +93,7 @@ export default function Card({
         <b>{month}</b>
       </div>
       <div className="ButtonContainer">
-        <button onClick={openMonthSalaryModal}>Salarios</button>
+        <button onClick={openMonthSalaryModal}>Entradas</button>
         <button onClick={openMonthDetailModal}>Detalhes</button>
       </div>
       {children}
