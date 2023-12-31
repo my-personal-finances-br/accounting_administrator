@@ -40,7 +40,7 @@ export default function ExpenseItem({
         {paid_value ? (
           <></>
         ) : (
-          <button onClick={() => setPaidModalOpen(true)}>pago</button>
+          <button onClick={() => setPaidModalOpen(true)}>Pagar</button>
         )}
 
         <button onClick={() => handleDelete(id)}>Excluir</button>
