@@ -27,7 +27,7 @@ expenses_urls = [
         name="api-expenses-monthly_expense-detail",
     ),
     path(
-        "internal/monthly_expense/closure",
+        "internal/monthly_expense/<str:pk>/closure",
         internal.expensives.expensives.MonthClosureView.as_view(),
         name="api-expenses-closure",
     ),

@@ -19,27 +19,18 @@ class MonthlyExpenseView(generics.ListCreateAPIView, GenericAuthenticationRequir
         )
 
 
-class MonthClosureView(generics.CreateAPIView, GenericAuthenticationRequired):
+class MonthClosureView(generics.UpdateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.MonthlyExpenseSerializer
 
-    def get_object(self):
-        from django.db.models import Q
+    def get_queryset(self):
+        return MonthlyExpense.objects.filter(user_id=self.request.user.id)
 
-        return (
-            MonthlyExpense.objects.filter(
-                Q(detail__isnull=True) | Q(detail=""),
-                user_id=self.request.user.id,
-            )
-            .order_by("month_number")
-            .first()
-        )
-
-    def create(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         monthly_expense = self.get_object()
         monthly_expense.closure()
         return Response(
             {
-                "closure": "success",
+                "closure": f"{monthly_expense.month} success",
                 "data": {**self.serializer_class(monthly_expense).data},
             }
         )
