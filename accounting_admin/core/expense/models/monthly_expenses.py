@@ -127,6 +127,7 @@ class MonthlyExpense(Default):
                         gross=expected_salary.gross,
                         monthly_id=self.uuid,
                         user_id=self.user_id,
+                        try_to_save=expected_salary.try_to_save,
                     )
                 )
 
@@ -139,6 +140,7 @@ class MonthlyExpense(Default):
                         monthly_expense_id=self.uuid,
                         user_id=self.user_id,
                         deadline=define_deadline(expected_expense, self.month_number),
+                        credit_card_id=expected_expense.credit_card_id,
                     )
                 )
             Expense.objects.bulk_create(new_expected_expenses)

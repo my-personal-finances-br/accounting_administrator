@@ -69,6 +69,8 @@ LOCAL_APPS = [
     "accounting_admin.core.expense.apps.ExpenseAppConfig",
     "accounting_admin.core.salary.apps.SalaryAppConfig",
     "accounting_admin.core.holidays.apps.HolidayAppConfig",
+    "accounting_admin.core.banks.apps.BankAppConfig",
+    "accounting_admin.core.credit_cards.apps.CreditCardAppConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

@@ -31,6 +31,9 @@ class Salary(Default):
         _("name"),
         max_length=72,
     )
+    try_to_save = models.DecimalField(
+        _("try to save"), max_digits=24, decimal_places=6, default=0
+    )
     user = models.ForeignKey(
         User,
         verbose_name=_("user"),

@@ -43,6 +43,14 @@ class ExpectedExpense(Default):
         default="date",
     )
     exists_until = models.DateField(blank=True, null=True)
+    credit_card = models.ForeignKey(
+        "credit_cards.CreditCard",
+        verbose_name=_("credit card"),
+        related_name=_("expected_expenses"),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         verbose_name = _("Expected Expense")

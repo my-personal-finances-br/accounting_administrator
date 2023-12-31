@@ -35,6 +35,14 @@ class Expense(Default):
         related_name=_("expenses"),
         on_delete=models.CASCADE,
     )
+    credit_card = models.ForeignKey(
+        "credit_cards.CreditCard",
+        verbose_name=_("credit card"),
+        related_name=_("expenses"),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
     user = models.ForeignKey(
         User,
         verbose_name=_("user"),

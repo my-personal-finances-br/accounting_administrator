@@ -9,7 +9,7 @@ from accounting_admin.utils.default_model import Default
 User = get_user_model()
 
 
-class ExpectedSalary(Default):
+class CreditCard(Default):
     uuid = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -17,27 +17,27 @@ class ExpectedSalary(Default):
         editable=False,
         unique=True,
     )
-    gross = models.DecimalField(
-        _("gross salary"), max_digits=24, decimal_places=6, default=0
-    )
-    net = models.DecimalField(_("net salary"), max_digits=24, decimal_places=6, default=0)
     name = models.CharField(
         _("name"),
         max_length=72,
     )
-    try_to_save = models.DecimalField(
-        _("try to save"), max_digits=24, decimal_places=6, default=0
+    bank = models.ForeignKey(
+        "banks.Bank",
+        verbose_name=_("bank"),
+        related_name=_("banks"),
+        on_delete=models.CASCADE,
     )
+    deadline = models.DateTimeField()
     user = models.ForeignKey(
         User,
         verbose_name=_("user"),
-        related_name=_("expected_salaries"),
+        related_name=_("credit_cards"),
         on_delete=models.CASCADE,
     )
 
     class Meta:
-        verbose_name = _("Expected Salary")
-        verbose_name_plural = _("Expected Salaries")
+        verbose_name = _("Credit Card")
+        verbose_name_plural = _("Credit Cards")
 
     def __str__(self):
         return f"{self.name}"
