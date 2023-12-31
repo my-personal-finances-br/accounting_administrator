@@ -9,7 +9,8 @@ export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
 *Total a ser pago* - ${formatCurrency(data.total)}
 *Já pago* - ${formatCurrency(data.paid)}
 *Falta pagar* - ${formatCurrency(data.to_pay)}
-*Tentar economizar* - ${formatCurrency(data.to_save)}`;
+*Tentar economizar* - ${formatCurrency(data.to_save)}
+*Dinheiro restante* - ${formatCurrency(data.salary_left)}`;
 
   const textareaRef = useRef(null);
 
@@ -39,6 +40,7 @@ export default function MonthDetailModal({ isOpen, setIsOpen, data }) {
           <Content>Já pago - {formatCurrency(data.paid)}</Content>
           <Content>Falta pagar - {formatCurrency(data.to_pay)}</Content>
           <Content>Tentar economizar - {formatCurrency(data.to_save)}</Content>
+          <Content>Dinheiro restante - {formatCurrency(data.salary_left)}</Content>
           <textarea
             ref={textareaRef}
             style={{ position: "absolute", left: "-9999px" }}

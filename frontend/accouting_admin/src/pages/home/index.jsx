@@ -4,7 +4,6 @@ import Card from "../../components/card";
 import ExpenseItem from "../../components/ExpenseItem";
 import { listExpenses } from "../../services/expenseves/listExpenses";
 import { createMonthlyExpense } from "../../services/expenseves/createMonthlyExpense";
-import { MonthlyExpenseClojure } from "../../services/expenseves/MonthlyExpenseClojure";
 import Header from "../../components/header";
 
 export default function Home() {
@@ -14,7 +13,6 @@ export default function Home() {
     await setExpenses((await listExpenses(data)).data);
   };
   const createListMonthlyExpense = async (data) => {
-    await MonthlyExpenseClojure();
     await createMonthlyExpense();
     getExpenses();
   };
@@ -70,6 +68,7 @@ export default function Home() {
                         value={expense2.value}
                         name={expense2.name}
                         description={expense2.description}
+                        deadline={expense2.deadline}
                       ></ExpenseItem>
                     ))}
                   </Card>

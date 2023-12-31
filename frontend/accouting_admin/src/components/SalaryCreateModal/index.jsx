@@ -28,13 +28,18 @@ export default function SalaryCreateModal({
       <Container isOpen={isOpen}>
         <Box>
           <Content size="unpublish">
-            Adicionar nova Entrada fixa
+            Adicionar nova Entrada do Mês
             <CloseButton onClick={closeModal}>
               <GrFormClose size={18} />
             </CloseButton>
             <InputUnform placeholder="Nome" name="name" />
             <InputUnform placeholder="Valor Bruto" type="number" name="gross" />
             <InputUnform placeholder="Valor Liquido" type="number" name="net" />
+            <InputUnform
+              placeholder="Meta para guardar"
+              type="number"
+              name="try_to_save"
+            />
             <SendButton>Adicionar</SendButton>
           </Content>
         </Box>

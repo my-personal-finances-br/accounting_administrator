@@ -27,13 +27,13 @@ export default function Card({
         if (!child.props.paid_value) {
           const currentValue = parseFloat(child.props.value);
           acc.total_non_paid += currentValue;
-          acc.non_paid_txt += `${child.props.name} - ${formatCurrency(
+          acc.non_paid_txt += `${child.props.name} - ${ child.props.deadline ?  new Date(child.props.deadline).toLocaleDateString("pt-BR") : "" } - ${formatCurrency(
             currentValue,
           )}\n`;
         } else {
           const currentValue = parseFloat(child.props.paid_value);
           acc.total_paid_txt += currentValue;
-          acc.paid_txt += `${child.props.name} - ${formatCurrency(
+          acc.paid_txt += `${child.props.name} - ${ child.props.deadline ?  new Date(child.props.deadline).toLocaleDateString("pt-BR") : "" } - ${formatCurrency(
             currentValue,
           )}\n`;
         }

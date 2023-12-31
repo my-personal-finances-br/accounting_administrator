@@ -12,6 +12,7 @@ export default function ExpenseItem({
   id,
   getExpenses,
   monthId,
+  deadline,
 }) {
   const [modalOpen, setPaidModalOpen] = useState(false);
 
@@ -34,6 +35,7 @@ export default function ExpenseItem({
       />
       <div className="Item">
         <span>{name}</span>
+        <span>{ deadline ?  new Date(deadline).toLocaleDateString("pt-BR") : "" }</span>
         <span>{formatCurrency(value)}</span>
       </div>
       <div className="Butonn">

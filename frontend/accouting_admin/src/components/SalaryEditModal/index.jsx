@@ -25,18 +25,28 @@ export default function SalaryEditModal({ isOpen, setIsOpen, data, id }) {
             <CloseButton onClick={closeModal}>
               <GrFormClose size={18} />
             </CloseButton>
+            Nome
             <InputUnform placeholder="Nome" name="name" value={data.name} />
+            Valor Bruto
             <InputUnform
               placeholder="Valor Bruto"
               type="number"
               name="gross"
               value={data.gross}
             />
+            Valor Liquido
             <InputUnform
               placeholder="Valor Liquido"
               type="number"
               name="net"
               value={data.net}
+            />
+            Meta para guardar
+            <InputUnform
+              placeholder="Meta para guardar"
+              type="number"
+              name="try_to_save"
+              value={data.try_to_save}
             />
             <SendButton>Atualizar</SendButton>
           </Content>

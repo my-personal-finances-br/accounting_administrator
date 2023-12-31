@@ -40,12 +40,13 @@ export default function Header() {
           data={expectedSalaryData}
         />
         <span>
-          <b>Finanças</b>
+          <b>Minhas Finanças</b>
         </span>
         <Nav>
+          <Button onClick={{}}>Cartões de Credito</Button>
           <Button onClick={openExpectedSalary}>Entradas Fixas</Button>
-          <Button onClick={openExpectedExpenseModal}>Gastos fixos</Button>
-          <Button onClick={doLogout}>sair</Button>
+          <Button onClick={openExpectedExpenseModal}>Gastos Fixos</Button>
+          <Button onClick={doLogout}>Sair</Button>
         </Nav>
       </Container>
     </HeaderDiv>

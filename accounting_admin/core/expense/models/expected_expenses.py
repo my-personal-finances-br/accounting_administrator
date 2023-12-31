@@ -1,6 +1,7 @@
 import uuid
 
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -32,7 +33,7 @@ class ExpectedExpense(Default):
         related_name=_("expected_expenses"),
         on_delete=models.CASCADE,
     )
-    deadline = models.DateTimeField(blank=True, null=True)
+    deadline = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(31)])
     deadline_type = models.CharField(
         choices=[
             ("first_business_day", "Primeiro dia útil"),

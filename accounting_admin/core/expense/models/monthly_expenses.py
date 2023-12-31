@@ -53,7 +53,9 @@ def define_deadline(expected_salary, month_number):
 
         return last_day
     else:
-        return expected_salary.deadline
+        return current_date.replace(
+            day=expected_salary.deadline, month=next_month, year=next_year
+        )
 
 
 def define_name(expected_salary):
@@ -113,6 +115,7 @@ class MonthlyExpense(Default):
         super().save(*args, **kwargs)
 
         if not self.expenses.count():
+            now = datetime.now()
             expected_expenses = ExpectedExpense.objects.filter(user=self.user)
             expected_salaries = ExpectedSalary.objects.filter(user=self.user)
 
@@ -145,6 +148,7 @@ class MonthlyExpense(Default):
                 )
             Expense.objects.bulk_create(new_expected_expenses)
             Salary.objects.bulk_create(new_expected_salaries)
+            ExpectedExpense.objects.filter(Q(Q(exists_until__month=now.month) & Q(exists_until__year=now.year) | Q(exists_until__lt=now))).delete()
 
     def closure(self):
         if self.detail:
@@ -164,7 +168,7 @@ class MonthlyExpense(Default):
     @property
     def parcial_total(self):
         paid_value = sum(
-            self.expenses.filter(paid_value__isnull=False).values_list(
+            self.expenses.filter(paid_value__isnull=False).distinct("uuid").values_list(
                 "paid_value", flat=True
             )
         )
@@ -174,17 +178,21 @@ class MonthlyExpense(Default):
     def to_pay(self):
         return sum(
             self.expenses.filter(paid_value__isnull=True)
-            .distinct()
+            .distinct("uuid")
             .values_list("value", flat=True)
         )
 
     @property
     def salary_total(self):
-        return sum(self.salaries.values_list("net", flat=True))
+        return sum(self.salaries.distinct("uuid").values_list("net", flat=True))
 
     @property
     def try_to_save(self):
-        return self.salary_total - self.parcial_total
+        return sum(self.salaries.distinct("uuid").values_list("try_to_save", flat=True))
+
+    @property
+    def salary_left(self):
+        return self.salary_total - self.parcial_total - self.try_to_save
 
     @property
     def paid(self):
