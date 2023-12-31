@@ -77,4 +77,32 @@ salary_urls = [
 ]
 
 
-urlpatterns = expenses_urls + authentication_urls + salary_urls
+bank_urls = [
+    path(
+        "internal/banks",
+        internal.banks.banks.BankListView.as_view(),
+        name="api-banks-list",
+    ),
+    path(
+        "internal/banks/<str:pk>",
+        internal.banks.banks.BankRetrieveView.as_view(),
+        name="api-banks-retrieve",
+    ),
+]
+
+credit_cards_urls = [
+    path(
+        "internal/credit_cards",
+        internal.credit_cards.credit_cards.CreditCardListView.as_view(),
+        name="api-credit-cards-list",
+    ),
+    path(
+        "internal/credit_cards/<str:pk>",
+        internal.credit_cards.credit_cards.CreditCardRetrieveView.as_view(),
+        name="api-credit-cards-retrieve",
+    ),
+]
+
+
+
+urlpatterns = expenses_urls + authentication_urls + salary_urls + bank_urls + credit_cards_urls
