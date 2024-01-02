@@ -17,7 +17,7 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
     user = serializers.CharField(read_only=True)
 
     def get_expenses(self, instance):
-        expenses_data = instance.expenses.all().order_by("-paid_value")
+        expenses_data = instance.expenses.all().order_by("-paid_value", "deadline")
 
         expenses_dict = {
             "no_card": [],
@@ -31,6 +31,8 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
             else:
                 expenses_dict["no_card"].append(ExpensesSerializer(expense).data)
 
+        no_card = expenses_dict.pop("no_card")
+        expenses_dict["no_card"] = no_card
         return expenses_dict
 
     def get_total(self, instance):

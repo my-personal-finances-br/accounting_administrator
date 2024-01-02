@@ -40,4 +40,4 @@ class CreditCard(Default):
         verbose_name_plural = _("Credit Cards")
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.bank.name} - {self.name} - {self.user.username}"
