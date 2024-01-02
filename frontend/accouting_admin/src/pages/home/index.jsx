@@ -64,23 +64,39 @@ export default function Home() {
                           <p>
                             {" "}
                             Gastos no cartão: <strong>{cardKey}</strong>
+                            <br />
+                            Data de fechamento:{" "}
+                            <strong>
+                              {new Date(
+                                expense.expenses[cardKey]["closure"],
+                              ).toLocaleDateString("pt-BR")}
+                            </strong>
+                            <br />
+                            Data de vencimento:{" "}
+                            <strong>
+                              {new Date(
+                                expense.expenses[cardKey]["deadline"],
+                              ).toLocaleDateString("pt-BR")}
+                            </strong>
                           </p>
                         ) : (
                           <strong>Gastos fora do cartão</strong>
                         )}
-                        {expense.expenses[cardKey].map((expense2) => (
-                          <ExpenseItem
-                            key={expense2.uuid}
-                            monthId={expense.id}
-                            getExpenses={getExpenses}
-                            id={expense2.uuid}
-                            paid_value={expense2.paid_value}
-                            value={expense2.value}
-                            name={expense2.name}
-                            description={expense2.description}
-                            deadline={expense2.deadline}
-                          />
-                        ))}
+                        {expense.expenses[cardKey]["expenses"].map(
+                          (expense2) => (
+                            <ExpenseItem
+                              key={expense2.uuid}
+                              monthId={expense.id}
+                              getExpenses={getExpenses}
+                              id={expense2.uuid}
+                              paid_value={expense2.paid_value}
+                              value={expense2.value}
+                              name={expense2.name}
+                              description={expense2.description}
+                              deadline={expense2.deadline}
+                            />
+                          ),
+                        )}
                       </div>
                     ))}
                   </Card>

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.utils import timezone
 from rest_framework import serializers
 
@@ -17,19 +19,39 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
     user = serializers.CharField(read_only=True)
 
     def get_expenses(self, instance):
+        now = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+        last_day_of_month = now.replace(day=1, month=now.month + 1) - timedelta(days=1)
         expenses_data = instance.expenses.all().order_by("-paid_value", "deadline")
 
         expenses_dict = {
-            "no_card": [],
+            "no_card": {
+                "expenses": [],
+                "closure": last_day_of_month,
+                "deadline": last_day_of_month,
+            },
         }
         for expense in expenses_data:
             if expense.credit_card:
                 credit_card_name = expense.credit_card.name
                 if credit_card_name not in expenses_dict:
-                    expenses_dict[credit_card_name] = []
-                expenses_dict[credit_card_name].append(ExpensesSerializer(expense).data)
+                    expenses_dict[credit_card_name] = {
+                        "expenses": [],
+                        "closure": now.replace(
+                            day=expense.credit_card.closure,
+                            month=(instance.month_number + 1),
+                        ),
+                        "deadline": now.replace(
+                            day=expense.credit_card.deadline,
+                            month=(instance.month_number + 1),
+                        ),
+                    }
+                expenses_dict[credit_card_name]["expenses"].append(
+                    ExpensesSerializer(expense).data
+                )
             else:
-                expenses_dict["no_card"].append(ExpensesSerializer(expense).data)
+                expenses_dict["no_card"]["expenses"].append(
+                    ExpensesSerializer(expense).data
+                )
 
         no_card = expenses_dict.pop("no_card")
         expenses_dict["no_card"] = no_card
