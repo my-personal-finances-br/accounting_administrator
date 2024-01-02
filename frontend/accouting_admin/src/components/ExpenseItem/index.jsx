@@ -20,7 +20,7 @@ export default function ExpenseItem({
     await deleteExpenses(id);
     await getExpenses();
   };
-
+  const isDeadlinePassed = deadline && new Date(deadline) < new Date();
   return (
     <>
       <PaidModal
@@ -36,10 +36,20 @@ export default function ExpenseItem({
       />
       <div className="Item">
         <span>{name}</span>
-        <span>
+        <span
+          className={`${
+            !paid_value && deadline && new Date(deadline) > new Date()
+              ? "orange"
+              : !isDeadlinePassed || paid_value
+                ? "green"
+                : "red"
+          }`}
+        >
           {deadline ? new Date(deadline).toLocaleDateString("pt-BR") : ""}
         </span>
-        <span>{formatCurrency(value)}</span>
+        <span>
+          {paid_value ? formatCurrency(paid_value) : formatCurrency(value)}
+        </span>
       </div>
       <div className="Butonn">
         {paid_value ? (

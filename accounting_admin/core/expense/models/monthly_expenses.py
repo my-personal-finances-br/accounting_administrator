@@ -17,7 +17,7 @@ def define_deadline(expected_salary, month_number):
 
     current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     next_month = month_number + 1
-    next_year = current_date.year if next_month != 1 else current_date.year + 1
+    next_year = current_date.year if next_month != 12 else current_date.year + 1
 
     if expected_salary.deadline_type == "first_business_day":
         first_day_next_month = current_date.replace(

@@ -1,6 +1,7 @@
 import uuid
 
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -27,7 +28,9 @@ class CreditCard(Default):
         related_name=_("banks"),
         on_delete=models.CASCADE,
     )
-    deadline = models.DateTimeField()
+    deadline = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(31)]
+    )
     user = models.ForeignKey(
         User,
         verbose_name=_("user"),

@@ -23,6 +23,7 @@ export default function PaidModal({
   const formRef = useRef(null);
 
   const handleSubmit = async (data) => {
+    delete data.deadline;
     await updateExpenses(data, id);
     await getExpenses();
     setIsOpen(false);
