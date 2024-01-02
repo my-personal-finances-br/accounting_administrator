@@ -29,7 +29,10 @@ class CreditCard(Default):
         on_delete=models.CASCADE,
     )
     deadline = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(31)]
+        validators=[MinValueValidator(1), MaxValueValidator(31)], blank=True, null=True
+    )
+    closure = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(31)], blank=True, null=True
     )
     user = models.ForeignKey(
         User,

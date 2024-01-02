@@ -5,11 +5,8 @@ from accounting_admin.core.expense.models import ExpectedExpense, Expense, Month
 
 @admin.register(Expense)
 class ClassExpenseAdmin(admin.ModelAdmin):
-    list_display = ["uuid", "name", "value", "paid_value"]
-    list_filter = [
-        "name",
-        "monthly_expense",
-    ]
+    list_display = ["uuid", "name", "value", "paid_value", "credit_card"]
+    list_filter = ["monthly_expense", "credit_card"]
 
 
 @admin.register(ExpectedExpense)
