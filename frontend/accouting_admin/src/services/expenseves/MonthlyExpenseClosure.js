@@ -1,7 +1,7 @@
 import axios from "axios";
 import getCookieValue from "../../utils/getCookieValue";
 
-const MonthlyExpenseClojure = (id) => {
+const MonthlyExpenseClosure = (id) => {
   const response = axios
     .put(
       `http://localhost:8000/api/internal/monthly_expense/${id}/closure`,
@@ -19,4 +19,4 @@ const MonthlyExpenseClojure = (id) => {
   return response;
 };
 
-export { MonthlyExpenseClojure };
+export { MonthlyExpenseClosure };

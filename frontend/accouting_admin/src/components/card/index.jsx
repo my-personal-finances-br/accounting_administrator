@@ -6,7 +6,7 @@ import SalaryDetailModal from "../../components/salaryDetailModal";
 import { retrieveMonthDetail } from "../../services/expenseves/retrieveMonthDetail";
 import { retrieveSalaryDetail } from "../../services/expenseves/retrieveSalaryDetail";
 import formatCurrency from "../../utils/formatCurrent";
-import { MonthlyExpenseClojure } from "../../services/expenseves/MonthlyExpenseClojure";
+import { MonthlyExpenseClosure } from "../../services/expenseves/MonthlyExpenseClosure";
 
 export default function Card({
   children,
@@ -75,8 +75,8 @@ export default function Card({
     setSalaryDetailData(data.data);
     setSalaryDetailModalOpen(true);
   };
-  const monthlyExpenseClojure = async () => {
-    await MonthlyExpenseClojure(id);
+  const monthlyExpenseClosure = async () => {
+    await MonthlyExpenseClosure(id);
   };
   return (
     <div className="Card">
@@ -103,7 +103,7 @@ export default function Card({
         <b>{month}</b>
       </div>
       <div className="ButtonContainer">
-        <button onClick={monthlyExpenseClojure}>Fechar mês</button>
+        <button onClick={monthlyExpenseClosure}>Fechar mês</button>
         <button onClick={openMonthSalaryModal}>Entradas</button>
         <button onClick={openMonthDetailModal}>Detalhes</button>
       </div>
