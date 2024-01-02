@@ -41,18 +41,36 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
         now = timezone.now()
         if data["month"] == "default":
             monthly_expense = (
-                MonthlyExpense.objects.filter(user=user, created_at__year=now.year)
-                .order_by("month_number")
+                MonthlyExpense.objects.filter(
+                    user=user,
+                )
+                .order_by("month_year", "month_number")
                 .last()
             )
             if not monthly_expense and not now.month == 1:
                 month_number = now.month - 1
-            elif now.month == 12:
+                month_year = now.year
+            elif (
+                monthly_expense
+                and monthly_expense.month_number == 11
+                and (now.month == 1)
+            ):
                 month_number = 0
-            else:
+                month_year = monthly_expense.month_year + 1
+            elif (monthly_expense and monthly_expense.month_number == 11) and not (
+                now.month == 1
+            ):
+                month_number = 0
+                month_year = monthly_expense.month_year + 1
+            elif monthly_expense:
                 month_number = monthly_expense.month_number + 1
+                month_year = monthly_expense.month_year
+            elif not monthly_expense:
+                month_number = now.month - 1
+                month_year = now.year
             data["month"] = MONTHS[month_number].capitalize()
         data["month_number"] = month_number
+        data["month_year"] = month_year
         data["user"] = user
         return super().create(data)
 

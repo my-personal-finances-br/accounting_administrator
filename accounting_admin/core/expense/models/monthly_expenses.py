@@ -88,6 +88,7 @@ class MonthlyExpense(Default):
         max_length=72,
     )
     month_number = models.IntegerField(_("month_number"))
+    month_year = models.IntegerField(_("month_year"), blank=True, null=True)
     total = models.DecimalField(
         _("total"), max_digits=24, decimal_places=6, blank=True, null=True
     )
@@ -104,7 +105,7 @@ class MonthlyExpense(Default):
         verbose_name_plural = _("Monthly Expenses")
 
     def __str__(self):
-        return f"{self.month}, {self.created_at.year} - {self.user}"
+        return f"{self.month}, {self.month_year} - {self.user}"
 
     def save(self, skip_checks=False, *args, **kwargs):
         if skip_checks:

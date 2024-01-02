@@ -15,7 +15,7 @@ class MonthlyExpenseView(generics.ListCreateAPIView, GenericAuthenticationRequir
         return (
             MonthlyExpense.objects.filter(user_id=self.request.user.id)
             .distinct()
-            .order_by("created_at__year", "month_number")
+            .order_by("-month_year", "-month_number")
         )
 
 
