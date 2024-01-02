@@ -69,8 +69,8 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
                 month_number = now.month - 1
                 month_year = now.year
             data["month"] = MONTHS[month_number].capitalize()
-        data["month_number"] = month_number
-        data["month_year"] = month_year
+            data["month_number"] = month_number
+            data["month_year"] = month_year
         data["user"] = user
         return super().create(data)
 
