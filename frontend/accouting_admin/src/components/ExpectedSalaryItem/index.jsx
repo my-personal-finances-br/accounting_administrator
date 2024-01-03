@@ -1,5 +1,5 @@
 import "./style.css";
-import { deleteExpectedSalary } from "../../services/expenseves/deleteExpectedSalary";
+import { deleteExpectedSalary } from "../../services/salaries/deleteExpectedSalary";
 import formatCurrency from "../../utils/formatCurrent";
 
 export default function ExpectedSalaryItem({ id, value, name }) {

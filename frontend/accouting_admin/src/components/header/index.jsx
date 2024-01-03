@@ -1,7 +1,7 @@
 import { HeaderDiv, Nav, Container, Button } from "./style";
 import { logout } from "../../services/auth/logout";
 import { expectedExpenseList } from "../../services/expenseves/expectedExpenseList";
-import { expectedSalaryList } from "../../services/expenseves/expectedSalaryList";
+import { expectedSalaryList } from "../../services/salaries/expectedSalaryList";
 import { useState } from "react";
 import ExpectedExpenseModal from "../ExpectedExpenseModal";
 import ExpectedSalaryModal from "../ExpectedSalaryModal";

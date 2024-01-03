@@ -4,7 +4,7 @@ import Modal from "../modal";
 import MonthDetailModal from "../../components/monthDetailModal";
 import SalaryDetailModal from "../../components/salaryDetailModal";
 import { retrieveMonthDetail } from "../../services/expenseves/retrieveMonthDetail";
-import { retrieveSalaryDetail } from "../../services/expenseves/retrieveSalaryDetail";
+import { retrieveSalaryDetail } from "../../services/salaries/retrieveSalaryDetail";
 import formatCurrency from "../../utils/formatCurrent";
 import { MonthlyExpenseClosure } from "../../services/expenseves/MonthlyExpenseClosure";
 

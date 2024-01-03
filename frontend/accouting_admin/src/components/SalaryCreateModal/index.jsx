@@ -3,7 +3,7 @@ import { GrFormClose } from "react-icons/gr";
 import { Form } from "@unform/web";
 import { useRef } from "react";
 import InputUnform from "../form/input/input";
-import { createSalary } from "../../services/expenseves/createSalary";
+import { createSalary } from "../../services/salaries/createSalary";
 
 export default function SalaryCreateModal({
   isOpen,
