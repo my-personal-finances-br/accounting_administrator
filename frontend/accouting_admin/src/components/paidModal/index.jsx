@@ -2,8 +2,9 @@ import { Box, CloseButton, Container, Content, Button } from "./style";
 import { GrFormClose } from "react-icons/gr";
 import InputUnform from "../../components/form/input/input";
 import { Form } from "@unform/web";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { updateExpenses } from "../../services/expenseves/updateExpenses";
+import { listCreditCards } from "../../services/creditCards/listCreditCards";
 
 export default function PaidModal({
   isOpen,
@@ -16,6 +17,12 @@ export default function PaidModal({
   deadline,
   monthId,
 }) {
+  const [creditCards, setCreditCards] = useState([]);
+  const [creditCardSelected, setCreditCardSelected] = useState("");
+
+  useEffect(() => {
+    getCreditCards();
+  }, []);
   const closeModal = (e) => {
     e.preventDefault();
     setIsOpen(false);
@@ -28,6 +35,15 @@ export default function PaidModal({
     await getExpenses();
     setIsOpen(false);
   };
+
+  const getCreditCards = async () => {
+    await setCreditCards((await listCreditCards()).data);
+  };
+
+  const handleCreditCardSelectedChange = (event) => {
+    setCreditCardSelected(event.target.value);
+  };
+
   return (
     <Form ref={formRef} onSubmit={handleSubmit}>
       <Container isOpen={isOpen}>
@@ -59,6 +75,22 @@ export default function PaidModal({
               value={value}
               name="paid_value"
             />
+            Cartão de credito
+            <InputUnform
+              as="select"
+              name="credit_card"
+              value={creditCardSelected}
+              onChange={handleCreditCardSelectedChange}
+            >
+              {creditCards.map((creditCard) => (
+                <option key={creditCard.uuid} value={creditCard.uuid}>
+                  {creditCard.name}
+                </option>
+              ))}
+              <option key={"nao tem"} value="">
+                Sem cartão
+              </option>
+            </InputUnform>
             <Button>Pagar</Button>
           </Content>
         </Box>
