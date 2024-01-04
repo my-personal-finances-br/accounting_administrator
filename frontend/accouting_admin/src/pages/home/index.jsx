@@ -94,6 +94,10 @@ export default function Home() {
                               name={expense2.name}
                               description={expense2.description}
                               deadline={expense2.deadline}
+                              credit_card={{
+                                uuid: expense2.credit_card?.uuid,
+                                name: expense2.credit_card?.name,
+                              }}
                             />
                           ),
                         )}

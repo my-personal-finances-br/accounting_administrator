@@ -16,6 +16,7 @@ export default function PaidModal({
   getExpenses,
   deadline,
   monthId,
+  credit_card,
 }) {
   const [creditCards, setCreditCards] = useState([]);
   const [creditCardSelected, setCreditCardSelected] = useState("");
@@ -37,13 +38,20 @@ export default function PaidModal({
   };
 
   const getCreditCards = async () => {
-    await setCreditCards((await listCreditCards()).data);
+    const creditCardsData = (await listCreditCards()).data;
+    setCreditCards(creditCardsData);
+
+    const selectedCard = creditCardsData.find(
+      (card) => card.uuid === credit_card.uuid,
+    );
+    if (selectedCard) {
+      setCreditCardSelected(selectedCard.uuid);
+    }
   };
 
   const handleCreditCardSelectedChange = (event) => {
     setCreditCardSelected(event.target.value);
   };
-
   return (
     <Form ref={formRef} onSubmit={handleSubmit}>
       <Container isOpen={isOpen}>
@@ -78,8 +86,9 @@ export default function PaidModal({
             Cartão de credito
             <InputUnform
               as="select"
-              name="credit_card"
+              name="credit_card_id"
               value={creditCardSelected}
+              key={creditCardSelected}
               onChange={handleCreditCardSelectedChange}
             >
               {creditCards.map((creditCard) => (

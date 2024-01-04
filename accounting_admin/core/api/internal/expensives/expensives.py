@@ -54,6 +54,13 @@ class ExpenseUpdateRetrieveView(
     def get_queryset(self):
         return Expense.objects.filter(user_id=self.request.user.id)
 
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        if "credit_card_id" in self.request.data:
+            credit_card_id = self.request.data.get("credit_card_id")
+            instance.credit_card_id = credit_card_id if not credit_card_id == "" else None
+            instance.save()
+
 
 class MonthlyExpenseDetailView(generics.RetrieveAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.MonthlyExpenseDetailSerializer

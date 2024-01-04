@@ -3,6 +3,9 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from rest_framework import serializers
 
+from accounting_admin.core.api.internal.serializers.credit_cards import (
+    CreditCardSerializer,
+)
 from accounting_admin.core.expense.models import ExpectedExpense, Expense, MonthlyExpense
 from accounting_admin.utils.constants import MONTHS
 
@@ -104,6 +107,8 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
 
 
 class ExpensesSerializer(serializers.ModelSerializer):
+    credit_card = CreditCardSerializer()
+
     class Meta:
         model = Expense
         exclude = ["user"]
