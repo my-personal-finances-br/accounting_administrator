@@ -40,6 +40,8 @@ class ExpectedExpense(Default):
         choices=[
             ("first_business_day", "Primeiro dia útil"),
             ("last_business_day", "Ultimo dia útil"),
+            ("fifth_business_day", "5° dia útil"),
+            ("fifteenth_business_day", "15° dia útil"),
             ("date", "Data exata"),
         ],
         max_length=100,

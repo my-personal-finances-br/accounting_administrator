@@ -13,29 +13,18 @@ User = get_user_model()
 
 
 def define_deadline(expected_salary, month_number):
-    from accounting_admin.core.holidays.models import Holiday
-
     current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     next_month = month_number + 1
     next_year = current_date.year if next_month != 12 else current_date.year + 1
 
     if expected_salary.deadline_type == "first_business_day":
-        first_day_next_month = current_date.replace(
-            day=1, month=next_month, year=next_year
-        )
+        return calculate_nth_business_day(1, next_year, next_month, current_date)
 
-        holiday_days = Holiday.objects.filter(
-            Q(date__year=first_day_next_month.year)
-            & Q(date__month=first_day_next_month.month)
-        ).values_list("date__day", flat=True)
+    elif expected_salary.deadline_type == "fifth_business_day":
+        return calculate_nth_business_day(5, next_year, next_month, current_date)
 
-        while (
-            first_day_next_month.weekday() in [5, 6]
-            or first_day_next_month.day in holiday_days
-        ):
-            first_day_next_month += timedelta(days=1)
-
-        return first_day_next_month
+    elif expected_salary.deadline_type == "fifteenth_business_day":
+        return calculate_nth_business_day(15, next_year, next_month, current_date)
 
     elif expected_salary.deadline_type == "last_business_day":
         _, last_day_of_month = calendar.monthrange(next_year, next_month)
@@ -44,9 +33,7 @@ def define_deadline(expected_salary, month_number):
             day=last_day_of_month, month=next_month, year=next_year
         )
 
-        holiday_days = Holiday.objects.filter(
-            Q(date__year=last_day.year) & Q(date__month=last_day.month)
-        ).values_list("date__day", flat=True)
+        holiday_days = get_holiday_days(last_day.year, last_day.month)
 
         while last_day.weekday() in [5, 6] or last_day.day in holiday_days:
             last_day -= timedelta(days=1)
@@ -56,6 +43,33 @@ def define_deadline(expected_salary, month_number):
         return current_date.replace(
             day=expected_salary.deadline, month=next_month, year=next_year
         )
+
+
+def calculate_nth_business_day(n, next_year, next_month, current_date):
+    count = 0
+    current_day = current_date.replace(day=1, month=next_month, year=next_year)
+    holiday_days = get_holiday_days(next_year, next_month)
+
+    while count < n:
+        if (
+            current_day.weekday() not in [5, 6]
+            and current_day.day not in holiday_days
+            and current_day.month == next_month
+        ):
+            count += 1
+
+        if count < n:
+            current_day += timedelta(days=1)
+
+    return current_day
+
+
+def get_holiday_days(year, month):
+    from accounting_admin.core.holidays.models import Holiday
+
+    return Holiday.objects.filter(Q(date__year=year) & Q(date__month=month)).values_list(
+        "date__day", flat=True
+    )
 
 
 def define_name(expected_salary):
