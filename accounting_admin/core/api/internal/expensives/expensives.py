@@ -39,6 +39,13 @@ class MonthClosureView(generics.UpdateAPIView, GenericAuthenticationRequired):
 class ExpenseListCreateView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.ExpensesSerializer
 
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        if "credit_card_id" in self.request.data:
+            credit_card_id = self.request.data.get("credit_card_id")
+            instance.credit_card_id = credit_card_id if not credit_card_id == "" else None
+            instance.save()
+
     def get_queryset(self):
         return Expense.objects.filter(user_id=self.request.user.id)
 

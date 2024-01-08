@@ -107,7 +107,7 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
 
 
 class ExpensesSerializer(serializers.ModelSerializer):
-    credit_card = CreditCardSerializer()
+    credit_card = CreditCardSerializer(required=False, allow_null=True)
 
     class Meta:
         model = Expense

@@ -50,7 +50,7 @@ export default function Modal({ isOpen, setIsOpen, id, getExpenses, month }) {
             Cartão de credito
             <InputUnform
               as="select"
-              name="credit_card"
+              name="credit_card_id"
               value={creditCardSelected}
               onChange={handleCreditCardSelectedChange}
             >
