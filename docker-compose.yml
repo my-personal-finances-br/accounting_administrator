@@ -39,6 +39,7 @@ services:
       dockerfile: Dockerfile.react
     volumes:
       - ./frontend/accouting_admin:/app
+      - /app/node_modules
     ports:
       - "3000:3000"
     restart: on-failure
