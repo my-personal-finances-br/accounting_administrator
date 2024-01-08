@@ -1,6 +1,7 @@
 import uuid
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -63,3 +64,16 @@ class ExpectedExpense(Default):
 
     def __str__(self):
         return f"{self.name}"
+
+    def save(self, skip_checks=False, *args, **kwargs):
+        if skip_checks:
+            return super().save(*args, **kwargs)
+
+        if not self.deadline_type == "date" and self.deadline:
+            raise ValidationError(
+                f"Você selecionou {self.deadline_type} e por isso não precisa preencher o campo 'deadline'."
+            )
+        if self.deadline_type == "date" and not self.deadline:
+            raise ValidationError(
+                f"Você selecionou {self.deadline_type} e por isso  precisa preencher o campo 'deadline'."
+            )
