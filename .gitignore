@@ -7,6 +7,9 @@ __pycache__/
 *.so
 terraform/.terraform
 terraform.tfstate.*
+*.tfstate
+*.pem*
+*.terraform.*
 # Distribution / packaging
 .Python
 build/
