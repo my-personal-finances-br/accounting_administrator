@@ -1,0 +1,47 @@
+version: "3.7"
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+
+services:
+  django:
+    hostname: django
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: lucasehonda/accounting_administrator_backend
+    # image: local_django
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    restart: on-failure
+    command: /start
+
+  postgres:
+    restart: on-failure
+    image: postgres:10.5
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+    ports:
+      - "5432:5432"
+  frontend:
+    # build:
+    #   context: ./frontend/accouting_admin
+    #   dockerfile: Dockerfile.react
+    image: lucasehonda/accounting_administrator_frontend
+    volumes:
+      - ./frontend/accouting_admin:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    restart: on-failure
