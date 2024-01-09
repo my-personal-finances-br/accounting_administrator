@@ -77,3 +77,4 @@ class ExpectedExpense(Default):
             raise ValidationError(
                 f"Você selecionou {self.deadline_type} e por isso  precisa preencher o campo 'deadline'."
             )
+        return super().save(*args, **kwargs)
