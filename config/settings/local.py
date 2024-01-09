@@ -11,7 +11,7 @@ SECRET_KEY = env(
     default="YOSotCpdJ9Lkbukgq1igmVldbuQpbFOle1wOWPz7GxGO0C5FPGEPiA51kvXnvnr8",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "bs-local.com", "django", "ec2-100-24-4-42.compute-1.amazonaws.com"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "bs-local.com", "django", "ec2-100-24-4-42.compute-1.amazonaws.com", "accounting_administrator-django-1"]
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "bs-local.com",
     "django",
-    "ec2-100-24-4-42.compute-1.amazonaws.com"
+    "ec2-100-24-4-42.compute-1.amazonaws.com", "accounting_administrator-django-1"
 ]
 CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://192.168.0.118"]

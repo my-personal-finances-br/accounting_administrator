@@ -3,7 +3,7 @@ import axios from "axios";
 const auth = async ({ username, password }) => {
   try {
     const response = await axios.post(
-      "http://localhost:8000/api/internal/authenticate/generics",
+      "http://accounting_administrator-django-1:8000/api/internal/authenticate/generics",
       { username, password },
       {
         headers: {

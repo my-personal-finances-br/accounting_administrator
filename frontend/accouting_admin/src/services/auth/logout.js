@@ -5,7 +5,7 @@ import cleanCookies from "../../utils/cleanCookies";
 const logout = (data) => {
   const response = axios
     .post(
-      `http://localhost:8000/api/internal/me/logout`,
+      `http://accounting_administrator-django-1:8000/api/internal/me/logout`,
       {},
       {
         withCredentials: false,

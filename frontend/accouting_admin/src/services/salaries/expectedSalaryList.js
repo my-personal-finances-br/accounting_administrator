@@ -3,7 +3,7 @@ import getCookieValue from "../../utils/getCookieValue";
 
 const expectedSalaryList = () => {
   const response = axios
-    .get(`http://localhost:8000/api/internal/expected_salaries`, {
+    .get(`http://accounting_administrator-django-1:8000/api/internal/expected_salaries`, {
       withCredentials: true,
       headers: {
         "X-CSRFToken": getCookieValue("csrftoken"),

@@ -4,7 +4,7 @@ import getCookieValue from "../../utils/getCookieValue";
 const createMonthlyExpense = (data) => {
   const response = axios
     .post(
-      `http://localhost:8000/api/internal/monthly_expense`,
+      `http://accounting_administrator-django-1:8000/api/internal/monthly_expense`,
       { month: "default", month_number: 0 },
       {
         withCredentials: true,

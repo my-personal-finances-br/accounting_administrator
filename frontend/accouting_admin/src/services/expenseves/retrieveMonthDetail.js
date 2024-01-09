@@ -3,7 +3,7 @@ import getCookieValue from "../../utils/getCookieValue";
 
 const retrieveMonthDetail = (id) => {
   const response = axios
-    .get(`http://localhost:8000/api/internal/monthly_expense/${id}/detail`, {
+    .get(`http://accounting_administrator-django-1:8000/api/internal/monthly_expense/${id}/detail`, {
       withCredentials: true,
       headers: {
         "X-CSRFToken": getCookieValue("csrftoken"),

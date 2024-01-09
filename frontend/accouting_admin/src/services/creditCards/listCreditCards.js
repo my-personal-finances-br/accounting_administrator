@@ -3,7 +3,7 @@ import getCookieValue from "../../utils/getCookieValue";
 
 const listCreditCards = () => {
   const response = axios
-    .get(`http://localhost:8000/api/internal/credit_cards`, {
+    .get(`http://accounting_administrator-django-1:8000/api/internal/credit_cards`, {
       withCredentials: true,
       headers: {
         "X-CSRFToken": getCookieValue("csrftoken"),
