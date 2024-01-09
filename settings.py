@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
     "bs-local.com",
     "django",
     "ec2-100-24-4-42.compute-1.amazonaws.com",
-    "accounting_administrator-django-1"
+    "ec2-100-24-4-42.compute-1.amazonaws.com"
 ]
 CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://192.168.0.118"]

@@ -4,7 +4,7 @@ import getCookieValue from "../../utils/getCookieValue";
 const MonthlyExpenseClosure = (id) => {
   const response = axios
     .put(
-      `http://accounting_administrator-django-1:8000/api/internal/monthly_expense/${id}/closure`,
+      `http://ec2-100-24-4-42.compute-1.amazonaws.com:8000/api/internal/monthly_expense/${id}/closure`,
       {},
       {
         withCredentials: true,
