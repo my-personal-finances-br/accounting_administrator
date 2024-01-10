@@ -1,4 +1,4 @@
-import { HeaderDiv, Nav, Container, Button } from "./style";
+import { HeaderDiv, Nav, Container, Button, ButtonLink } from "./style";
 import { logout } from "../../services/auth/logout";
 import { expectedExpenseList } from "../../services/expenseves/expectedExpenseList";
 import { expectedSalaryList } from "../../services/salaries/expectedSalaryList";
@@ -57,6 +57,15 @@ export default function Header() {
           <b>Minhas Finanças</b>
         </span>
         <Nav>
+          <ButtonLink>
+            <a
+              href="https://youtu.be/sNdzFVLDMac"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Como usar o site
+            </a>
+          </ButtonLink>
           <Button onClick={openCreditCardModal}>Cartões de Credito</Button>
           <Button onClick={openExpectedSalaryModal}>Entradas Fixas</Button>
           <Button onClick={openExpectedExpenseModal}>Gastos Fixos</Button>

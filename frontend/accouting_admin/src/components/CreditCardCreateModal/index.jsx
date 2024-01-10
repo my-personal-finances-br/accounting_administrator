@@ -25,7 +25,10 @@ export default function CreditCardCreateModal({
   }, []);
 
   const getBanks = async () => {
-    setBanks((await bankList()).data);
+    const listBanks = (await bankList()).data;
+    if (listBanks) {
+      setBanks(listBanks);
+    }
   };
 
   const handleSubmit = async (data) => {

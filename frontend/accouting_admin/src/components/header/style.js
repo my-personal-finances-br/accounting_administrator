@@ -34,3 +34,21 @@ export const Button = styled.button`
   justify-content: center;
   font-weight: bold;
 `;
+export const ButtonLink = styled.button`
+  border: none;
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+`;
