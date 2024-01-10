@@ -4,7 +4,6 @@ import InputUnform from "../../components/form/input/input";
 import { Form } from "@unform/web";
 import { useRef, useState, useEffect } from "react";
 import { updateExpenses } from "../../services/expenseves/updateExpenses";
-import { listCreditCards } from "../../services/creditCards/listCreditCards";
 
 export default function PaidModal({
   isOpen,
@@ -15,10 +14,9 @@ export default function PaidModal({
   id,
   getExpenses,
   deadline,
-  monthId,
+  creditCards,
   credit_card,
 }) {
-  const [creditCards, setCreditCards] = useState([]);
   const [creditCardSelected, setCreditCardSelected] = useState("");
 
   useEffect(() => {
@@ -38,10 +36,7 @@ export default function PaidModal({
   };
 
   const getCreditCards = async () => {
-    const creditCardsData = (await listCreditCards()).data;
-    setCreditCards(creditCardsData);
-
-    const selectedCard = creditCardsData.find(
+    const selectedCard = creditCards.find(
       (card) => card.uuid === credit_card.uuid,
     );
     if (selectedCard) {

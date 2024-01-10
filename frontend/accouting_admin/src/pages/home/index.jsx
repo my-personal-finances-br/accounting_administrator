@@ -5,12 +5,17 @@ import ExpenseItem from "../../components/ExpenseItem";
 import { listExpenses } from "../../services/expenseves/listExpenses";
 import { createMonthlyExpense } from "../../services/expenseves/createMonthlyExpense";
 import Header from "../../components/header";
+import { listCreditCards } from "../../services/creditCards/listCreditCards";
 
 export default function Home() {
+  const [creditCards, setCreditCards] = useState([]);
   const [expenses, setExpenses] = useState([]);
 
   const getExpenses = async (data) => {
     await setExpenses((await listExpenses(data)).data);
+  };
+  const getCreditCards = async () => {
+    await setCreditCards((await listCreditCards()).data);
   };
   const createListMonthlyExpense = async (data) => {
     await createMonthlyExpense();
@@ -18,6 +23,7 @@ export default function Home() {
   };
   useEffect(() => {
     getExpenses();
+    getCreditCards();
   }, []);
 
   return (
@@ -94,6 +100,7 @@ export default function Home() {
                               name={expense2.name}
                               description={expense2.description}
                               deadline={expense2.deadline}
+                              creditCards={creditCards}
                               credit_card={{
                                 uuid: expense2.credit_card?.uuid,
                                 name: expense2.credit_card?.name,
