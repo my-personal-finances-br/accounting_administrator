@@ -1,11 +1,12 @@
 import axios from "axios";
 import getCookieValue from "../../utils/getCookieValue";
 import cleanCookies from "../../utils/cleanCookies";
+import {backEndUrl} from "../../utils/URL/baseUrl";
 
 const logout = (data) => {
   const response = axios
     .post(
-      `http://ec2-100-24-4-42.compute-1.amazonaws.com:8000/api/internal/me/logout`,
+      `${backEndUrl}/api/internal/me/logout`,
       {},
       {
         withCredentials: false,
