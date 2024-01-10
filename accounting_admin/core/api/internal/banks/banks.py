@@ -9,9 +9,7 @@ from accounting_admin.core.banks.models import Bank
 
 class BankListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = banks.BankSerializer
-
-    def get_queryset(self):
-        return Bank.objects.filter(user_id=self.request.user.id).order_by("name")
+    queryset = Bank.objects.all().order_by("name")
 
 
 class BankRetrieveView(
@@ -21,6 +19,4 @@ class BankRetrieveView(
     GenericAuthenticationRequired,
 ):
     serializer_class = banks.BankSerializer
-
-    def get_queryset(self):
-        return Bank.objects.filter(user_id=self.request.user.id).order_by("name")
+    queryset = Bank.objects.all().order_by("name")

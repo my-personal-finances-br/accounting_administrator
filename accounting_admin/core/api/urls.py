@@ -97,6 +97,11 @@ credit_cards_urls = [
         name="api-credit-cards-list",
     ),
     path(
+        "internal/credit_cards/create",
+        internal.credit_cards.credit_cards.CreditCardCreateView.as_view(),
+        name="api-credit-cards-create",
+    ),
+    path(
         "internal/credit_cards/<str:pk>",
         internal.credit_cards.credit_cards.CreditCardRetrieveView.as_view(),
         name="api-credit-cards-retrieve",
