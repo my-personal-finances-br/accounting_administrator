@@ -53,7 +53,7 @@ class ExpectedExpense(Default):
         "credit_cards.CreditCard",
         verbose_name=_("credit card"),
         related_name=_("expected_expenses"),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )

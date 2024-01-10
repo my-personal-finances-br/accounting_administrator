@@ -1,6 +1,6 @@
 format_code:
 	isort -rc .
-	black . --exclude .ipython,.ipython/* --line-length=90
+	black . --exclude "/\.ipython/|/frontend/" --line-length=90
 	prettier --write frontend/accouting_admin/
 
 coverage:
