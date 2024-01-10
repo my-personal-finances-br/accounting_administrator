@@ -14,7 +14,7 @@ export default function ExpenseItem({
   monthId,
   deadline,
   credit_card,
-  creditCards
+  creditCards,
 }) {
   const [modalOpen, setPaidModalOpen] = useState(false);
   const handleDelete = async () => {

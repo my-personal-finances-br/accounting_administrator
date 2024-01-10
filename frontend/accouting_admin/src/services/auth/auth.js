@@ -1,5 +1,5 @@
 import axios from "axios";
-import {backEndUrl} from "../../utils/URL/baseUrl";
+import { backEndUrl } from "../../utils/URL/baseUrl";
 
 const auth = async ({ username, password }) => {
   try {

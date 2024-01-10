@@ -25,7 +25,7 @@ export default function CreditCardModal({ isOpen, setIsOpen, data }) {
       /> */}
       <Box>
         <Content size="unpublish">
-        <strong>Cartões de credito</strong>
+          <strong>Cartões de credito</strong>
           <CloseButton onClick={closeModal}>
             <GrFormClose size={18} />
           </CloseButton>

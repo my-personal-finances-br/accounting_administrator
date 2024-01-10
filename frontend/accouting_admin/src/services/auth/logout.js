@@ -1,7 +1,7 @@
 import axios from "axios";
 import getCookieValue from "../../utils/getCookieValue";
 import cleanCookies from "../../utils/cleanCookies";
-import {backEndUrl} from "../../utils/URL/baseUrl";
+import { backEndUrl } from "../../utils/URL/baseUrl";
 
 const logout = (data) => {
   const response = axios
