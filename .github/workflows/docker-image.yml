@@ -35,7 +35,7 @@ jobs:
       run: |
         # Estabelece a conexão SSH com a EC2
         echo ${{ secrets.SSH_PRIVATY_KEY }} > accountingAdmKey.pem
-        apt-get install sshpass
+
         
         
         
