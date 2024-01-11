@@ -46,7 +46,7 @@ jobs:
         ls 
         sudo apt-get update && sudo apt install ssh
     - name: Run ssh
-      run: ssh -i "accountingAdmKey.pem" -o StrictHostKeyChecking=no ubuntu@ec2-100-24-4-42.compute-1.amazonaws.com "ls && cat docker-compose.yml && cd accounting_administrator && git pull https://${{ secrets.GIT_USER }}:${{ secrets.GIT_TOKEN }}@github.com/my-personal-finances-br/accounting_administrator.git"
+      run: ssh -i "accountingAdmKey.pem" -o StrictHostKeyChecking=no ubuntu@ec2-100-24-4-42.compute-1.amazonaws.com "./deploy.sh"
       
 
         
