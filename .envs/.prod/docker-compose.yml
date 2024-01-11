@@ -10,7 +10,7 @@ services:
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    image: lucasehonda/accounting_administrator_backend
+    image: lucasehonda/accounting_administrator_backend:{{BACKEND_TAG}}
     # image: local_django
     depends_on:
       - postgres
@@ -38,7 +38,7 @@ services:
     # build:
     #   context: ./frontend/accouting_admin
     #   dockerfile: Dockerfile.react
-    image: lucasehonda/accounting_administrator_frontend
+    image: lucasehonda/accounting_administrator_frontend:{{BACKEND_TAG}}
     volumes:
       - ./frontend/accouting_admin:/app
       - /app/node_modules
