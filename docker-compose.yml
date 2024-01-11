@@ -7,11 +7,10 @@ volumes:
 services:
   django:
     hostname: django
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
-    image: lucasehonda/accounting_administrator_backend
-    # image: local_django
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: local_django
     depends_on:
       - postgres
     volumes:
@@ -35,10 +34,9 @@ services:
     ports:
       - "5432:5432"
   frontend:
-    # build:
-    #   context: ./frontend/accouting_admin
-    #   dockerfile: Dockerfile.react
-    image: lucasehonda/accounting_administrator_frontend
+    build:
+      context: ./frontend/accouting_admin
+      dockerfile: Dockerfile.react
     volumes:
       - ./frontend/accouting_admin:/app
       - /app/node_modules
