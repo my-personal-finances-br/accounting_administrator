@@ -17,8 +17,8 @@ services:
     volumes:
       - .:/app
     env_file:
-      - ./.envs/.local/.django
-      - ./.envs/.local/.postgres
+      - ./accounting_administrator/.envs/.local/.django
+      - ./accounting_administrator/.envs/.local/.postgres
     ports:
       - "8000:8000"
     restart: on-failure
@@ -40,7 +40,7 @@ services:
     #   dockerfile: Dockerfile.react
     image: lucasehonda/accounting_administrator_frontend:{{DOCKER_TAG}}
     volumes:
-      - ./frontend/accouting_admin:/app
+      - ./accounting_administrator/frontend/accouting_admin:/app
       - /app/node_modules
     ports:
       - "3000:3000"
