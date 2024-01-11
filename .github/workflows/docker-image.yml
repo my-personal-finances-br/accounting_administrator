@@ -14,7 +14,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
-        docker login -u $USER --password-stdin $PASSWORD
+        docker --help
+        docker login -u  ${{ secrets.USER }} -p ${{ secrets.PASSWORD }}
         docker build -t lucasehonda/accounting_administrator_backend .
         docker push lucasehonda/accounting_administrator_backend
 
