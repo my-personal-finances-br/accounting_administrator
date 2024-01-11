@@ -17,5 +17,5 @@ jobs:
         docker login -u $USER -p $PASSWORD
         docker build -t lucasehonda/accounting_administrator_backend .
         docker push lucasehonda/accounting_administrator_backend
-        echo Finish
+
         
