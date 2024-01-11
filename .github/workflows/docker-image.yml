@@ -5,29 +5,30 @@ on:
     branches: [ "main" ]
 
 jobs:
-  # build-image-backend:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - name: Build the Docker image Backend
-  #     run: |
-  #       echo ${{ github.sha }}
-  #       docker login -u  ${{ secrets.USER }} -p ${{ secrets.PASSWORD }}
-  #       docker build -t lucasehonda/accounting_administrator_backend:${{ github.sha }} .
-  #       docker push lucasehonda/accounting_administrator_backend:${{ github.sha }}
-  # build-image-front:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - name: Build the Docker image Frontend
-  #     run: |
-  #       echo ${{ github.sha }}
-  #       docker login -u  ${{ secrets.USER }} -p ${{ secrets.PASSWORD }}
-  #       cd frontend/accouting_admin
-  #       docker build -t lucasehonda/accounting_administrator_frontend:${{ github.sha }} -f Dockerfile.react .
-  #       docker push lucasehonda/accounting_administrator_frontend:${{ github.sha }}
+  build-image-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image Backend
+      run: |
+        echo ${{ github.sha }}
+        docker login -u  ${{ secrets.USER }} -p ${{ secrets.PASSWORD }}
+        docker build -t lucasehonda/accounting_administrator_backend:${{ github.sha }} .
+        docker push lucasehonda/accounting_administrator_backend:${{ github.sha }}
+  build-image-front:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image Frontend
+      run: |
+        echo ${{ github.sha }}
+        docker login -u  ${{ secrets.USER }} -p ${{ secrets.PASSWORD }}
+        cd frontend/accouting_admin
+        docker build -t lucasehonda/accounting_administrator_frontend:${{ github.sha }} -f Dockerfile.react .
+        docker push lucasehonda/accounting_administrator_frontend:${{ github.sha }}
   deploy:
     runs-on: ubuntu-latest
+    needs: [build-image-front,build-image-backend]
     steps:
     - name: Checkout do repositório
       uses: actions/checkout@v3
