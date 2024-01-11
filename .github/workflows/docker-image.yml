@@ -1,22 +1,29 @@
-name: Docker Image CI Backend
+name: CI/CD Account Administrator
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-
-  build:
-
+  build-image-backend:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
+    - name: Build the Docker image Backend
       run: |
-        docker --help
         docker login -u  ${{ secrets.USER }} -p ${{ secrets.PASSWORD }}
         docker build -t lucasehonda/accounting_administrator_backend .
         docker push lucasehonda/accounting_administrator_backend
+  build-image-front:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image Frontend
+      run: |
+        docker login -u  ${{ secrets.USER }} -p ${{ secrets.PASSWORD }}
+        cd frontend/accouting_admin
+        docker build -t lucasehonda/accounting_administrator_frontend -f Dockerfile.react .
+        docker push lucasehonda/accounting_administrator_frontend
+
 
         
