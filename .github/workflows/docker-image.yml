@@ -35,7 +35,8 @@ jobs:
       run: echo "${{ secrets.SSH_PRIVATY_KEY }}" > chave.pem
     - name: instalar sshpass
       run: |
-        apt-get install sshpass
+        sudo apt-get install sshpass
+        
 
 
 
