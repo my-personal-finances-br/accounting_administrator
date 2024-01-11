@@ -32,16 +32,19 @@ jobs:
     - name: Checkout do repositório
       uses: actions/checkout@v3
     - name: Criar arquivo temporário para a chave privada
-      run: echo "${{ secrets.SSH_PRIVATY_KEY }}" > chave.pem
+      run: |
+        echo "${{ secrets.SSH_PRIVATY_KEY }}" > accountingAdmKey.pem
+        sudo chmod 400 accountingAdmKey.pem
     - name: Create docker-compose
       run : |
-        ls
         cd .envs/.prod/
-        sed 's/{{BACKEND_TAG}}/${{ github.sha }}/g' docker-compose-base.yml > docker-compose.yml
+        sed 's/{{DOCKER_TAG}}/${{ github.sha }}/g' docker-compose-base.yml > docker-compose.yml
         cat docker-compose.yml
     - name: instalar sshpass and enter in ec2 instance
       run: |
         sudo apt-get install sshpass
+        ./deploy.sh
+        
         
         
         
