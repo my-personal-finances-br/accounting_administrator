@@ -8,4 +8,8 @@ resource "aws_instance" "ec2_instance" {
   tags = {
     Name = "my-instance"
   }
+  root_block_device {
+    volume_size = 30  
+    volume_type = "gp2"  
+  }
 }
