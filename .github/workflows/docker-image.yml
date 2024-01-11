@@ -31,10 +31,10 @@ jobs:
     steps:
     - name: Checkout do repositório
       uses: actions/checkout@v3
-    - name: Deploy para EC2
+    - name: Criar arquivo temporário para a chave privada
+      run: echo "${{ secrets.SSH_PRIVATY_KEY }}" > chave.pem
+    - name: instalar sshpass
       run: |
-        # Estabelece a conexão SSH com a EC2
-        echo "$SSH_PRIVATY_KEY" > accountingAdmKey.pem
         apt-get install sshpass
 
 
