@@ -17,6 +17,7 @@ resource "aws_instance" "ec2_instance" {
               sudo apt-get update -y
               curl -fsSL https://get.docker.com/ | sudo bash
               sudo usermod -aG docker $USER
+              git clone https://lucasehonda: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@github.com/my-personal-finances-br/accounting_administrator.git
               # Add more commands as needed
               EOF
 }
