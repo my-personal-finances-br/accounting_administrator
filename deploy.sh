@@ -1,3 +1,7 @@
-sshpass ssh -i "accountingAdmKey.pem"  ubuntu@ec2-100-24-4-42.compute-1.amazonaws.com <<-'ENDSSH'
-   ls
-ENDSSH
+#!/bin/sh
+
+ls 
+cat docker-compose.yml
+cd accounting_administrator
+git pull https://${{ secrets.GIT_USER }}:${{ secrets.GIT_TOKEN }}@github.com/my-personal-finances-br/accounting_administrator.git
+cd .. && docker-compose up --build
