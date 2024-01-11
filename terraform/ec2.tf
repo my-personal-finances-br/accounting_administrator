@@ -12,4 +12,11 @@ resource "aws_instance" "ec2_instance" {
     volume_size = 30  
     volume_type = "gp2"  
   }
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo apt-get update -y
+              curl -fsSL https://get.docker.com/ | sudo bash
+              sudo usermod -aG docker $USER
+              # Add more commands as needed
+              EOF
 }
