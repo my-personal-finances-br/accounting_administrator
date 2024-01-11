@@ -42,8 +42,10 @@ jobs:
         cat docker-compose.yml
     - name: instalar sshpass and enter in ec2 instance
       run: |
+        ls 
+        cd ../../
         sudo apt-get install sshpass
-        ./deploy.sh
+        sudo ./deploy.sh
         
         
         
