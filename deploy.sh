@@ -1,5 +1,5 @@
 #!/bin/sh
-
+cd ..
 ls 
 cat docker-compose.yml
-cd .. && docker-compose up --build
+docker-compose up --build
