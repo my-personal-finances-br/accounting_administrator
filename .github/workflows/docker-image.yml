@@ -34,7 +34,7 @@ jobs:
     - name: Deploy para EC2
       run: |
         # Estabelece a conexão SSH com a EC2
-        echo "${{ secrets.SSH_PRIVATY_KEY }}" > accountingAdmKey.pem
+        echo "$SSH_PRIVATY_KEY" > accountingAdmKey.pem
         apt-get install sshpass
 
 
