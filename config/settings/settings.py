@@ -148,8 +148,14 @@ if env("USE_DOCKER") == "yes":
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
     INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://ec2-3-82-193-76.compute-1.amazonaws.com:3000"]
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://ec2-3-82-193-76.compute-1.amazonaws.com:3000"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://ec2-3-82-193-76.compute-1.amazonaws.com:3000",
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://ec2-3-82-193-76.compute-1.amazonaws.com:3000",
+]
 
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_HTTPONLY = False
