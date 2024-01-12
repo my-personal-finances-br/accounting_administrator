@@ -2,7 +2,7 @@ import os
 import sys
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.settings")
 
     try:
         from django.core.management import execute_from_command_line
@@ -26,19 +26,7 @@ if __name__ == "__main__":
     current_path = os.path.dirname(os.path.abspath(__file__))
     sys.path.append(os.path.join(current_path, "accounting_admin"))
 
-    if os.environ.get("DJANGO_DEBUGGER"):
-        import ptvsd
-
-        ptvsd.enable_attach(address=("0.0.0.0", 5678))
-        print("Attached remote debugger")
-
     try:
         execute_from_command_line(sys.argv)
     except Exception:
-        try:
-            from raven.contrib.django.raven_compat.models import client as raven_client
-        except ImportError:
-            raise ImportError("Couldn't import raven. Are you sure it's installed ?")
-
-        raven_client.captureException()
         raise
