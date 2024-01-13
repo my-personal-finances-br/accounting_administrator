@@ -39,6 +39,19 @@ class MonthClosureView(generics.UpdateAPIView, GenericAuthenticationRequired):
 class ExpenseListCreateView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.ExpensesSerializer
 
+    def create(self, request, *args, **kwargs):
+        if bool(request.data.get("is_fixed", False)):
+            ExpectedExpense.objects.create(
+                name=request.data.get("name"),
+                value=request.data.get("value"),
+                description=request.data.get("description"),
+                user=request.user,
+                deadline=request.data.get("fixed_deadline"),
+                deadline_type=request.data.get("deadline_type"),
+                credit_card_id=request.data.get("credit_card_id"),
+            )
+        return super().create(request, *args, **kwargs)
+
     def perform_create(self, serializer):
         instance = serializer.save()
         if "credit_card_id" in self.request.data:
@@ -69,7 +82,9 @@ class ExpenseUpdateRetrieveView(
             instance.save()
 
 
-class MonthlyExpenseDetailView(generics.RetrieveAPIView, GenericAuthenticationRequired):
+class MonthlyExpenseDetailView(
+    generics.RetrieveDestroyAPIView, GenericAuthenticationRequired
+):
     serializer_class = expensives.MonthlyExpenseDetailSerializer
 
     def get_queryset(self):
@@ -87,6 +102,13 @@ class ExpectedExpenseListView(generics.ListCreateAPIView, GenericAuthenticationR
     def create(self, request, *args, **kwargs):
         request.data["user"] = self.request.user.id
         return super().create(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        if "credit_card_id" in self.request.data:
+            credit_card_id = self.request.data.get("credit_card_id")
+            instance.credit_card_id = credit_card_id if not credit_card_id == "" else None
+            instance.save()
 
 
 class ExpectedExpenseRetrieveView(

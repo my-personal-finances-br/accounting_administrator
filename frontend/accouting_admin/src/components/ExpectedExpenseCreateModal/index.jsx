@@ -1,17 +1,26 @@
 import { Box, CloseButton, Container, Content, SendButton } from "./style";
 import { GrFormClose } from "react-icons/gr";
 import { Form } from "@unform/web";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import InputUnform from "../../components/form/input/input";
 import { createExpectedExpenses } from "../../services/expenseves/createExpectedExpenses";
+import { listCreditCards } from "../../services/creditCards/listCreditCards";
 
 export default function ExpectedExpenseCreateModal({
   isOpen,
   setIsOpen,
   setIsOpenFatherModal,
 }) {
-  const formRef = useRef(null);
   const [deadlineType, setDeadlineType] = useState("");
+  const [creditCardSelected, setCreditCardSelected] = useState("");
+  const [creditCards, setCreditCards] = useState([]);
+
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    getCreditCards();
+  }, []);
+
   const closeModal = (e) => {
     e.preventDefault();
     setIsOpen(false);
@@ -26,6 +35,14 @@ export default function ExpectedExpenseCreateModal({
     setDeadlineType(event.target.value);
   };
 
+  const getCreditCards = async () => {
+    await setCreditCards((await listCreditCards()).data);
+  };
+
+  const handleCreditCardSelectedChange = (event) => {
+    setCreditCardSelected(event.target.value);
+  };
+
   return (
     <Form ref={formRef} onSubmit={handleSubmit}>
       <Container isOpen={isOpen}>
@@ -37,6 +54,22 @@ export default function ExpectedExpenseCreateModal({
             </CloseButton>
             <InputUnform placeholder="Nome" name="name" />
             <InputUnform placeholder="Descrição" name="description" />
+            Cartão de credito
+            <InputUnform
+              as="select"
+              name="credit_card_id"
+              value={creditCardSelected}
+              onChange={handleCreditCardSelectedChange}
+            >
+              {creditCards.map((creditCard) => (
+                <option key={creditCard.uuid} value={creditCard.uuid}>
+                  {creditCard.name}
+                </option>
+              ))}
+              <option key={"nao tem"} value="">
+                Sem cartão
+              </option>
+            </InputUnform>
             Tipo de data para pagamento:
             <InputUnform
               as="select"
@@ -45,6 +78,8 @@ export default function ExpectedExpenseCreateModal({
               onChange={handleDeadlineTypeChange}
             >
               <option value="first_business_day">Primeiro dia útil</option>
+              <option value="fifth_business_day">5° dia útil</option>
+              <option value="fifteenth_business_day">15° dia útil</option>
               <option value="last_business_day">Ultimo dia útil</option>
               <option value="date">Data exata</option>
             </InputUnform>
