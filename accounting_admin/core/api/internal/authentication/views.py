@@ -2,9 +2,9 @@ import json
 
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework import exceptions, generics
+from rest_framework import exceptions, generics, status
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accounting_admin.core.api.internal.authentication.backends import (
@@ -41,12 +41,19 @@ class ChangePasswordView(GenericAuthenticationRequired):
 class RegisterUserView(generics.CreateAPIView):
     serializer_class = users.UserSerializer
 
-    def post(self, request, *args, **kwargs):
-        request.data["is_superuser"] = False
-        request.data["is_staff"] = False
-        response = super().post(request, *args, **kwargs)
-        login(request=request, user=get_object_or_404(User, **request.data))
-        return response
+    def create(self, request, *args, **kwargs):
+        request.data.update({"is_superuser": False, "is_staff": False})
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        try:
+            user = User.objects.get(id=serializer.data.get("id"))
+        except User.DoesNotExist:
+            raise exceptions.AuthenticationFailed()
+        user.set_password(request.data["password"])
+        user.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 @csrf_exempt
