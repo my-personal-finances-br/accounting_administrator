@@ -31,7 +31,6 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
-    "django_rest_passwordreset",
     "corsheaders",
 ]
 LOCAL_APPS = [
@@ -149,7 +148,9 @@ if env("USE_DOCKER") == "yes":
     INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
 
 ALLOWED_HOSTS = [
-    "ec2-3-82-193-76.compute-1.amazonaws.com"
+    "ec2-3-82-193-76.compute-1.amazonaws.com",
+    "localhost:8000",
+    "localhost",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -160,7 +161,7 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://ec2-3-82-193-76.compute-1.amazonaws.com:3000",
-    "http://ec2-3-82-193-76.compute-1.amazonaws.com"
+    "http://ec2-3-82-193-76.compute-1.amazonaws.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

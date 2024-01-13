@@ -9,8 +9,13 @@ authentication_urls = [
         name="api-internal-logout",
     ),
     path(
+        "internal/me/password",
+        internal.authentication.views.ChangePasswordView.as_view(),
+        name="api-internal-change-password",
+    ),
+    path(
         "internal/authenticate/generics",
-        internal.authentication.views.NewAuthenticateView.as_view(),
+        internal.authentication.views.AuthenticateView.as_view(),
         name="api-internal-authenticate-generics",
     ),
 ]

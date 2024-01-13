@@ -1,9 +1,8 @@
 from rest_framework import generics
 from rest_framework.response import Response
 
-from accounting_admin.core.api.internal.authentication.backends import (
-    GenericAuthenticationRequired,
-)
+from accounting_admin.core.api.internal.authentication.backends import \
+    GenericAuthenticationRequired
 from accounting_admin.core.api.internal.serializers import salaries
 from accounting_admin.core.salary.models import ExpectedSalary, Salary
 

@@ -1,15 +1,11 @@
 from rest_framework import generics
 from rest_framework.response import Response
 
-from accounting_admin.core.api.internal.authentication.backends import (
-    GenericAuthenticationRequired,
-)
+from accounting_admin.core.api.internal.authentication.backends import \
+    GenericAuthenticationRequired
 from accounting_admin.core.api.internal.serializers import expensives
-from accounting_admin.core.expense.models import (
-    ExpectedExpense,
-    Expense,
-    MonthlyExpense,
-)
+from accounting_admin.core.expense.models import (ExpectedExpense, Expense,
+                                                  MonthlyExpense)
 
 
 class MonthlyExpenseView(generics.ListCreateAPIView, GenericAuthenticationRequired):
