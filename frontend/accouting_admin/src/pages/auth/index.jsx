@@ -4,6 +4,7 @@ import InputUnform from "../../components/form/input/input";
 import { useRef, useState } from "react";
 import { auth } from "../../services/auth/auth";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Auth() {
   const formRef = useRef(null);
@@ -42,7 +43,8 @@ export default function Auth() {
               }}
             />
           </WrapperInput>
-          <Button>login</Button>
+          Não tem uma conta? <Link to="/register">Cadastre-se</Link>
+          <Button>Login</Button>
         </Card>
       </AuthWrapper>
     </Form>

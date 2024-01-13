@@ -2,64 +2,51 @@ import json
 
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework import status
-from rest_framework.response import Response
+from rest_framework import exceptions, generics
 from rest_framework.views import APIView
+
+from accounting_admin.core.api.internal.authentication.backends import (
+    GenericAuthenticationRequired,
+)
+from accounting_admin.core.api.internal.serializers import users
 
 User = get_user_model()
 
 
 class AuthenticateView(APIView):
-    def _invalid_credentials(self):
-        return Response(
-            {"error": "Username or password invalid", "code": "INVALID_CREDENTIALS"},
-            status=status.HTTP_401_UNAUTHORIZED,
-        )
-
-
-class AuthenticateBackofficeView(AuthenticateView):
-    def post(self, request):
-        required_fields = ["username", "password"]
-        if not all([field in request.data for field in required_fields]):
-            return Response(
-                {"error": "missing required fields"}, status=status.HTTP_400_BAD_REQUEST
-            )
-
-        username = request.data["username"]
-        password = request.data["password"]
-
-        user = None
-
-        try:
-            staff = User.objects.get(username=username, is_staff=True)
-            user = authenticate(request, username=staff.username, password=password)
-        except User.DoesNotExist:
-            pass
-
-        if user is None:
-            return self._invalid_credentials()
-
-        self._login_user_and_set_session_data(request, user)
-        return Response({})
-
-    def _login_user_and_set_session_data(self, request, user):
-        origin_url = request.data.get("origin_url")
-
-        login(request, user)
-        request.session["authentication_backend_used"] = "backoffice"
-        request.session["authentication_origin_url"] = origin_url
-
-
-class NewAuthenticateView(APIView):
     def post(self, request):
         user = authenticate(
             username=request.data["username"], password=request.data["password"]
         )
         if not user:
-            return HttpResponse({"deu ruim": "vc n logou"}, status=400)
+            raise exceptions.AuthenticationFailed()
         login(request=request, user=user)
-        return HttpResponse({"parabens": "vc logou"})
+        return HttpResponse(users.UserSerializer(user).data)
+
+
+class ChangePasswordView(GenericAuthenticationRequired):
+    def post(self, request):
+        user = request.user
+        old_password = request.data["old_password"]
+        new_password = request.data["new_password"]
+        if not user.check_password(old_password):
+            raise exceptions.PermissionDenied()
+        user.set_password(new_password)
+        user.save()
+        return HttpResponse("Senha alterada com sucesso", status=204)
+
+
+class RegisterUserView(generics.CreateAPIView):
+    serializer_class = users.UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        request.data["is_superuser"] = False
+        request.data["is_staff"] = False
+        response = super().post(request, *args, **kwargs)
+        login(request=request, user=get_object_or_404(User, **request.data))
+        return response
 
 
 @csrf_exempt

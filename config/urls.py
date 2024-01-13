@@ -27,11 +27,6 @@ schema_view = get_swagger_view(title="Pastebin API")
 
 urlpatterns = [
     path("api/", include("accounting_admin.core.api.urls")),
-    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
-    path(
-        "api/password_reset/",
-        include("django_rest_passwordreset.urls", namespace="password_reset"),
-    ),
     path(settings.ADMIN_URL, admin.site.urls),
     re_path(r"^$", schema_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

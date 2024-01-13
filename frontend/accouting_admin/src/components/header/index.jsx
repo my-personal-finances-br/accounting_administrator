@@ -7,6 +7,7 @@ import { useState } from "react";
 import ExpectedExpenseModal from "../ExpectedExpenseModal";
 import ExpectedSalaryModal from "../ExpectedSalaryModal";
 import CreditCardModal from "../CreditCardModal";
+import ChangePasswordModal from "../ChangePasswordModal";
 
 export default function Header() {
   const [expectedExpenseModalOpen, setExpectedExpenseModalOpen] =
@@ -16,6 +17,8 @@ export default function Header() {
   const [expectedSalaryData, setExpectedSalaryData] = useState([]);
   const [creditCardData, setCreditCardData] = useState([]);
   const [creditCardModalOpen, setCreditCardModalOpen] = useState(false);
+  const [changePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
+
   const doLogout = async () => {
     logout();
     window.location.reload(false);
@@ -35,6 +38,9 @@ export default function Header() {
     setCreditCardData(data.data);
     setCreditCardModalOpen(true);
   };
+  const openChangePasswordModal = async () => {
+    setChangePasswordModalOpen(true);
+  };
   return (
     <HeaderDiv>
       <Container>
@@ -53,6 +59,10 @@ export default function Header() {
           setIsOpen={setCreditCardModalOpen}
           data={creditCardData}
         />
+        <ChangePasswordModal
+          isOpen={changePasswordModalOpen}
+          setIsOpen={setChangePasswordModalOpen}
+        />
         <span>
           <b>Minhas Finanças</b>
         </span>
@@ -69,6 +79,7 @@ export default function Header() {
           <Button onClick={openCreditCardModal}>Cartões de Credito</Button>
           <Button onClick={openExpectedSalaryModal}>Entradas Fixas</Button>
           <Button onClick={openExpectedExpenseModal}>Gastos Fixos</Button>
+          <Button onClick={openChangePasswordModal}>Trocar senha</Button>
           <Button onClick={doLogout}>Sair</Button>
         </Nav>
       </Container>

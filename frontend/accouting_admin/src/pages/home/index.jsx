@@ -1,4 +1,4 @@
-import { ContainerHome } from "./style";
+import { ContainerHome, MonthButton } from "./style";
 import { useState, useEffect } from "react";
 import Card from "../../components/card";
 import ExpenseItem from "../../components/ExpenseItem";
@@ -37,22 +37,7 @@ export default function Home() {
         }}
       >
         <ContainerHome>
-          <button
-            onClick={createListMonthlyExpense}
-            style={{
-              padding: "10px",
-              borderRadius: "20px",
-              backgroundColor: "#226feb",
-              marginLeft: "41%",
-              fontSize: "20px",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-              marginTop: "1%",
-            }}
-          >
-            Novo mês
-          </button>
+          <MonthButton onClick={createListMonthlyExpense}>Novo mês</MonthButton>
           <div style={{ padding: "30px" }}>
             {expenses && expenses.length ? (
               <>

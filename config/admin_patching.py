@@ -2,8 +2,7 @@ from django.utils.translation import gettext as _
 
 
 def patch(site):
-    site.site_header = _(" - Admin")
-    # site.index_template = "admin_overrides/index.html"
+    site.site_header = _("Minhas finanças - Admin")
 
     original_index_view = site.index
 
