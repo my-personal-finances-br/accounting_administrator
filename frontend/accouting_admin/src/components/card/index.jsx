@@ -117,9 +117,9 @@ export default function Card({
         value={finalText}
         readOnly
       /> */}
-      <button onClick={copyToClipboard}>
+      {/* <button onClick={copyToClipboard}>
         Copiar para a área de transferência
-      </button>
+      </button> */}
       <div className="Buttonn">
         Total Parcial:&nbsp;&nbsp;
         <strong>{formatCurrency(partial_total)}</strong>

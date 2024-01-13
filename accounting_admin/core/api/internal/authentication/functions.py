@@ -5,8 +5,6 @@ class UserEnvironment:
     @property
     def is_backoffice_user(self):
         try:
-            return (
-                (not not self.request.user.id) if self.request.user.is_staff else False
-            )
+            return (not not self.request.user.id) if self.request.user.is_staff else False
         except Exception:
             return False

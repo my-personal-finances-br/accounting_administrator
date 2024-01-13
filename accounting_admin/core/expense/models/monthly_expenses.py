@@ -67,9 +67,9 @@ def calculate_nth_business_day(n, next_year, next_month, current_date):
 def get_holiday_days(year, month):
     from accounting_admin.core.holidays.models import Holiday
 
-    return Holiday.objects.filter(
-        Q(date__year=year) & Q(date__month=month)
-    ).values_list("date__day", flat=True)
+    return Holiday.objects.filter(Q(date__year=year) & Q(date__month=month)).values_list(
+        "date__day", flat=True
+    )
 
 
 def define_name(expected_salary):
@@ -124,8 +124,7 @@ class MonthlyExpense(Default):
     def save(self, skip_checks=False, *args, **kwargs):
         if skip_checks:
             return super().save(*args, **kwargs)
-        from accounting_admin.core.expense.models import (ExpectedExpense,
-                                                          Expense)
+        from accounting_admin.core.expense.models import ExpectedExpense, Expense
         from accounting_admin.core.salary.models import ExpectedSalary, Salary
 
         super().save(*args, **kwargs)

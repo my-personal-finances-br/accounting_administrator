@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from accounting_admin.core.expense.models import (ExpectedExpense, Expense,
-                                                  MonthlyExpense)
+from accounting_admin.core.expense.models import ExpectedExpense, Expense, MonthlyExpense
 
 
 @admin.register(Expense)

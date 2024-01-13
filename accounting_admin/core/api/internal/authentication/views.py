@@ -6,8 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import exceptions
 from rest_framework.views import APIView
 
-from accounting_admin.core.api.internal.authentication.backends import \
-    GenericAuthenticationRequired
+from accounting_admin.core.api.internal.authentication.backends import (
+    GenericAuthenticationRequired,
+)
 from accounting_admin.core.api.internal.serializers.users import UserSerializer
 
 User = get_user_model()
@@ -32,6 +33,7 @@ class ChangePasswordView(GenericAuthenticationRequired):
         if not user.check_password(old_password):
             raise exceptions.PermissionDenied()
         user.set_password(new_password)
+        user.save()
         return HttpResponse("Senha alterada com sucesso", status=204)
 
 

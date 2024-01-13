@@ -1,7 +1,6 @@
 from rest_framework.permissions import IsAuthenticated
 
-from accounting_admin.core.api.internal.authentication.functions import \
-    UserEnvironment
+from accounting_admin.core.api.internal.authentication.functions import UserEnvironment
 
 
 class GenericIsAuthenticated(IsAuthenticated):
