@@ -5,9 +5,9 @@ const CardContainer = styled.div`
   margin-bottom: 40px;
   padding: 40px;
   position: relative;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   color: #ffff;
   border-radius: 8px;
+  box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.3);
 `;
 
 const HeaderCard = styled.div`

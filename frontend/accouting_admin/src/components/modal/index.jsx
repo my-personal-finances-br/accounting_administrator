@@ -10,6 +10,8 @@ import RadioTeste from "../form/radio";
 export default function Modal({ isOpen, setIsOpen, id, getExpenses, month }) {
   const [creditCards, setCreditCards] = useState([]);
   const [creditCardSelected, setCreditCardSelected] = useState("");
+  const [deadlineType, setDeadlineType] = useState("");
+  const [isFixed, setIsFixed] = useState(false);
 
   useEffect(() => {
     getCreditCards();
@@ -35,6 +37,19 @@ export default function Modal({ isOpen, setIsOpen, id, getExpenses, month }) {
     await getExpenses();
     setIsOpen(false);
   };
+
+  const handleDeadlineTypeChange = (event) => {
+    setDeadlineType(event.target.value);
+  };
+
+  const handleIsFixedChange = (event) => {
+    const isFixedValue = event.target.value === "true";
+    setIsFixed(isFixedValue);
+    if (formRef.current) {
+      formRef.current.setFieldValue("is_fixed", isFixedValue);
+    }
+  };
+
   return (
     <Form ref={formRef} onSubmit={handleSubmit}>
       <Container isOpen={isOpen}>
@@ -46,6 +61,12 @@ export default function Modal({ isOpen, setIsOpen, id, getExpenses, month }) {
             </CloseButton>
             <InputUnform placeholder="Nome" name="name" />
             <InputUnform placeholder="Descrição" name="description" />
+            Data de pagamento
+            <InputUnform
+              placeholder="Data de pagamento"
+              type="date"
+              name="deadline"
+            />
             <InputUnform placeholder="Valor" type="number" name="value" />
             Cartão de credito
             <InputUnform
@@ -71,7 +92,34 @@ export default function Modal({ isOpen, setIsOpen, id, getExpenses, month }) {
                 { value: true, label: "Sim", id: "1023o54-023i532" },
                 { value: false, label: "Não", id: "104532523o54-023i532" },
               ]}
+              onChange={handleIsFixedChange}
             />
+            {isFixed && (
+              <>
+                Data de pamento no mês
+                <InputUnform
+                  as="select"
+                  name="deadline_type"
+                  value={deadlineType}
+                  onChange={handleDeadlineTypeChange}
+                >
+                  <option value="first_business_day">Primeiro dia útil</option>
+                  <option value="fifth_business_day">5° dia útil</option>
+                  <option value="fifteenth_business_day">15° dia útil</option>
+                  <option value="last_business_day">Ultimo dia útil</option>
+                  <option value="date">Data exata</option>
+                </InputUnform>
+                {deadlineType === "date" ? (
+                  <InputUnform
+                    placeholder="Dia para pagamento"
+                    type="number"
+                    name="fixed_deadline"
+                  />
+                ) : (
+                  <></>
+                )}
+              </>
+            )}
             <Button>Criar</Button>
           </Content>
         </Box>

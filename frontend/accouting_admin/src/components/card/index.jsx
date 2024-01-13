@@ -7,6 +7,7 @@ import { retrieveMonthDetail } from "../../services/expenseves/retrieveMonthDeta
 import { retrieveSalaryDetail } from "../../services/salaries/retrieveSalaryDetail";
 import formatCurrency from "../../utils/formatCurrent";
 import { MonthlyExpenseClosure } from "../../services/expenseves/MonthlyExpenseClosure";
+import { deleteMonthlyExpense } from "../../services/expenseves/deleteMonthlyExpense";
 import {
   CardContainer,
   HeaderCard,
@@ -14,6 +15,7 @@ import {
   Button2,
   TotalPartial,
 } from "./style";
+import { GrFormClose } from "react-icons/gr";
 
 export default function Card({
   children,
@@ -21,6 +23,7 @@ export default function Card({
   id,
   getExpenses,
   partial_total,
+  month_data,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [monthDetailModalOpen, setMonthDetailModalOpen] = useState(false);
@@ -85,6 +88,11 @@ export default function Card({
   const monthlyExpenseClosure = async () => {
     await MonthlyExpenseClosure(id);
   };
+  const handleDeleteMonthly = async () => {
+    await deleteMonthlyExpense(id);
+    window.location.reload();
+  };
+
   return (
     <CardContainer>
       <MonthDetailModal
@@ -107,10 +115,16 @@ export default function Card({
         month={month}
       />
       <HeaderCard>
-        <b>{month}</b>
+        <b>
+          {month} <GrFormClose onClick={handleDeleteMonthly} size={18} />{" "}
+        </b>
       </HeaderCard>
       <ButtonContainer>
-        <button onClick={monthlyExpenseClosure}>Fechar mês</button>
+        {!month_data.detail ? (
+          <button onClick={monthlyExpenseClosure}>Fechar mês</button>
+        ) : (
+          <></>
+        )}
         <button onClick={openMonthSalaryModal}>Entradas</button>
         <button onClick={openMonthDetailModal}>Detalhes</button>
       </ButtonContainer>

@@ -26,3 +26,31 @@ export const MonthButton = styled.button`
     margin-top: 2%;
   }
 `;
+
+export const CardContainer = styled.div`
+  max-height: 480px;
+  overflow-y: auto;
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 4px; 
+  }
+
+
+  &::-webkit-scrollbar-track {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+  @media (max-width: 600px) {
+    max-height: 270px;
+  }
+`;
+
+export const CardContent = styled.div`
+  padding: 30px;
+`;
