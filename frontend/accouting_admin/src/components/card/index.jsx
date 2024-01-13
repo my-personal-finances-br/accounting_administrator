@@ -1,5 +1,6 @@
 import "./style.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
+// import { useRef } from "react";
 import Modal from "../modal";
 import MonthDetailModal from "../../components/monthDetailModal";
 import SalaryDetailModal from "../../components/salaryDetailModal";
@@ -21,7 +22,7 @@ export default function Card({
   const [salaryDetailModalOpen, setSalaryDetailModalOpen] = useState(false);
   const [salaryDetailData, setSalaryDetailData] = useState([]);
 
-  const textareaRef = useRef(null);
+  // const textareaRef = useRef(null);
 
   // TODO: Fix this to new response from expense monthly
   // const { total_non_paid, non_paid_txt, paid_txt, total_paid_txt } =
@@ -60,10 +61,10 @@ export default function Card({
   //   total_paid_txt,
   // )}*`;
 
-  const copyToClipboard = () => {
-    textareaRef.current.select();
-    document.execCommand("copy");
-  };
+  // const copyToClipboard = () => {
+  //   textareaRef.current.select();
+  //   document.execCommand("copy");
+  // };
 
   const openMonthDetailModal = async () => {
     const data = await retrieveMonthDetail(id);

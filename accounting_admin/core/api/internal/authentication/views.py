@@ -2,14 +2,15 @@ import json
 
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework import exceptions
+from rest_framework import exceptions, generics
 from rest_framework.views import APIView
 
 from accounting_admin.core.api.internal.authentication.backends import (
     GenericAuthenticationRequired,
 )
-from accounting_admin.core.api.internal.serializers.users import UserSerializer
+from accounting_admin.core.api.internal.serializers import users
 
 User = get_user_model()
 
@@ -22,7 +23,7 @@ class AuthenticateView(APIView):
         if not user:
             raise exceptions.AuthenticationFailed()
         login(request=request, user=user)
-        return HttpResponse(UserSerializer(user).data)
+        return HttpResponse(users.UserSerializer(user).data)
 
 
 class ChangePasswordView(GenericAuthenticationRequired):
@@ -35,6 +36,17 @@ class ChangePasswordView(GenericAuthenticationRequired):
         user.set_password(new_password)
         user.save()
         return HttpResponse("Senha alterada com sucesso", status=204)
+
+
+class RegisterUserView(generics.CreateAPIView):
+    serializer_class = users.UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        request.data["is_superuser"] = False
+        request.data["is_staff"] = False
+        response = super().post(request, *args, **kwargs)
+        login(request=request, user=get_object_or_404(User, **request.data))
+        return response
 
 
 @csrf_exempt
