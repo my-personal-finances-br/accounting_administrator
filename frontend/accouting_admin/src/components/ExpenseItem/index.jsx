@@ -1,9 +1,15 @@
-import "./style.css";
+import {
+  ItemContainer,
+  RedText,
+  GreenText,
+  OrangeText,
+  ButtonContainer,
+  Button,
+} from "./style.js";
 import { useState } from "react";
 import PaidModal from "../paidModal";
 import { deleteExpenses } from "../../services/expenseves/deleteExpenses";
 import formatCurrency from "../../utils/formatCurrent";
-
 export default function ExpenseItem({
   value,
   name,
@@ -17,11 +23,35 @@ export default function ExpenseItem({
   creditCards,
 }) {
   const [modalOpen, setPaidModalOpen] = useState(false);
+
   const handleDelete = async () => {
     await deleteExpenses(id);
     await getExpenses();
   };
+
   const isDeadlinePassed = deadline && new Date(deadline) < new Date();
+
+  let dateComponent;
+  if (!paid_value && deadline && new Date(deadline) > new Date()) {
+    dateComponent = (
+      <OrangeText>
+        {deadline ? new Date(deadline).toLocaleDateString("pt-BR") : ""}
+      </OrangeText>
+    );
+  } else if (!isDeadlinePassed || paid_value) {
+    dateComponent = (
+      <GreenText>
+        {deadline ? new Date(deadline).toLocaleDateString("pt-BR") : ""}
+      </GreenText>
+    );
+  } else {
+    dateComponent = (
+      <RedText>
+        {deadline ? new Date(deadline).toLocaleDateString("pt-BR") : ""}
+      </RedText>
+    );
+  }
+
   return (
     <>
       <PaidModal
@@ -37,33 +67,23 @@ export default function ExpenseItem({
         credit_card={credit_card}
         creditCards={creditCards}
       />
-      <div className="Item">
+      <ItemContainer>
         <span>{name}</span>
-        <span
-          className={`${
-            !paid_value && deadline && new Date(deadline) > new Date()
-              ? "orange"
-              : !isDeadlinePassed || paid_value
-                ? "green"
-                : "red"
-          }`}
-        >
-          {deadline ? new Date(deadline).toLocaleDateString("pt-BR") : ""}
-        </span>
+        {dateComponent}
         <span>
           {paid_value ? formatCurrency(paid_value) : formatCurrency(value)}
         </span>
-      </div>
-      <div className="Butonn">
+      </ItemContainer>
+      <ButtonContainer>
         {paid_value ? (
           <></>
         ) : (
-          <button onClick={() => setPaidModalOpen(true)}>Pagar</button>
+          <Button onClick={() => setPaidModalOpen(true)}>Pagar</Button>
         )}
 
-        <button onClick={() => handleDelete(id)}>Excluir</button>
-        <button onClick={() => setPaidModalOpen(true)}>Editar</button>
-      </div>
+        <Button onClick={() => handleDelete(id)}>Excluir</Button>
+        <Button onClick={() => setPaidModalOpen(true)}>Editar</Button>
+      </ButtonContainer>
     </>
   );
 }

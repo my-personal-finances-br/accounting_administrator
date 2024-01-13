@@ -19,6 +19,11 @@ export const Container = styled.div`
   justify-content: space-between;
   height: 100%;
   color: white;
+  @media (max-width: 600px) {
+    span {
+      font-size: 10px;
+    }
+  }
 `;
 export const Button = styled.button`
   border: none;
@@ -33,6 +38,10 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  @media (max-width: 600px) {
+    font-size: 6px;
+    padding: 3px;
+  }
 `;
 export const ButtonLink = styled.button`
   border: none;
@@ -50,5 +59,9 @@ export const ButtonLink = styled.button`
   a {
     text-decoration: none;
     color: inherit;
+  }
+  @media (max-width: 600px) {
+    font-size: 10px;
+    padding: 3px;
   }
 `;

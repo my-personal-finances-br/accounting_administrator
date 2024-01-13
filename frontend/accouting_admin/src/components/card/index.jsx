@@ -1,4 +1,3 @@
-import "./style.css";
 import { useState } from "react";
 // import { useRef } from "react";
 import Modal from "../modal";
@@ -8,6 +7,13 @@ import { retrieveMonthDetail } from "../../services/expenseves/retrieveMonthDeta
 import { retrieveSalaryDetail } from "../../services/salaries/retrieveSalaryDetail";
 import formatCurrency from "../../utils/formatCurrent";
 import { MonthlyExpenseClosure } from "../../services/expenseves/MonthlyExpenseClosure";
+import {
+  CardContainer,
+  HeaderCard,
+  ButtonContainer,
+  Button2,
+  TotalPartial,
+} from "./style";
 
 export default function Card({
   children,
@@ -80,7 +86,7 @@ export default function Card({
     await MonthlyExpenseClosure(id);
   };
   return (
-    <div className="Card">
+    <CardContainer>
       <MonthDetailModal
         isOpen={monthDetailModalOpen}
         setIsOpen={setMonthDetailModalOpen}
@@ -100,18 +106,18 @@ export default function Card({
         getExpenses={getExpenses}
         month={month}
       />
-      <div className="HeaderCard">
+      <HeaderCard>
         <b>{month}</b>
-      </div>
-      <div className="ButtonContainer">
+      </HeaderCard>
+      <ButtonContainer>
         <button onClick={monthlyExpenseClosure}>Fechar mês</button>
         <button onClick={openMonthSalaryModal}>Entradas</button>
         <button onClick={openMonthDetailModal}>Detalhes</button>
-      </div>
+      </ButtonContainer>
       {children}
-      <div className="Buttonn">
-        <button onClick={() => setModalOpen(true)}>+</button>
-      </div>
+      <Button2 onClick={() => setModalOpen(true)}>
+        <button>+</button>
+      </Button2>
       {/* <textarea
         ref={textareaRef}
         style={{ position: "absolute", left: "-9999px" }}
@@ -121,10 +127,10 @@ export default function Card({
       {/* <button onClick={copyToClipboard}>
         Copiar para a área de transferência
       </button> */}
-      <div className="Buttonn">
+      <TotalPartial>
         Total Parcial:&nbsp;&nbsp;
         <strong>{formatCurrency(partial_total)}</strong>
-      </div>
-    </div>
+      </TotalPartial>
+    </CardContainer>
   );
 }
