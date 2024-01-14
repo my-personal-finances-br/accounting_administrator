@@ -4,7 +4,7 @@ import ExpectedSalaryItem from "../ExpectedSalaryItem";
 import { useState } from "react";
 import ExpectedSalaryCreateModal from "../ExpectedSalaryCreateModal";
 
-export default function ExpectedSalaryModal({ isOpen, setIsOpen, data }) {
+export default function ExpectedSalaryModal({ isOpen, setIsOpen, data, setData }) {
   const [expectedSalaryCreateModal, setExpectedSaryCreateModal] =
     useState(false);
 
@@ -23,6 +23,7 @@ export default function ExpectedSalaryModal({ isOpen, setIsOpen, data }) {
         isOpen={expectedSalaryCreateModal}
         setIsOpen={setExpectedSaryCreateModal}
         setIsOpenFatherModal={setIsOpen}
+        setData={setData}
       />
       <Box>
         <Content size="unpublish">
@@ -36,6 +37,7 @@ export default function ExpectedSalaryModal({ isOpen, setIsOpen, data }) {
               id={expectedExpense.uuid}
               value={expectedExpense.net}
               name={expectedExpense.name}
+              setData={setData}
             ></ExpectedSalaryItem>
           ))}
           <SendButton onClick={openexpectedSalaryCreateModal}>

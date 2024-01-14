@@ -1,9 +1,11 @@
 import "./style.css";
 import { deleteCreditCard } from "../../services/creditCards/deleteCreditCard";
+import { listCreditCards } from "../../services/creditCards/listCreditCards";
 
-export default function CreditCardItem({ creditCard }) {
+export default function CreditCardItem({ creditCard, setData }) {
   const handleDelete = async () => {
     await deleteCreditCard(creditCard.uuid);
+    setData((await listCreditCards()).data);
   };
 
   return (

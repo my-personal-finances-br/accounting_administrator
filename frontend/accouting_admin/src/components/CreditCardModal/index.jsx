@@ -4,7 +4,7 @@ import CreditCardItem from "../CreditCardItem";
 import CreditCardCreateModal from "../CreditCardCreateModal";
 import { useState } from "react";
 
-export default function CreditCardModal({ isOpen, setIsOpen, data }) {
+export default function CreditCardModal({ isOpen, setIsOpen, data, setData }) {
   const [creditCardCreateModal, setCreditCardCreateModal] = useState(false);
 
   const closeModal = (e) => {
@@ -22,6 +22,7 @@ export default function CreditCardModal({ isOpen, setIsOpen, data }) {
         isOpen={creditCardCreateModal}
         setIsOpen={setCreditCardCreateModal}
         setIsOpenFatherModal={setIsOpen}
+        setData={setData}
       />
       <Box>
         <Content size="unpublish">
@@ -33,6 +34,7 @@ export default function CreditCardModal({ isOpen, setIsOpen, data }) {
             <CreditCardItem
               key={creditCard.uuid}
               creditCard={creditCard}
+              setData={setData}
             ></CreditCardItem>
           ))}
           <SendButton onClick={openCreditCardCreateModal}>

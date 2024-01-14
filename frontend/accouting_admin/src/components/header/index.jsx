@@ -48,16 +48,19 @@ export default function Header() {
           isOpen={expectedExpenseModalOpen}
           setIsOpen={setExpectedExpenseModalOpen}
           data={expectedExpenseData}
+          setData={setExpectedExpenseData}
         />
         <ExpectedSalaryModal
           isOpen={expectedSalaryModalOpen}
           setIsOpen={setExpectedSalaryModalOpen}
           data={expectedSalaryData}
+          setData={setExpectedSalaryData}
         />
         <CreditCardModal
           isOpen={creditCardModalOpen}
           setIsOpen={setCreditCardModalOpen}
           data={creditCardData}
+          setData={setCreditCardData}
         />
         <ChangePasswordModal
           isOpen={changePasswordModalOpen}
