@@ -90,13 +90,6 @@ def define_name(expected_salary):
 
 
 class MonthlyExpense(Default):
-    uuid = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        serialize=False,
-        editable=False,
-        unique=True,
-    )
     month = models.CharField(
         _("month"),
         max_length=72,

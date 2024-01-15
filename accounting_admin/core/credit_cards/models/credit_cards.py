@@ -11,13 +11,6 @@ User = get_user_model()
 
 
 class CreditCard(Default):
-    uuid = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        serialize=False,
-        editable=False,
-        unique=True,
-    )
     name = models.CharField(
         _("name"),
         max_length=72,
@@ -25,7 +18,7 @@ class CreditCard(Default):
     bank = models.ForeignKey(
         "banks.Bank",
         verbose_name=_("bank"),
-        related_name=_("banks"),
+        related_name=_("credit_cards"),
         on_delete=models.CASCADE,
     )
     deadline = models.IntegerField(

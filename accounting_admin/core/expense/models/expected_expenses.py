@@ -12,13 +12,6 @@ User = get_user_model()
 
 
 class ExpectedExpense(Default):
-    uuid = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        serialize=False,
-        editable=False,
-        unique=True,
-    )
     value = models.DecimalField(_("value"), max_digits=24, decimal_places=6)
     name = models.CharField(
         _("name"),

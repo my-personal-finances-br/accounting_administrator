@@ -10,13 +10,6 @@ User = get_user_model()
 
 
 class Salary(Default):
-    uuid = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        serialize=False,
-        editable=False,
-        unique=True,
-    )
     monthly = models.ForeignKey(
         "expense.MonthlyExpense",
         verbose_name=_("monthly expense"),

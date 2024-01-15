@@ -10,13 +10,6 @@ User = get_user_model()
 
 
 class Expense(Default):
-    uuid = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        serialize=False,
-        editable=False,
-        unique=True,
-    )
     value = models.DecimalField(_("value"), max_digits=24, decimal_places=6)
     paid_value = models.DecimalField(
         _("paid value"), max_digits=24, decimal_places=6, null=True, blank=True

@@ -10,13 +10,6 @@ User = get_user_model()
 
 
 class ExpectedSalary(Default):
-    uuid = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        serialize=False,
-        editable=False,
-        unique=True,
-    )
     gross = models.DecimalField(
         _("gross salary"), max_digits=24, decimal_places=6, default=0
     )
