@@ -27,9 +27,9 @@ class CreditCard(Default):
     closure = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(31)], blank=True, null=True
     )
-    user = models.ForeignKey(
-        User,
-        verbose_name=_("user"),
+    account = models.ForeignKey(
+        "accounts.Account",
+        verbose_name=_("account"),
         related_name=_("credit_cards"),
         on_delete=models.CASCADE,
     )

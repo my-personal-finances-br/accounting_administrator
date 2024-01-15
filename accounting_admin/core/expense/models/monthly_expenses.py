@@ -1,15 +1,11 @@
 import calendar
-import uuid
 from datetime import datetime, timedelta
 
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from accounting_admin.utils.default_model import Default
-
-User = get_user_model()
 
 
 def define_deadline(expected_salary, month_number):
@@ -100,9 +96,9 @@ class MonthlyExpense(Default):
         _("total"), max_digits=24, decimal_places=6, blank=True, null=True
     )
     detail = models.TextField(_("detail"), blank=True, null=True)
-    user = models.ForeignKey(
-        User,
-        verbose_name=_("user"),
+    account = models.ForeignKey(
+        "accounts.Account",
+        verbose_name=_("account"),
         related_name=_("monthly_expenses"),
         on_delete=models.CASCADE,
     )
@@ -112,7 +108,7 @@ class MonthlyExpense(Default):
         verbose_name_plural = _("Monthly Expenses")
 
     def __str__(self):
-        return f"{self.month}, {self.month_year} - {self.user}"
+        return f"{self.month}, {self.month_year} - {self.account}"
 
     def save(self, skip_checks=False, *args, **kwargs):
         if skip_checks:
@@ -124,8 +120,8 @@ class MonthlyExpense(Default):
 
         if not self.expenses.count():
             now = datetime.now()
-            expected_expenses = ExpectedExpense.objects.filter(user=self.user)
-            expected_salaries = ExpectedSalary.objects.filter(user=self.user)
+            expected_expenses = ExpectedExpense.objects.filter(account_id=self.account.id)
+            expected_salaries = ExpectedSalary.objects.filter(account_id=self.account.id)
 
             new_expected_expenses = []
             new_expected_salaries = []
@@ -137,7 +133,7 @@ class MonthlyExpense(Default):
                         net=expected_salary.net,
                         gross=expected_salary.gross,
                         monthly_id=self.uuid,
-                        user_id=self.user_id,
+                        account_id=self.account.id,
                         try_to_save=expected_salary.try_to_save,
                     )
                 )
@@ -149,7 +145,7 @@ class MonthlyExpense(Default):
                         name=define_name(expected_expense),
                         description=expected_expense.description,
                         monthly_expense_id=self.uuid,
-                        user_id=self.user_id,
+                        account_id=self.account.id,
                         deadline=define_deadline(expected_expense, self.month_number),
                         credit_card_id=expected_expense.credit_card_id,
                     )

@@ -1,14 +1,9 @@
-import uuid
-
-from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from accounting_admin.utils.default_model import Default
-
-User = get_user_model()
 
 
 class ExpectedExpense(Default):
@@ -21,9 +16,9 @@ class ExpectedExpense(Default):
         _("description"),
         max_length=144,
     )
-    user = models.ForeignKey(
-        User,
-        verbose_name=_("user"),
+    account = models.ForeignKey(
+        "accounts.Account",
+        verbose_name=_("account"),
         related_name=_("expected_expenses"),
         on_delete=models.CASCADE,
     )

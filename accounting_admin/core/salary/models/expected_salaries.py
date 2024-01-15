@@ -1,12 +1,7 @@
-import uuid
-
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from accounting_admin.utils.default_model import Default
-
-User = get_user_model()
 
 
 class ExpectedSalary(Default):
@@ -21,9 +16,9 @@ class ExpectedSalary(Default):
     try_to_save = models.DecimalField(
         _("try to save"), max_digits=24, decimal_places=6, default=0
     )
-    user = models.ForeignKey(
-        User,
-        verbose_name=_("user"),
+    account = models.ForeignKey(
+        "accounts.Account",
+        verbose_name=_("account"),
         related_name=_("expected_salaries"),
         on_delete=models.CASCADE,
     )

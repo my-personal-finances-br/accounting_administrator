@@ -7,16 +7,13 @@ from accounting_admin.utils.default_model import Default
 User = get_user_model()
 
 
-class Account(Default):
-    total = models.DecimalField(
-        _("total"), max_digits=24, decimal_places=6, default=0
-    )
-    bank = models.ForeignKey(
-        "banks.Bank",
+class AccountSubscriber(Default):
+    account = models.ForeignKey(
+        "accounts.Account",
         verbose_name=_("bank"),
-        related_name=_("accounts"),
-        on_delete=models.SET_NULL,
-        null=True
+        related_name=_("subscribers"),
+        on_delete=models.CASCADE,
+        null=True,
     )
     user = models.ForeignKey(
         User,
@@ -26,8 +23,8 @@ class Account(Default):
     )
 
     class Meta:
-        verbose_name = _("Account")
-        verbose_name_plural = _("Accounts")
+        verbose_name = _("Account Subscriber")
+        verbose_name_plural = _("Account Subscribers")
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.account} {self.user.first_namme}"

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SalaryAppConfig(AppConfig):
-    name = "accounting_admin.core.salary"
-    verbose_name = "Salary"
+class AccountAppConfig(AppConfig):
+    name = "accounting_admin.core.accounts"
+    verbose_name = "Account"

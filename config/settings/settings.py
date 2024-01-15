@@ -40,6 +40,7 @@ LOCAL_APPS = [
     "accounting_admin.core.holidays.apps.HolidayAppConfig",
     "accounting_admin.core.banks.apps.BankAppConfig",
     "accounting_admin.core.credit_cards.apps.CreditCardAppConfig",
+    "accounting_admin.core.accounts.apps.AccountAppConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -132,7 +133,7 @@ SECRET_KEY = env(
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/0",
+        "LOCATION": "redis://redis:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "SOCKET_TIMEOUT": 1,
@@ -160,7 +161,7 @@ ALLOWED_HOSTS = [
     "ec2-3-82-193-76.compute-1.amazonaws.com",
     "localhost:8000",
     "localhost",
-    "accounting-administrator.igor-aws.link"
+    "accounting-administrator.igor-aws.link",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -168,14 +169,14 @@ CSRF_TRUSTED_ORIGINS = [
     "http://ec2-3-82-193-76.compute-1.amazonaws.com:3000",
     "http://ec2-3-82-193-76.compute-1.amazonaws.com",
     "http://accounting-administrator.igor-aws.link:8000",
-    "http://accounting-administrator.igor-aws.link"
+    "http://accounting-administrator.igor-aws.link",
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://ec2-3-82-193-76.compute-1.amazonaws.com:3000",
     "http://ec2-3-82-193-76.compute-1.amazonaws.com",
     "http://accounting-administrator.igor-aws.link:8000",
-    "http://accounting-administrator.igor-aws.link"
+    "http://accounting-administrator.igor-aws.link",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -189,8 +190,8 @@ USE_TZ = False
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 CELERY_BROKER_TRANSPORT = "redis"
-CELERY_BROKER_URL = "redis://localhost:6379/0"
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"

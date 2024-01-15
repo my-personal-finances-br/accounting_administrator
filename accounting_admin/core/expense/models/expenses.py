@@ -1,12 +1,7 @@
-import uuid
-
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from accounting_admin.utils.default_model import Default
-
-User = get_user_model()
 
 
 class Expense(Default):
@@ -36,9 +31,9 @@ class Expense(Default):
         null=True,
         blank=True,
     )
-    user = models.ForeignKey(
-        User,
-        verbose_name=_("user"),
+    account = models.ForeignKey(
+        "accounts.Account",
+        verbose_name=_("account"),
         related_name=_("expenses"),
         on_delete=models.CASCADE,
     )

@@ -1,15 +1,15 @@
 from django.contrib import admin
 
-from accounting_admin.core.salary.models import ExpectedSalary, Salary
+from accounting_admin.core.accounts.models import Account, AccountSubscriber
 
 
-@admin.register(Salary)
-class ClassSalaryAdmin(admin.ModelAdmin):
-    list_display = ["uuid", "name", "gross", "user"]
-    list_filter = ["user"]
+@admin.register(Account)
+class AccountAdmin(admin.ModelAdmin):
+    list_display = ["uuid", "total", "bank"]
+    list_filter = ["bank"]
 
 
-@admin.register(ExpectedSalary)
-class ClassExpectedSalaryAdmin(admin.ModelAdmin):
-    list_display = ["uuid", "name", "gross", "user"]
+@admin.register(AccountSubscriber)
+class AccountAdmin(admin.ModelAdmin):
+    list_display = ["account", "user"]
     list_filter = ["user"]
