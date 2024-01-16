@@ -58,7 +58,8 @@ export const ButtonLink = styled.button`
   font-weight: bold;
   a {
     text-decoration: none;
-    color: inherit;
+    color: black;
+    font-size: 13px;
   }
   @media (max-width: 600px) {
     font-size: 10px;
