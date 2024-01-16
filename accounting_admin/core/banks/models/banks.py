@@ -10,13 +10,6 @@ User = get_user_model()
 
 
 class Bank(Default):
-    uuid = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        serialize=False,
-        editable=False,
-        unique=True,
-    )
     name = models.CharField(
         _("name"),
         max_length=72,

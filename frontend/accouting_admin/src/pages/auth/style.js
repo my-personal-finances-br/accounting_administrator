@@ -7,7 +7,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  `;
+`;
 
 export const Card = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ export const FormContainer = styled.div`
     width: 100%;
     padding: 32px 0px;
   }
-`
+`;
 
 export const FormContent = styled.div`
   display: flex;
@@ -49,46 +49,45 @@ export const FormContent = styled.div`
     width: 100%;
     padding: 0px 16px;
   }
-`
+`;
 
 export const LogoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-
-`
+`;
 
 export const Header = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
   margin-top: 24px;
-`
+`;
 
 export const Title = styled.span`
   font-size: ${({ theme }) => theme.FONT_SIZE.XL}px;
   color: ${({ theme }) => theme.COLORS.BLACK};
   font-weight: 400;
-`
+`;
 
 export const SubTitle = styled.span`
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
   color: ${({ theme }) => theme.COLORS.BLACK};
   font-weight: 400;
-`
+`;
 
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
   gap: 8px;
-`
+`;
 
 export const Bolder = styled.span`
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
   font-weight: 600;
   color: ${({ theme }) => theme.COLORS.BLACK};
-`
+`;
 
 export const ImageContainer = styled.div`
   border-bottom-left-radius: 32px;
@@ -101,10 +100,10 @@ export const ImageContainer = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
-`
+`;
 
 export const Image = styled.img.attrs(() => ({
-  src: require('../../assets/money_person.png'),
+  src: require("../../assets/money_person.png"),
 }))`
   width: 100%;
-`
+`;

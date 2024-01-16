@@ -11,13 +11,6 @@ User = get_user_model()
 
 
 class CreditCard(Default):
-    uuid = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        serialize=False,
-        editable=False,
-        unique=True,
-    )
     name = models.CharField(
         _("name"),
         max_length=72,
@@ -25,7 +18,7 @@ class CreditCard(Default):
     bank = models.ForeignKey(
         "banks.Bank",
         verbose_name=_("bank"),
-        related_name=_("banks"),
+        related_name=_("credit_cards"),
         on_delete=models.CASCADE,
     )
     deadline = models.IntegerField(
@@ -34,9 +27,9 @@ class CreditCard(Default):
     closure = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(31)], blank=True, null=True
     )
-    user = models.ForeignKey(
-        User,
-        verbose_name=_("user"),
+    account = models.ForeignKey(
+        "accounts.Account",
+        verbose_name=_("account"),
         related_name=_("credit_cards"),
         on_delete=models.CASCADE,
     )
@@ -46,4 +39,4 @@ class CreditCard(Default):
         verbose_name_plural = _("Credit Cards")
 
     def __str__(self):
-        return f"{self.bank.name} - {self.name} - {self.user.username}"
+        return f"{self.bank.name} - {self.name} - {self.account}"

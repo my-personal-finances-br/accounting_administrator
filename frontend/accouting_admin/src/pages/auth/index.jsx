@@ -11,16 +11,17 @@ import {
   Row,
   SubTitle,
   Title,
-} from './style';
-import { Form } from '@unform/web';
-import InputUnform from '../../components/form/input/input';
-import { useRef, useState } from 'react';
-import { auth } from '../../services/auth/auth';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Button from '../../components/Button';
-import PigLogo from '../../assets/pig_logo.svg';
-import MinhasFinancas from '../../assets/minhas_financas.svg';
+} from "./style";
+import { Form } from "@unform/web";
+import InputUnform from "../../components/form/input/input";
+import { useRef, useState } from "react";
+import { auth } from "../../services/auth/auth";
+import { getMe } from "../../services/me/getMe";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Button from "../../components/Button";
+import PigLogo from "../../assets/pig_logo.svg";
+import MinhasFinancas from "../../assets/minhas_financas.svg";
 
 export default function Auth() {
   const formRef = useRef(null);
@@ -30,7 +31,8 @@ export default function Auth() {
   const handleSubmit = async (data) => {
     try {
       await auth(data);
-      navigate('/');
+      navigate("/");
+      localStorage.setItem("me", JSON.stringify((await getMe()).data));
       window.location.reload();
     } catch (error) {
       setLoginError(true);
@@ -44,7 +46,7 @@ export default function Auth() {
           <Image />
         </ImageContainer>
         <Form
-          style={{ display: 'contents' }}
+          style={{ display: "contents" }}
           ref={formRef}
           onSubmit={handleSubmit}
         >
@@ -63,7 +65,7 @@ export default function Auth() {
                 placeholder="Usuario"
                 name="username"
                 style={{
-                  border: loginError ? '1px solid red' : '1px solid #ccc',
+                  border: loginError ? "1px solid red" : "1px solid #ccc",
                 }}
               />
               <InputUnform
@@ -71,7 +73,7 @@ export default function Auth() {
                 placeholder="Senha"
                 name="password"
                 style={{
-                  border: loginError ? '1px solid red' : '1px solid #ccc',
+                  border: loginError ? "1px solid red" : "1px solid #ccc",
                 }}
               />
               <Button title="Entrar" />

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CustomButton = styled.button`
-  color:${({ theme }) => theme.COLORS.WHITE};
+  color: ${({ theme }) => theme.COLORS.WHITE};
   border: 1px solid ${({ theme }) => theme.COLORS.GREEN_MID};
   border-radius: 8px;
   background-color: ${({ theme }) => theme.COLORS.GREEN_MID};
@@ -22,4 +22,4 @@ export const CustomButton = styled.button`
 
 export const TextButton = styled.span`
   font-size: ${({ theme }) => theme.FONT_SIZE.MD};
-`
+`;

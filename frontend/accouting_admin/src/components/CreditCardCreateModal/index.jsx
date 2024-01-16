@@ -11,7 +11,7 @@ export default function CreditCardCreateModal({
   isOpen,
   setIsOpen,
   setIsOpenFatherModal,
-  setData
+  setData,
 }) {
   const formRef = useRef(null);
   const [bank, setBank] = useState("");

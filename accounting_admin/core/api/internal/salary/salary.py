@@ -12,12 +12,12 @@ class ExpectedSalaryListView(generics.ListCreateAPIView, GenericAuthenticationRe
     serializer_class = salaries.ExpectedSalarySerializer
 
     def get_queryset(self):
-        return ExpectedSalary.objects.filter(user_id=self.request.user.id).order_by(
-            "name"
-        )
+        return ExpectedSalary.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        ).order_by("name")
 
     def create(self, request, *args, **kwargs):
-        request.data["user"] = self.request.user.id
+        request.data["account"] = self.request.user.accounts.last().account.uuid
         return super().create(request, *args, **kwargs)
 
 
@@ -30,19 +30,21 @@ class ExpectedSalaryRetrieveView(
     serializer_class = salaries.ExpectedSalarySerializer
 
     def get_queryset(self):
-        return ExpectedSalary.objects.filter(user_id=self.request.user.id).order_by(
-            "name"
-        )
+        return ExpectedSalary.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        ).order_by("name")
 
 
 class SalaryListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = salaries.SalarySerializer
 
     def get_queryset(self):
-        return Salary.objects.filter(user_id=self.request.user.id).order_by("name")
+        return Salary.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        ).order_by("name")
 
     def create(self, request, *args, **kwargs):
-        request.data["user"] = self.request.user.id
+        request.data["account"] = self.request.user.accounts.last().account.uuid
         return super().create(request, *args, **kwargs)
 
 
@@ -55,7 +57,9 @@ class SalaryRetrieveView(
     serializer_class = salaries.SalarySerializer
 
     def get_queryset(self):
-        return Salary.objects.filter(user_id=self.request.user.id).order_by("name")
+        return Salary.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        ).order_by("name")
 
     def get(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset()).filter(

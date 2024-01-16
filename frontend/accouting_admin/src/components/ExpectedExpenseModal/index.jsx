@@ -4,7 +4,12 @@ import ExpectedExpenseItem from "../ExpectedExpenseItem";
 import { useState } from "react";
 import ExpectedExpenseCreateModal from "../ExpectedExpenseCreateModal";
 
-export default function ExpectedExpenseModal({ isOpen, setIsOpen, data, setData }) { 
+export default function ExpectedExpenseModal({
+  isOpen,
+  setIsOpen,
+  data,
+  setData,
+}) {
   const [expectedExpenseCreateModal, setExpectedExpenseCreateModal] =
     useState(false);
 

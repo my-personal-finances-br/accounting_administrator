@@ -3,7 +3,8 @@ import getCookieValue from "../../utils/getCookieValue";
 import cleanCookies from "../../utils/cleanCookies";
 import { backEndUrl } from "../../utils/URL/baseUrl";
 
-const logout = (data) => {
+const logout = () => {
+  localStorage.removeItem("me");
   const response = axios
     .post(
       `${backEndUrl}/api/internal/me/logout`,
