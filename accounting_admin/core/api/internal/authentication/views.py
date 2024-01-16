@@ -56,6 +56,13 @@ class RegisterUserView(generics.CreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
+class UserView(APIView):
+    serializer_class = users.UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        return Response(self.serializer_class(request.user).data)
+
+
 @csrf_exempt
 def logout_view(request):
     origin_url = request.session.get("authentication_origin_url")

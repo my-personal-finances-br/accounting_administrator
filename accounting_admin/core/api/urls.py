@@ -23,6 +23,11 @@ authentication_urls = [
         internal.authentication.views.AuthenticateView.as_view(),
         name="api-internal-authenticate-generics",
     ),
+    path(
+        "internal/me",
+        internal.authentication.views.UserView.as_view(),
+        name="api-internal-me",
+    ),
 ]
 
 expenses_urls = [
