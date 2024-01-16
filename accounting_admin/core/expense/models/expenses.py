@@ -1,22 +1,10 @@
-import uuid
-
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from accounting_admin.utils.default_model import Default
 
-User = get_user_model()
-
 
 class Expense(Default):
-    uuid = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        serialize=False,
-        editable=False,
-        unique=True,
-    )
     value = models.DecimalField(_("value"), max_digits=24, decimal_places=6)
     paid_value = models.DecimalField(
         _("paid value"), max_digits=24, decimal_places=6, null=True, blank=True
@@ -43,9 +31,9 @@ class Expense(Default):
         null=True,
         blank=True,
     )
-    user = models.ForeignKey(
-        User,
-        verbose_name=_("user"),
+    account = models.ForeignKey(
+        "accounts.Account",
+        verbose_name=_("account"),
         related_name=_("expenses"),
         on_delete=models.CASCADE,
     )

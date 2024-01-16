@@ -19,7 +19,6 @@ class ExpectedPaidExpensesSerializer(serializers.ModelSerializer):
 class MonthlyExpenseSerializer(serializers.ModelSerializer):
     total = serializers.SerializerMethodField()
     expenses = serializers.SerializerMethodField()
-    user = serializers.CharField(read_only=True)
 
     def get_expenses(self, instance):
         now = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -69,7 +68,7 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
         if data["month"] == "default":
             monthly_expense = (
                 MonthlyExpense.objects.filter(
-                    user=user,
+                    account_id=user.accounts.last().account.uuid,
                 )
                 .order_by("month_year", "month_number")
                 .last()
@@ -98,7 +97,6 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
             data["month"] = MONTHS[month_number].capitalize()
             data["month_number"] = month_number
             data["month_year"] = month_year
-        data["user"] = user
         return super().create(data)
 
     class Meta:
@@ -111,11 +109,7 @@ class ExpensesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Expense
-        exclude = ["user"]
-
-    def create(self, data):
-        data["user"] = self.context.get("request").user
-        return super().create(data)
+        exclude = []
 
 
 class MonthlyExpenseDetailSerializer(serializers.Serializer):

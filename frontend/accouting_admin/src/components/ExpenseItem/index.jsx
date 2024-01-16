@@ -82,7 +82,11 @@ export default function ExpenseItem({
         )}
 
         <Button onClick={() => handleDelete(id)}>Excluir</Button>
-        <Button onClick={() => setPaidModalOpen(true)}>Editar</Button>
+        {paid_value ? (
+          <Button onClick={() => setPaidModalOpen(true)}>Editar</Button>
+        ) : (
+          <></>
+        )}
       </ButtonContainer>
     </>
   );

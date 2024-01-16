@@ -5,11 +5,13 @@ import { useRef, useState, useEffect } from "react";
 import InputUnform from "../../components/form/input/input";
 import { createExpectedExpenses } from "../../services/expenseves/createExpectedExpenses";
 import { listCreditCards } from "../../services/creditCards/listCreditCards";
+import { expectedExpenseList } from "../../services/expenseves/expectedExpenseList";
 
 export default function ExpectedExpenseCreateModal({
   isOpen,
   setIsOpen,
   setIsOpenFatherModal,
+  setData,
 }) {
   const [deadlineType, setDeadlineType] = useState("");
   const [creditCardSelected, setCreditCardSelected] = useState("");
@@ -27,8 +29,8 @@ export default function ExpectedExpenseCreateModal({
   };
   const handleSubmit = async (data) => {
     await createExpectedExpenses({ ...data, deadline_type: deadlineType });
+    setData((await expectedExpenseList()).data);
     setIsOpen(false);
-    setIsOpenFatherModal(false);
   };
 
   const handleDeadlineTypeChange = (event) => {

@@ -5,11 +5,13 @@ import { useRef, useState, useEffect } from "react";
 import InputUnform from "../form/input/input";
 import { bankList } from "../../services/banks/bankList";
 import { creditCardCreate } from "../../services/creditCards/creditCardCreate";
+import { listCreditCards } from "../../services/creditCards/listCreditCards";
 
 export default function CreditCardCreateModal({
   isOpen,
   setIsOpen,
   setIsOpenFatherModal,
+  setData,
 }) {
   const formRef = useRef(null);
   const [bank, setBank] = useState("");
@@ -33,8 +35,8 @@ export default function CreditCardCreateModal({
 
   const handleSubmit = async (data) => {
     await creditCardCreate(data);
+    setData((await listCreditCards()).data);
     setIsOpen(false);
-    setIsOpenFatherModal(false);
   };
 
   const handleBankChange = (event) => {

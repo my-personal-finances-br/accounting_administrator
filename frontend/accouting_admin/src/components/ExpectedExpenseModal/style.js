@@ -69,7 +69,8 @@ export const Box = styled.div`
 `;
 
 export const SendButton = styled.button`
-  margin-top: 50px;
+  position: sticky;
+  bottom: 1px;
   border: none;
   color: black;
   font-weight: 500;

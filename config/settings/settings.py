@@ -40,6 +40,7 @@ LOCAL_APPS = [
     "accounting_admin.core.holidays.apps.HolidayAppConfig",
     "accounting_admin.core.banks.apps.BankAppConfig",
     "accounting_admin.core.credit_cards.apps.CreditCardAppConfig",
+    "accounting_admin.core.accounts.apps.AccountAppConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -131,10 +132,19 @@ SECRET_KEY = env(
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "",
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "SOCKET_TIMEOUT": 1,
+            "SOCKET_CONNECT_TIMEOUT": 1,
+        },
+        "KEY_PREFIX": "django_default_cache",
     }
 }
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 DEBUG_TOOLBAR_CONFIG = {
     "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
@@ -151,17 +161,22 @@ ALLOWED_HOSTS = [
     "ec2-3-82-193-76.compute-1.amazonaws.com",
     "localhost:8000",
     "localhost",
+    "accounting-administrator.igor-aws.link",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://ec2-3-82-193-76.compute-1.amazonaws.com:3000",
     "http://ec2-3-82-193-76.compute-1.amazonaws.com",
+    "http://accounting-administrator.igor-aws.link:8000",
+    "http://accounting-administrator.igor-aws.link",
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://ec2-3-82-193-76.compute-1.amazonaws.com:3000",
     "http://ec2-3-82-193-76.compute-1.amazonaws.com",
+    "http://accounting-administrator.igor-aws.link:8000",
+    "http://accounting-administrator.igor-aws.link",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -173,3 +188,12 @@ FRONTEND_APPLICATION_URL = env(
 
 USE_TZ = False
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+CELERY_BROKER_TRANSPORT = "redis"
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = TIME_ZONE

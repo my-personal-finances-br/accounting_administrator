@@ -4,7 +4,12 @@ import ExpectedExpenseItem from "../ExpectedExpenseItem";
 import { useState } from "react";
 import ExpectedExpenseCreateModal from "../ExpectedExpenseCreateModal";
 
-export default function ExpectedExpenseModal({ isOpen, setIsOpen, data }) {
+export default function ExpectedExpenseModal({
+  isOpen,
+  setIsOpen,
+  data,
+  setData,
+}) {
   const [expectedExpenseCreateModal, setExpectedExpenseCreateModal] =
     useState(false);
 
@@ -23,6 +28,7 @@ export default function ExpectedExpenseModal({ isOpen, setIsOpen, data }) {
         isOpen={expectedExpenseCreateModal}
         setIsOpen={setExpectedExpenseCreateModal}
         setIsOpenFatherModal={setIsOpen}
+        setData={setData}
       />
       <Box>
         <Content size="unpublish">
@@ -36,6 +42,7 @@ export default function ExpectedExpenseModal({ isOpen, setIsOpen, data }) {
               id={expectedExpense.uuid}
               value={expectedExpense.value}
               name={expectedExpense.name}
+              setData={setData}
             ></ExpectedExpenseItem>
           ))}
           <SendButton onClick={openexpectedExpenseCreateModal}>

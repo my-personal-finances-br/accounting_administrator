@@ -68,6 +68,8 @@ export const Box = styled.div`
   }
 `;
 export const SendButton = styled.button`
+  position: sticky;
+  bottom: 1px;
   margin-top: 50px;
   border: none;
   color: black;

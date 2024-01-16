@@ -4,11 +4,13 @@ import { Form } from "@unform/web";
 import { useRef } from "react";
 import InputUnform from "../form/input/input";
 import { createExpectedSalary } from "../../services/expenseves/createExpectedSalary";
+import { expectedSalaryList } from "../../services/salaries/expectedSalaryList";
 
 export default function ExpectedSalaryCreateModal({
   isOpen,
   setIsOpen,
   setIsOpenFatherModal,
+  setData = { setData },
 }) {
   const formRef = useRef(null);
   const closeModal = (e) => {
@@ -17,8 +19,8 @@ export default function ExpectedSalaryCreateModal({
   };
   const handleSubmit = async (data) => {
     await createExpectedSalary(data);
+    setData((await expectedSalaryList()).data);
     setIsOpen(false);
-    setIsOpenFatherModal(false);
   };
 
   return (
