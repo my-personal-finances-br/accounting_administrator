@@ -13,7 +13,11 @@ class MonthlyExpenseView(generics.ListCreateAPIView, GenericAuthenticationRequir
 
     def get_queryset(self):
         return (
-            MonthlyExpense.objects.filter(user_id=self.request.user.id)
+            MonthlyExpense.objects.filter(
+                account_id__in=self.request.user.accounts.values_list(
+                    "account_id", flat=True
+                )
+            )
             .distinct()
             .order_by("-month_year", "-month_number")
         )
@@ -23,7 +27,9 @@ class MonthClosureView(generics.UpdateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.MonthlyExpenseSerializer
 
     def get_queryset(self):
-        return MonthlyExpense.objects.filter(user_id=self.request.user.id)
+        return MonthlyExpense.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        )
 
     def put(self, request, *args, **kwargs):
         monthly_expense = self.get_object()
@@ -60,7 +66,9 @@ class ExpenseListCreateView(generics.ListCreateAPIView, GenericAuthenticationReq
             instance.save()
 
     def get_queryset(self):
-        return Expense.objects.filter(user_id=self.request.user.id)
+        return Expense.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        )
 
 
 class ExpenseUpdateRetrieveView(
@@ -72,7 +80,9 @@ class ExpenseUpdateRetrieveView(
     serializer_class = expensives.ExpensesSerializer
 
     def get_queryset(self):
-        return Expense.objects.filter(user_id=self.request.user.id)
+        return Expense.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        )
 
     def perform_update(self, serializer):
         instance = serializer.save()
@@ -88,16 +98,18 @@ class MonthlyExpenseDetailView(
     serializer_class = expensives.MonthlyExpenseDetailSerializer
 
     def get_queryset(self):
-        return MonthlyExpense.objects.filter(user_id=self.request.user.id)
+        return MonthlyExpense.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        )
 
 
 class ExpectedExpenseListView(generics.ListCreateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.ExpectedExpenseSerializer
 
     def get_queryset(self):
-        return ExpectedExpense.objects.filter(user_id=self.request.user.id).order_by(
-            "name"
-        )
+        return ExpectedExpense.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        ).order_by("name")
 
     def create(self, request, *args, **kwargs):
         request.data["user"] = self.request.user.id
@@ -120,4 +132,6 @@ class ExpectedExpenseRetrieveView(
     serializer_class = expensives.ExpectedExpenseSerializer
 
     def get_queryset(self):
-        return ExpectedExpense.objects.filter(user_id=self.request.user.id)
+        return ExpectedExpense.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        )

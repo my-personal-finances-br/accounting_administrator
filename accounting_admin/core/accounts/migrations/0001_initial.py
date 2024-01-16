@@ -17,9 +17,9 @@ def create_users_accounts(apps, schema_editor):
     accounts_objs = []
     account_subscriber_objs = []
     for user in User.objects.filter(is_superuser=False):
-        account = Account(bank_id=default_bank.id)
+        account = Account(bank_id=default_bank.uuid)
         account_subscriber_objs.append(
-            AccountSubscriber(user_id=user.id, account_id=account.id)
+            AccountSubscriber(user_id=user.id, account_id=account.uuid)
         )
         accounts_objs.append(account)
     Account.objects.bulk_create(accounts_objs)

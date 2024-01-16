@@ -27,4 +27,4 @@ class AccountSubscriber(Default):
         verbose_name_plural = _("Account Subscribers")
 
     def __str__(self):
-        return f"{self.account} {self.user.first_namme}"
+        return f"{self.account} {self.user.full_name}"

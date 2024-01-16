@@ -7,7 +7,7 @@ from django.db import migrations, models
 def set_account(apps, schema_editor):
     CreditCard = apps.get_model("credit_cards", "CreditCard")
     for credit_card in CreditCard.objects.all():
-        credit_card.account_id = credit_card.user.accounts.last().id
+        credit_card.account_id = credit_card.user.accounts.last().account.uuid
         credit_card.save()
 
 
@@ -27,6 +27,7 @@ class Migration(migrations.Migration):
                 related_name="credit_cards",
                 to="accounts.account",
                 verbose_name="account",
+                null=True,
             ),
         ),
         migrations.RunPython(set_account),
@@ -42,6 +43,16 @@ class Migration(migrations.Migration):
                 related_name="credit_cards",
                 to="banks.bank",
                 verbose_name="bank",
+            ),
+        ),
+        migrations.AlterField(
+            model_name="creditcard",
+            name="account",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="credit_cards",
+                to="accounts.account",
+                verbose_name="account",
             ),
         ),
     ]

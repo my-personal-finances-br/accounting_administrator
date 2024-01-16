@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -21,6 +22,20 @@ class ExpectedSalary(Default):
         verbose_name=_("account"),
         related_name=_("expected_salaries"),
         on_delete=models.CASCADE,
+    )
+    deadline = models.IntegerField(
+        blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(31)]
+    )
+    deadline_type = models.CharField(
+        choices=[
+            ("first_business_day", "Primeiro dia útil"),
+            ("last_business_day", "Ultimo dia útil"),
+            ("fifth_business_day", "5° dia útil"),
+            ("fifteenth_business_day", "15° dia útil"),
+            ("date", "Data exata"),
+        ],
+        max_length=100,
+        default="date",
     )
 
     class Meta:

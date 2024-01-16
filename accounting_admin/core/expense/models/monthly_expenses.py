@@ -9,6 +9,8 @@ from accounting_admin.utils.default_model import Default
 
 
 def define_deadline(expected_salary, month_number):
+    if expected_salary.deadline_type == "date" and not expected_salary.deadline:
+        return
     current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     next_month = month_number + 1
     next_year = current_date.year if next_month != 12 else current_date.year + 1
@@ -135,6 +137,7 @@ class MonthlyExpense(Default):
                         monthly_id=self.uuid,
                         account_id=self.account.id,
                         try_to_save=expected_salary.try_to_save,
+                        deadline=define_deadline(expected_salary, self.month_number),
                     )
                 )
 

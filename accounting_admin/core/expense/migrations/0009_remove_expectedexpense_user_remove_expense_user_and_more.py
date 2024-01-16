@@ -10,15 +10,15 @@ def set_account(apps, schema_editor):
     MonthlyExpense = apps.get_model("expense", "MonthlyExpense")
 
     for expected_expense in ExpectedExpense.objects.all():
-        expected_expense.account_id = expected_expense.user.accounts.last().id
+        expected_expense.account_id = expected_expense.user.accounts.last().account.uuid
         expected_expense.save()
 
     for expense in Expense.objects.all():
-        expense.account_id = expense.user.accounts.last().id
+        expense.account_id = expense.user.accounts.last().account.uuid
         expense.save()
 
     for monthly_expense in MonthlyExpense.objects.all():
-        monthly_expense.account_id = monthly_expense.user.accounts.last().id
+        monthly_expense.account_id = monthly_expense.user.accounts.last().account.uuid
         monthly_expense.save()
 
 
@@ -37,6 +37,7 @@ class Migration(migrations.Migration):
                 related_name="expected_expenses",
                 to="accounts.account",
                 verbose_name="account",
+                null=True,
             ),
         ),
         migrations.AddField(
@@ -47,6 +48,7 @@ class Migration(migrations.Migration):
                 related_name="expenses",
                 to="accounts.account",
                 verbose_name="account",
+                null=True,
             ),
         ),
         migrations.AddField(
@@ -57,6 +59,7 @@ class Migration(migrations.Migration):
                 related_name="monthly_expenses",
                 to="accounts.account",
                 verbose_name="account",
+                null=True,
             ),
         ),
         migrations.RunPython(set_account),
@@ -71,5 +74,35 @@ class Migration(migrations.Migration):
         migrations.RemoveField(
             model_name="monthlyexpense",
             name="user",
+        ),
+        migrations.AlterField(
+            model_name="expectedexpense",
+            name="account",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="expected_expenses",
+                to="accounts.account",
+                verbose_name="account",
+            ),
+        ),
+        migrations.AlterField(
+            model_name="expense",
+            name="account",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="expenses",
+                to="accounts.account",
+                verbose_name="account",
+            ),
+        ),
+        migrations.AlterField(
+            model_name="monthlyexpense",
+            name="account",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="monthly_expenses",
+                to="accounts.account",
+                verbose_name="account",
+            ),
         ),
     ]

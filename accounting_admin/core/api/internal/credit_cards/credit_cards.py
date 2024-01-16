@@ -11,14 +11,18 @@ class CreditCardListView(generics.ListAPIView, GenericAuthenticationRequired):
     serializer_class = credit_cards.CreditCardListSerializer
 
     def get_queryset(self):
-        return CreditCard.objects.filter(user_id=self.request.user.id).order_by("name")
+        return CreditCard.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        ).order_by("name")
 
 
 class CreditCardCreateView(generics.CreateAPIView, GenericAuthenticationRequired):
     serializer_class = credit_cards.CreditCardSerializer
 
     def get_queryset(self):
-        return CreditCard.objects.filter(user_id=self.request.user.id).order_by("name")
+        return CreditCard.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        ).order_by("name")
 
     def create(self, request, *args, **kwargs):
         request.data["user"] = self.request.user.id
@@ -34,4 +38,6 @@ class CreditCardRetrieveView(
     serializer_class = credit_cards.CreditCardSerializer
 
     def get_queryset(self):
-        return CreditCard.objects.filter(user_id=self.request.user.id).order_by("name")
+        return CreditCard.objects.filter(
+            account_id__in=self.request.user.accounts.values_list("account_id", flat=True)
+        ).order_by("name")

@@ -28,6 +28,7 @@ class Salary(Default):
         related_name=_("salaries"),
         on_delete=models.CASCADE,
     )
+    deadline = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         verbose_name = _("Salary")

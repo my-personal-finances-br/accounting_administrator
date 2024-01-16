@@ -9,11 +9,11 @@ def set_account(apps, schema_editor):
     Salary = apps.get_model("salary", "Salary")
 
     for expected_salary in ExpectedSalary.objects.all():
-        expected_salary.account_id = expected_salary.user.accounts.last().id
+        expected_salary.account_id = expected_salary.user.accounts.last().account.uuid
         expected_salary.save()
 
     for salary in Salary.objects.all():
-        salary.account_id = salary.user.accounts.last().id
+        salary.account_id = salary.user.accounts.last().account.uuid
         salary.save()
 
 
@@ -54,5 +54,25 @@ class Migration(migrations.Migration):
         migrations.RemoveField(
             model_name="salary",
             name="user",
+        ),
+        migrations.AlterField(
+            model_name="expectedsalary",
+            name="account",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="expected_salaries",
+                to="accounts.account",
+                verbose_name="account",
+            ),
+        ),
+        migrations.AlterField(
+            model_name="salary",
+            name="account",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="salaries",
+                to="accounts.account",
+                verbose_name="account",
+            ),
         ),
     ]
