@@ -25,7 +25,7 @@ class CreditCardCreateView(generics.CreateAPIView, GenericAuthenticationRequired
         ).order_by("name")
 
     def create(self, request, *args, **kwargs):
-        request.data["user"] = self.request.user.id
+        request.data["account"] = self.request.user.accounts.last().account.uuid
         return super().create(request, *args, **kwargs)
 
 

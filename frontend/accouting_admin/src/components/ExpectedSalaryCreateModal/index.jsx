@@ -10,7 +10,7 @@ export default function ExpectedSalaryCreateModal({
   isOpen,
   setIsOpen,
   setIsOpenFatherModal,
-  setData={setData}
+  setData = { setData },
 }) {
   const formRef = useRef(null);
   const closeModal = (e) => {
@@ -19,7 +19,7 @@ export default function ExpectedSalaryCreateModal({
   };
   const handleSubmit = async (data) => {
     await createExpectedSalary(data);
-    setData((await expectedSalaryList()).data)
+    setData((await expectedSalaryList()).data);
     setIsOpen(false);
   };
 

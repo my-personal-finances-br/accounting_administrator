@@ -122,8 +122,12 @@ class MonthlyExpense(Default):
 
         if not self.expenses.count():
             now = datetime.now()
-            expected_expenses = ExpectedExpense.objects.filter(account_id=self.account.id)
-            expected_salaries = ExpectedSalary.objects.filter(account_id=self.account.id)
+            expected_expenses = ExpectedExpense.objects.filter(
+                account_id=self.account.uuid
+            )
+            expected_salaries = ExpectedSalary.objects.filter(
+                account_id=self.account.uuid
+            )
 
             new_expected_expenses = []
             new_expected_salaries = []
@@ -135,7 +139,7 @@ class MonthlyExpense(Default):
                         net=expected_salary.net,
                         gross=expected_salary.gross,
                         monthly_id=self.uuid,
-                        account_id=self.account.id,
+                        account_id=self.account.uuid,
                         try_to_save=expected_salary.try_to_save,
                         deadline=define_deadline(expected_salary, self.month_number),
                     )
@@ -148,7 +152,7 @@ class MonthlyExpense(Default):
                         name=define_name(expected_expense),
                         description=expected_expense.description,
                         monthly_expense_id=self.uuid,
-                        account_id=self.account.id,
+                        account_id=self.account.uuid,
                         deadline=define_deadline(expected_expense, self.month_number),
                         credit_card_id=expected_expense.credit_card_id,
                     )

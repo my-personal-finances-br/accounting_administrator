@@ -22,6 +22,10 @@ class MonthlyExpenseView(generics.ListCreateAPIView, GenericAuthenticationRequir
             .order_by("-month_year", "-month_number")
         )
 
+    def create(self, request, *args, **kwargs):
+        request.data["account"] = self.request.user.accounts.last().account.uuid
+        return super().create(request, *args, **kwargs)
+
 
 class MonthClosureView(generics.UpdateAPIView, GenericAuthenticationRequired):
     serializer_class = expensives.MonthlyExpenseSerializer
@@ -46,12 +50,15 @@ class ExpenseListCreateView(generics.ListCreateAPIView, GenericAuthenticationReq
     serializer_class = expensives.ExpensesSerializer
 
     def create(self, request, *args, **kwargs):
-        if bool(request.data.get("is_fixed", False)):
+        request.data["account"] = request.user.accounts.last().account.uuid
+        if not request.data.get("deadline", True):
+            del request.data["deadline"]
+        if request.data.get("is_fixed", "False").lower() == "true":
             ExpectedExpense.objects.create(
                 name=request.data.get("name"),
                 value=request.data.get("value"),
                 description=request.data.get("description"),
-                user=request.user,
+                account_id=request.user.accounts.last().account.uuid,
                 deadline=request.data.get("fixed_deadline"),
                 deadline_type=request.data.get("deadline_type"),
                 credit_card_id=request.data.get("credit_card_id"),
@@ -112,7 +119,7 @@ class ExpectedExpenseListView(generics.ListCreateAPIView, GenericAuthenticationR
         ).order_by("name")
 
     def create(self, request, *args, **kwargs):
-        request.data["user"] = self.request.user.id
+        request.data["account"] = self.request.user.accounts.last().account.uuid
         return super().create(request, *args, **kwargs)
 
     def perform_create(self, serializer):

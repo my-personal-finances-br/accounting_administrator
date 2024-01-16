@@ -11,7 +11,7 @@ export default function ExpectedExpenseCreateModal({
   isOpen,
   setIsOpen,
   setIsOpenFatherModal,
-  setData
+  setData,
 }) {
   const [deadlineType, setDeadlineType] = useState("");
   const [creditCardSelected, setCreditCardSelected] = useState("");

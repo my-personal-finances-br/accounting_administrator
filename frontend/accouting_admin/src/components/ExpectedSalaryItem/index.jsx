@@ -6,7 +6,7 @@ import { expectedSalaryList } from "../../services/salaries/expectedSalaryList";
 export default function ExpectedSalaryItem({ id, value, name, setData }) {
   const handleDelete = async () => {
     await deleteExpectedSalary(id);
-    setData((await expectedSalaryList()).data)
+    setData((await expectedSalaryList()).data);
   };
 
   return (

@@ -4,7 +4,12 @@ import ExpectedSalaryItem from "../ExpectedSalaryItem";
 import { useState } from "react";
 import ExpectedSalaryCreateModal from "../ExpectedSalaryCreateModal";
 
-export default function ExpectedSalaryModal({ isOpen, setIsOpen, data, setData }) {
+export default function ExpectedSalaryModal({
+  isOpen,
+  setIsOpen,
+  data,
+  setData,
+}) {
   const [expectedSalaryCreateModal, setExpectedSaryCreateModal] =
     useState(false);
 
