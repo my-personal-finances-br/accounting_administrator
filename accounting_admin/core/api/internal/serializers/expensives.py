@@ -120,6 +120,7 @@ class MonthlyExpenseDetailSerializer(serializers.Serializer):
     to_save = serializers.ReadOnlyField(source="try_to_save")
     paid = serializers.ReadOnlyField()
     salary_left = serializers.ReadOnlyField()
+    credit_card_detail = serializers.ReadOnlyField()
 
 
 class ExpectedExpenseSerializer(serializers.ModelSerializer):

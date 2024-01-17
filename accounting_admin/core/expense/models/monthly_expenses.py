@@ -217,3 +217,18 @@ class MonthlyExpense(Default):
             .distinct("uuid")
             .values_list("paid_value", flat=True)
         )
+
+    @property
+    def credit_card_detail(self):
+        response = {}
+        for credit_card in self.account.credit_cards.all():
+            liquidated_expenses_total = credit_card.liquidated_expenses_total(self.uuid)
+            to_liquidated_expenses_total = credit_card.to_liquidated_expenses_total(
+                self.uuid
+            )
+            response[credit_card.name] = {
+                "liquidated_expenses_total": liquidated_expenses_total,
+                "to_liquidated_expenses_total": to_liquidated_expenses_total,
+                "total": liquidated_expenses_total + to_liquidated_expenses_total,
+            }
+        return response

@@ -40,3 +40,21 @@ class CreditCard(Default):
 
     def __str__(self):
         return f"{self.bank.name} - {self.name} - {self.account}"
+
+    def liquidated_expenses(self, month_id):
+        return self.expenses.filter(
+            paid_value__isnull=False, monthly_expense_id=month_id
+        ).distinct("uuid")
+
+    def liquidated_expenses_total(self, month_id):
+        return sum(
+            self.liquidated_expenses(month_id).values_list("paid_value", flat=True)
+        )
+
+    def to_liquidated_expenses(self, month_id):
+        return self.expenses.filter(
+            paid_value__isnull=True, monthly_expense_id=month_id
+        ).distinct("uuid")
+
+    def to_liquidated_expenses_total(self, month_id):
+        return sum(self.to_liquidated_expenses(month_id).values_list("value", flat=True))
