@@ -162,6 +162,9 @@ ALLOWED_HOSTS = [
     "localhost:8000",
     "localhost",
     "accounting-administrator.igor-aws.link",
+    "192.168.0.181",
+    "192.168.0.181:8000",
+    "192.168.0.181:3000"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -170,6 +173,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://ec2-3-82-193-76.compute-1.amazonaws.com",
     "http://accounting-administrator.igor-aws.link:8000",
     "http://accounting-administrator.igor-aws.link",
+    "http://192.168.0.181:3000",
+    "http://192.168.0.181:8000"
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -177,6 +182,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://ec2-3-82-193-76.compute-1.amazonaws.com",
     "http://accounting-administrator.igor-aws.link:8000",
     "http://accounting-administrator.igor-aws.link",
+    "http://192.168.0.181:3000",
+    "http://192.168.0.181:8000"
 ]
 
 CORS_ALLOW_CREDENTIALS = True

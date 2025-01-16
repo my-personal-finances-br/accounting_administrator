@@ -1,2 +1,2 @@
-BACKEND_HOST=http://ec2-3-82-193-76.compute-1.amazonaws.com
+BACKEND_HOST=http://192.168.0.181
 BACKEND_PORT=8000
