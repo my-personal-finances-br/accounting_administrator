@@ -23,6 +23,7 @@ class MonthlyExpenseView(generics.ListCreateAPIView, GenericAuthenticationRequir
         )
 
     def create(self, request, *args, **kwargs):
+        print(self.request.user, 99*"-")
         request.data["account"] = self.request.user.accounts.last().account.uuid
         return super().create(request, *args, **kwargs)
 
