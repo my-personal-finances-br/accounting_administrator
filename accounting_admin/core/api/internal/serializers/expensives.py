@@ -39,11 +39,11 @@ class MonthlyExpenseSerializer(serializers.ModelSerializer):
                     expenses_dict[credit_card_name] = {
                         "expenses": [],
                         "closure": now.replace(
-                            day=expense.credit_card.closure,
+                            day=expense.credit_card.closure if (instance.month_number + 1) == 2 and expense.credit_card.closure < 28 else 28,
                             month=(instance.month_number + 1),
                         ),
                         "deadline": now.replace(
-                            day=expense.credit_card.deadline,
+                            day=expense.credit_card.deadline if (instance.month_number + 1) == 2 and expense.credit_card.deadline < 28 else 28,
                             month=(instance.month_number + 1),
                         ),
                     }
